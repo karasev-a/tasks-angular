@@ -1,0 +1,51 @@
+{
+  "name": "tasks-server",
+  "version": "1.0.0",
+  "description": "app \"Tasks\", front end part",
+  "scripts": {
+    "start": "webpack-dev-server --inline --progress --port 4200 --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.dotnet.itechcraft.com/oleksandr.karasov/Orange.UI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/animations": "^6.1.10",
+    "@angular/cdk": "^6.4.7",
+    "@angular/common": "^6.1.9",
+    "@angular/compiler": "^6.1.9",
+    "@angular/core": "^6.1.9",
+    "@angular/forms": "^6.1.9",
+    "@angular/http": "^6.1.9",
+    "@angular/material": "^6.4.7",
+    "@angular/platform-browser": "^6.1.9",
+    "@angular/platform-browser-dynamic": "^6.1.9",
+    "@angular/router": "^6.1.9",
+    "core-js": "^2.5.7",
+    "rxjs": "^6.3.3",
+    "zone.js": "^0.8.26"
+  },
+  "devDependencies": {
+    "@types/node": "^10.11.6",
+    "angular2-template-loader": "^0.6.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^1.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^2.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "null-loader": "^0.1.1",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.6.2",
+    "style-loader": "^0.23.1",
+    "typescript": "^3.1.2",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9",
+    "webpack-merge": "^4.1.4"
+  }
+}
