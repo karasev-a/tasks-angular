@@ -63,12 +63,13 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].css"
         }),
-        new UglifyJSPlugin(),
+        //  new UglifyJSPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.LoaderOptionsPlugin({
             htmlLoader: {
                 minimize: false
             }
         })
-    ]
+    ],
+    watch: true,
 }

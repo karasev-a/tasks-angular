@@ -1,0 +1,47 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h2>Login</h2>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+            <mat-form-field class="example-full-width">
+                <input formControlName="email" required type="email" matInput placeholder="E-mail">
+            </mat-form-field>
+            <mat-error>
+                <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
+                    <div *ngIf="loginForm.controls['email'].errors.required">
+                        E-mail is required.
+                    </div>
+                    <div *ngIf="loginForm.controls['email'].errors.email">
+                        Email incorrect.
+                    </div>
+                    <div *ngIf="loginForm.controls['email'].errors.maxlength">
+                        Name must be less than 255 characters long.
+                    </div>
+                </div>
+            </mat-error>
+            <mat-form-field class="example-full-width">
+                <input formControlName="password" required type="password" matInput placeholder="Password">
+
+            </mat-form-field>
+            <mat-error>
+                <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+                    <div *ngIf="loginForm.controls['password'].errors.required">
+                        Password is required.
+                    </div>
+                    <div *ngIf="loginForm.controls['password'].errors.maxlength">
+                        Password must be less than 255 characters long.
+                    </div>
+                </div>
+            </mat-error>
+            <mat-card-actions>
+                <button mat-raised-button type="button" [routerLink]="['/registration']" color="primary">SING UP</button>
+                <button mat-raised-button type='submit' [disabled]="loginForm.invalid" color="primary">SING IN</button>
+            </mat-card-actions>
+        </form>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+    </mat-card-content>
+
+</mat-card>
