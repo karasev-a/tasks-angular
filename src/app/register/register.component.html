@@ -1,0 +1,82 @@
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>
+      <h2>SING UP</h2>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="login()">
+      <mat-form-field class="example-full-width">
+        <input formControlName="email" required type="email" matInput placeholder="E-mail">
+      </mat-form-field>
+      <mat-error>
+        <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
+          <div *ngIf="registerForm.controls['email'].errors.required">
+            E-mail is required.
+          </div>
+          <div *ngIf="registerForm.controls['email'].errors.email">
+            Email incorrect.
+          </div>
+          <div *ngIf="registerForm.controls['email'].errors.maxlength">
+            Email must be less than 255 characters long.
+          </div>
+        </div>
+      </mat-error>
+      <br>
+      <br>
+      <div formGroupName="passwords">
+        <mat-form-field class="example-full-width">
+          <input formControlName="password" required type="password"
+            matInput placeholder="Password">
+        </mat-form-field>
+        <mat-error>
+          <div *ngIf="registerForm.controls['passwords'].controls['password'].invalid && registerForm.controls['passwords'].controls['password'].touched">
+            <div *ngIf="registerForm.controls['passwords'].controls['password'].errors.required">
+              Password is required.
+            </div>
+            <div *ngIf="registerForm.controls['passwords'].controls['password'].errors.maxlength">
+              Password must be less than 255 characters long.
+            </div>
+          </div>
+        </mat-error>
+        <br>
+        <mat-form-field class="example-full-width">
+          <input formControlName="confirmPassword" required type="password" matInput placeholder="Confirm password" [errorStateMatcher]="matcher">
+        </mat-form-field>
+
+        <mat-error>
+          <div *ngIf="registerForm.controls['passwords'].controls['confirmPassword'].invalid && registerForm.controls['passwords'].controls['confirmPassword'].touched">
+            <div *ngIf="registerForm.controls['passwords'].controls['confirmPassword'].errors.required">
+              Comfirm Password is required.
+            </div>
+            <div *ngIf="registerForm.controls['passwords'].controls['confirmPassword'].errors.maxlength">
+              Comfirm must be less than 255 characters long.
+            </div>
+            <div *ngIf="registerForm.controls['passwords'].controls['confirmPassword'].hasError('notSame')">
+              Password does not match
+            </div>
+          </div>
+        </mat-error>
+      </div>
+      <br>
+      <mat-form-field class="example-full-width">
+        <input formControlName="phone" required type="text" matInput placeholder="phone">
+      </mat-form-field>
+      <mat-error>
+        <div *ngIf="registerForm.controls['phone'].invalid && registerForm.controls['phone'].touched">
+          <div *ngIf="registerForm.controls['phone'].errors.required">
+            phone is required.
+          </div>
+        </div>
+      </mat-error>
+      <br>
+      <mat-card-actions>
+        <button mat-raised-button type="submit" [disabled]="registerForm.invalid" color="primary">SING UP</button>
+        <button mat-raised-button type='button' [routerLink]="['/login']" color="primary">SING IN</button>
+      </mat-card-actions>
+    </form>
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+
+</mat-card>
