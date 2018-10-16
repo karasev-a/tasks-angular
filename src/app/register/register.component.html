@@ -42,7 +42,7 @@
         </mat-error>
         <br>
         <mat-form-field class="example-full-width">
-          <input formControlName="confirmPassword" required type="password" matInput placeholder="Confirm password">
+          <input formControlName="confirmPassword" required type="password" matInput placeholder="Confirm password" [errorStateMatcher]="matcher">
         </mat-form-field>
 
         <mat-error>
@@ -53,7 +53,7 @@
             <div *ngIf="registerForm.controls['passwords'].controls['confirmPassword'].errors.maxlength">
               Comfirm must be less than 255 characters long.
             </div>
-            <div class="alert alert-danger" *ngIf="registerForm.controls['passwords'].controls['confirmPassword'].errors?.MatchPassword">
+            <div *ngIf="registerForm.controls['passwords'].controls['confirmPassword'].hasError('notSame')">
               Password does not match
             </div>
           </div>
