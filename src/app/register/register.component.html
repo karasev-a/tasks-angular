@@ -6,7 +6,7 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="login()">
+    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="example-full-width">
         <input formControlName="email" required type="email" matInput placeholder="E-mail">
       </mat-form-field>

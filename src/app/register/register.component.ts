@@ -1,23 +1,31 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
-import { MyErrorStateMatcher } from '../error/error-state-matcher';
+import { first } from 'rxjs/operators';
 
+import { MyErrorStateMatcher } from '../error/error-state-matcher';
+import { environment } from '../../environments/environment';
+import { AlertService } from '../alert/services/alert.service';
 
 
 @Component({
-  selector: "app-login",
+  selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.css"],
 })
 
 export class RegisterComponent implements OnInit {
-  matcher = new MyErrorStateMatcher();
-
   public registerForm: FormGroup;
+  public matcher = new MyErrorStateMatcher();
+  private _serverUrl: string;
 
-  constructor(private router: Router, private fb: FormBuilder) {
-
+  constructor(
+    private _http: HttpClient,
+    private _router: Router,
+    private fb: FormBuilder,
+    private alertService: AlertService) {
+    this._serverUrl = environment.serverApiUrl;
   }
 
   public ngOnInit() {
@@ -34,8 +42,29 @@ export class RegisterComponent implements OnInit {
     });
 
   }
-  public login(): void {
+  public onSubmit() {
+    if (this.registerForm.invalid) {
+      return;
+    }
+    let user = {
+      firstName:"defName",
+      lastName: "defLastName",
+      roleId: '3',
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.passwords.password,
+      phone: this.registerForm.value.phone
+    };
 
+
+    this._http.post<IUser>(`${this._serverUrl}users`, user)
+    .pipe(first())
+    .subscribe(
+        () => {
+            // this._router.navigate(['/login']);
+        },
+        error => {
+            this.alertService.error(error);
+        });
   }
 
   private checkPass(formGroupPass: FormGroup) {
