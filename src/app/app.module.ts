@@ -14,6 +14,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './alert/alert.component';
+import { TaskModule } from './+task/task.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { AlertComponent } from './alert/alert.component';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+
+    TaskModule,
 
   ],
   providers: [

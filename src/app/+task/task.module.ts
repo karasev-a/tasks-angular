@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TasksComponent } from './tasks.component';
 
 @NgModule({
-    declarations: [],
+    declarations: [TasksComponent],
     imports: [],
     providers: [],
 })
