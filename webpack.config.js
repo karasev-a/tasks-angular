@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // плагин минимизации
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var CircularDependencyPlugin = require('circular-dependency-plugin')
 module.exports = {
     entry: {
         'polyfills': './src/polyfills.ts',
@@ -69,7 +70,11 @@ module.exports = {
             htmlLoader: {
                 minimize: false
             }
-        })
+        }),
+        new CircularDependencyPlugin({
+            exclude: /[\\\/]node_modules[\\\/]/
+        }),
     ],
     watch: true,
+    // mode: 'development'
 }

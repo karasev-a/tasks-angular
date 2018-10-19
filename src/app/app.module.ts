@@ -4,17 +4,19 @@ import { NgModule } from '@angular/core';
 import { CustomMaterialModule } from './core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { LoginComponent } from './+login/login.component';
-import { RegisterComponent } from './register/register.component';
-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './alert/alert.component';
-import { TaskModule } from './+task/task.module';
+
+// import { MainComponent } from './main/main.component';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './+login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { CategoriesModule } from './+categories/categories.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,6 @@ import { TaskModule } from './+task/task.module';
     LoginComponent,
     RegisterComponent,
     AlertComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -33,8 +34,10 @@ import { TaskModule } from './+task/task.module';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    RouterModule,
 
-    TaskModule,
+    // TaskModule,
+    CategoriesModule,
 
   ],
   providers: [
