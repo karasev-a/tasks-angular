@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CategoriesService } from './servises/categorie.service';
+import { CategoriesService } from './servises/categories.service';
 import { ICategorie } from './models/categories';
+import { ITask } from './models/task';
+import { TasksService } from './servises/tasks.service';
 
 @Component({
     selector: 'app-categories',
@@ -11,12 +13,16 @@ import { ICategorie } from './models/categories';
 export class CategoriesComponent implements OnInit {
 
     private categories: ICategorie[];
-    constructor(private categorieService: CategoriesService) { }
+    private tasks: ITask[];
+    constructor(private categoriesService: CategoriesService, private tasksService: TasksService) { }
 
     ngOnInit() {
-        this.categorieService.getAllCategories().subscribe( categories => {
+      this.categoriesService.getAllCategories().subscribe( categories => {
       this.categories = categories;
+      });
+
+      this.tasksService.getAllTasks().subscribe( task => {
+        this.tasks = task;
     });
   }
-
 }

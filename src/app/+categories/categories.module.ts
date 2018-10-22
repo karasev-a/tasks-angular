@@ -6,18 +6,20 @@ import { AppRoutingModule } from '../app-routing.module';
 import { CustomMaterialModule } from '../core/material.module';
 
 import { CategoriesComponent } from './categories.component';
-import { CategoriesService } from './servises/categorie.service';
+import { CategoriesService } from './servises/categories.service';
+import { TasksService } from './servises/tasks.service';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
     imports: [
+        CommonModule,
         RouterModule,
         AppRoutingModule,
-        CommonModule,
 
         CustomMaterialModule,
     ],
-    declarations: [CategoriesComponent],
-    providers: [CategoriesService],
+    declarations: [CategoriesComponent, TaskComponent],
+    providers: [CategoriesService, TasksService],
     exports: [],
 })
 export class CategoriesModule { }
