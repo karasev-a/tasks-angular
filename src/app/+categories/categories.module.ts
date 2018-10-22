@@ -5,7 +5,6 @@ import { AppRoutingModule } from '../app-routing.module';
 
 import { CustomMaterialModule } from '../core/material.module';
 
-import { MainComponent } from './main/main.component';
 import { CategoriesComponent } from './categories.component';
 import { CategoriesService } from './servises/categorie.service';
 
@@ -17,7 +16,7 @@ import { CategoriesService } from './servises/categorie.service';
 
         CustomMaterialModule,
     ],
-    declarations: [MainComponent, CategoriesComponent],
+    declarations: [CategoriesComponent],
     providers: [CategoriesService],
     exports: [],
 })

@@ -1,4 +1,23 @@
-<main>
-    <app-alert></app-alert>
-  <router-outlet></router-outlet>
-</main>
+<app-alert></app-alert>
+<mat-card>
+    <mat-grid-list cols="3" rowHeight = "100px">
+        <mat-grid-tile>
+            <mat-menu #appMenu="matMenu">
+                <button mat-menu-item>Settings</button>
+                <button mat-menu-item>Help</button>
+            </mat-menu>
+
+            <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+                <h2>Orange</h2>
+        </mat-grid-tile>
+        <mat-grid-tile><button>
+                <mat-icon>add</mat-icon>
+            </button></mat-grid-tile>
+    </mat-grid-list>
+    <router-outlet></router-outlet>
+
+</mat-card>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatMenuModule } from '@angular/material/menu';
+import { Component, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 import '../assets/css/styles.css';
 
@@ -8,4 +8,10 @@ import '../assets/css/styles.css';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent { }
+export class AppComponent {
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  constructor() { }
+  menuTrigger() {
+        this.trigger.openMenu();
+  }
+}

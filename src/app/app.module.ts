@@ -11,7 +11,6 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './alert/alert.component';
 
-// import { MainComponent } from './main/main.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './+login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -36,7 +35,6 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     RouterModule,
 
-    // TaskModule,
     CategoriesModule,
 
   ],
