@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'app-categories',
-    templateUrl: './main.component.html',
+    templateUrl: './categories.component.html',
     //   styleUrls: ['./tasks.component.css']
 })
 

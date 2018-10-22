@@ -6,6 +6,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { CustomMaterialModule } from '../core/material.module';
 
 import { MainComponent } from './main/main.component';
+import { CategoriesComponent } from './categories.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,7 @@ import { MainComponent } from './main/main.component';
 
         CustomMaterialModule,
     ],
-    declarations: [MainComponent],
+    declarations: [MainComponent, CategoriesComponent],
     providers: [],
     exports: [],
 })
