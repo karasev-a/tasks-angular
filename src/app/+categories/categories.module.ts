@@ -7,6 +7,7 @@ import { CustomMaterialModule } from '../core/material.module';
 
 import { MainComponent } from './main/main.component';
 import { CategoriesComponent } from './categories.component';
+import { CategoriesService } from './servises/categorie.service';
 
 @NgModule({
     imports: [
@@ -17,7 +18,7 @@ import { CategoriesComponent } from './categories.component';
         CustomMaterialModule,
     ],
     declarations: [MainComponent, CategoriesComponent],
-    providers: [],
+    providers: [CategoriesService],
     exports: [],
 })
 export class CategoriesModule { }
