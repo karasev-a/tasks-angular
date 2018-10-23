@@ -5,24 +5,25 @@ import { ITask } from './models/task';
 import { TasksService } from './servises/tasks.service';
 
 @Component({
-    selector: 'app-categories',
-    templateUrl: './categories.component.html',
-    //   styleUrls: ['./tasks.component.css']
+  selector: 'app-categories',
+  templateUrl: './categories.component.html',
+  //   styleUrls: ['./tasks.component.css']
 })
 
 export class CategoriesComponent implements OnInit {
 
-    private categories: ICategorie[];
-    private tasks: ITask[];
-    constructor(private categoriesService: CategoriesService, private tasksService: TasksService) { }
+  private categories: ICategorie[];
+  private tasks: ITask[][];
+  constructor(private categoriesService: CategoriesService, private tasksService: TasksService) { }
 
-    ngOnInit() {
-      this.categoriesService.getAllCategories().subscribe( categories => {
+  ngOnInit() {
+    this.categoriesService.getAllCategories().subscribe(categories => {
       this.categories = categories;
-      });
-
-      this.tasksService.getAllTasks().subscribe( task => {
-        this.tasks = task;
     });
-  }
+    this.categories.forEach((item, i, arr) => {
+      this.tasksService.getTasksByCategory(item.id).subscribe(task => {
+        this.tasks[i] = task; // TODO: Check
+      });
+    });
+}
 }

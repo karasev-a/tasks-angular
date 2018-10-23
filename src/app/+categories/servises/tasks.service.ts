@@ -28,4 +28,8 @@ export class TasksService {
     updateTask(id: string, categorie: ITask): Observable<ITask> {
         return this.http.put<ITask>(`${this.urlApi}/${id}`, categorie);
     }
+
+    getTasksByCategory(categorieId: string): Observable<ITask[]> {
+        return this.http.get<ITask[]>(`https://categories/:categories/${categorieId}`); // #TODO: didn't check this method
+    }
 }

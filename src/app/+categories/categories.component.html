@@ -1,7 +1,9 @@
 <mat-tab-group>
         <div *ngFor="let categorie of categories">
                 <mat-tab label="{{categorie.name}}">
-                        <div *ngFor="let task of tasks">
+                        <div *ngFor="let categoryTasks of tasks">
+                                <div *ngFor="let task of categoryTasks"></div>
+                                <!-- TODO: check, I guees wrong logic -->
                                 <app-task [task]="task"></app-task>
                         </div>
                 </mat-tab>
