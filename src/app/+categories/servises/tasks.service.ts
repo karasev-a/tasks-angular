@@ -9,8 +9,8 @@ export class TasksService {
     private urlApi = 'http://localhost:8888/api/v1/tasks'; // environment.serverApiUrl();
     constructor(private http: HttpClient) { }
     // create
-    sendNewTask(categorie: ITask) {
-        return this.http.post(`${this.urlApi}/`, categorie);
+    sendNewTask(category: ITask) {
+        return this.http.post(`${this.urlApi}/`, category);
     }
     // get by id
     getTask(id: string): Observable<ITask> {
@@ -25,11 +25,11 @@ export class TasksService {
         return this.http.delete(`${this.urlApi}/`);
     }
     // Update
-    updateTask(id: string, categorie: ITask): Observable<ITask> {
-        return this.http.put<ITask>(`${this.urlApi}/${id}`, categorie);
+    updateTask(id: string, category: ITask): Observable<ITask> {
+        return this.http.put<ITask>(`${this.urlApi}/${id}`, category);
     }
 
-    getTasksByCategory(categorieId: string): Observable<ITask[]> {
-        return this.http.get<ITask[]>(`https://categories/:categories/${categorieId}`); // #TODO: didn't check this method
+    getTasksByCategory(categoryId: string): Observable<ITask[]> {
+        return this.http.get<ITask[]>(`http://localhost:8888/api/v1/tasks?category=${categoryId}`); // #TODO: didn't check this method
     }
 }

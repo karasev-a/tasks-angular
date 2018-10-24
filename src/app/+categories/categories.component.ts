@@ -1,29 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CategoriesService } from './servises/categories.service';
-import { ICategorie } from './models/categories';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ICategory } from './models/categories';
+import { MatTabChangeEvent } from '@angular/material';
 import { ITask } from './models/task';
-import { TasksService } from './servises/tasks.service';
+// import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  //   styleUrls: ['./tasks.component.css']
+  styleUrls: ['./categories.component.css'],
 })
 
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent {
+  @Input() categories: ICategory[];
+  // @Input() tasks: ITask[];
+  // @Output() outTabIndex: EventEmitter<number> = new EventEmitter<number>();
+  constructor() { }
 
-  private categories: ICategorie[];
-  private tasks: ITask[][];
-  constructor(private categoriesService: CategoriesService, private tasksService: TasksService) { }
-
-  ngOnInit() {
-    this.categoriesService.getAllCategories().subscribe(categories => {
-      this.categories = categories;
-    });
-    this.categories.forEach((item, i, arr) => {
-      this.tasksService.getTasksByCategory(item.id).subscribe(task => {
-        this.tasks[i] = task; // TODO: Check
-      });
-    });
-}
+  // tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
+  //   this.outTabIndex.emit(tabChangeEvent.index);
+  // }
 }

@@ -1,16 +1,18 @@
-<mat-card class="task-card">
-  <mat-card-header>
-    <mat-card-title>{{task.title}}</mat-card-title>
-    <mat-card-subtitle>{{task.people}}/{{task.subscrebedPeople}} people already accepted</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>
-      {{task.description}}
-    </p>
-    {{task.date}}
-    {{task.price}}
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>ACCEPT</button>
-  </mat-card-actions>
-</mat-card>
+<div *ngFor="let task of tasks">
+  <mat-card class="task-card">
+    <mat-card-header>
+      <mat-card-title>{{task.title}}</mat-card-title>
+      <mat-card-subtitle>{{task.people}}/{{task.subscrebedPeople}} people already accepted</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{task.description}}
+      </p>
+      {{task.date}}
+      {{task.price}}
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>ACCEPT</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -32,10 +32,8 @@ import { RouterModule } from '@angular/router';
 
     HttpClientModule,
     FormsModule,
-    AppRoutingModule,
-    RouterModule,
-
     CategoriesModule,
+    AppRoutingModule,
 
   ],
   providers: [

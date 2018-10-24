@@ -2,30 +2,30 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 // import { environment } from '../../../environments/environment';
-import { ICategorie } from '../models/categories';
+import { ICategory } from '../models/categories';
 
 @Injectable()
 export class CategoriesService {
     private urlApi = 'http://localhost:8888/api/v1/categories'; // environment.serverApiUrl();
     constructor(private http: HttpClient) { }
     // create
-    sendNewCategorie(categorie: ICategorie) {
-        return this.http.post(`${this.urlApi}/`, categorie);
+    sendNewCategory(category: ICategory) {
+        return this.http.post(`${this.urlApi}/`, category);
     }
     // get by id
-    getCategorie(id: string): Observable<ICategorie> {
-        return this.http.get<ICategorie>(`${this.urlApi}/${id}`);
+    getCategory(id: string): Observable<ICategory> {
+        return this.http.get<ICategory>(`${this.urlApi}/${id}`);
     }
     // get all
-    getAllCategories(): Observable<ICategorie[]> {
-        return this.http.get<ICategorie[]>(`${this.urlApi}/`);
+    getAllCategories(): Observable<ICategory[]> {
+        return this.http.get<ICategory[]>(`${this.urlApi}/`);
     }
     // delete
-    deleteCategorie(id: string) {
+    deleteCategory(id: string) {
         return this.http.delete(`${this.urlApi}/`);
     }
     // Update
-    updateCategorie(id: string, categorie: ICategorie): Observable<ICategorie> {
-        return this.http.put<ICategorie>(`${this.urlApi}/${id}`, categorie);
+    updateCategory(id: string, category: ICategory): Observable<ICategory> {
+        return this.http.put<ICategory>(`${this.urlApi}/${id}`, category);
     }
 }

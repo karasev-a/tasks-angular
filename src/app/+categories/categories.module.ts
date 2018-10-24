@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from '../app-routing.module';
 
 import { CustomMaterialModule } from '../core/material.module';
 
@@ -9,16 +8,19 @@ import { CategoriesComponent } from './categories.component';
 import { CategoriesService } from './servises/categories.service';
 import { TasksService } from './servises/tasks.service';
 import { TaskComponent } from './task/task.component';
+import { TasksViewComponent } from './tasks-view.component';
+import { CategoriesRouting } from './categories.routing';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule,
-        AppRoutingModule,
-
         CustomMaterialModule,
+        AppRoutingModule,
+        CategoriesRouting,
     ],
-    declarations: [CategoriesComponent, TaskComponent],
+    declarations: [CategoriesComponent, TaskComponent, TasksViewComponent],
     providers: [CategoriesService, TasksService],
     exports: [],
 })
