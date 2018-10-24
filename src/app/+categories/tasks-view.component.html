@@ -1,11 +1,4 @@
-<!-- <app-categories [categories]="categories">
-</app-categories> -->
-
-<ul>
-        <li> <a routerLink="all" routerLinkActive="active">all</a></li>
-        <div *ngFor="let category of categories">
-                <li> <a routerLink="{{category.id}}" routerLinkActive="active">{{category.name}}</a></li>
-        </div>
-</ul>
+<app-categories [categories]="categories">
+</app-categories>
 <router-outlet>
 </router-outlet>

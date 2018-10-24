@@ -5,10 +5,11 @@ import { TaskComponent } from './task/task.component';
 import { TasksViewComponent } from './tasks-view.component';
 
 export const categoriesRouting: Routes = [
-  { path: 'categories', component: TasksViewComponent },
   {
-    path: 'categories', children: [
-      { path: '', component: TaskComponent },
+    path: 'categories', component: TasksViewComponent,
+    children: [
+      { path: '', redirectTo: 'all', pathMatch: 'full' },
+      { path: 'all', component: TaskComponent },
       { path: ':id', component: TaskComponent },
     ],
   },
