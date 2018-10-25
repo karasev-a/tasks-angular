@@ -1,18 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { MyErrorStateMatcher } from '../error/error-state-matcher';
 import { environment } from '../../environments/environment';
 import { AlertService } from '../alert/services/alert.service';
 
-
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.css"],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
 })
 
 export class RegisterComponent implements OnInit {
@@ -30,15 +29,14 @@ export class RegisterComponent implements OnInit {
 
   public ngOnInit() {
     this.registerForm = this.fb.group({
-      email: new FormControl("", [Validators.required, Validators.email, Validators.maxLength(255)]),
+      email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]),
       passwords: this.fb.group({
-        password: new FormControl("", [Validators.required]),
-        confirmPassword: new FormControl("", [Validators.required]),
+        password: new FormControl('', [Validators.required]),
+        confirmPassword: new FormControl('', [Validators.required]),
       }, {
-          validator: this.checkPass
-
+          validator: this.checkPass,
         }),
-      phone: new FormControl("", [Validators.required]),
+      phone: new FormControl('', [Validators.required]),
     });
 
   }
@@ -46,15 +44,14 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-    let user = {
-      firstName:"defName",
-      lastName: "defLastName",
+    const user = {
+      firstName: 'defName',
+      lastName: 'defLastName',
       roleId: '3',
       email: this.registerForm.value.email,
       password: this.registerForm.value.passwords.password,
-      phone: this.registerForm.value.phone
+      phone: this.registerForm.value.phone,
     };
-
 
     this._http.post<IUser>(`${this._serverUrl}users`, user)
     .pipe(first())
@@ -68,8 +65,9 @@ export class RegisterComponent implements OnInit {
   }
 
   private checkPass(formGroupPass: FormGroup) {
-    const password = formGroupPass.controls.password.value
+    const password = formGroupPass.controls.password.value;
     const confirmPassword = formGroupPass.controls.confirmPassword.value;
+
     return (password !== confirmPassword) ? { matchPassword: true } : null;
   }
 
