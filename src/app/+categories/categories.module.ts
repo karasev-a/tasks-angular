@@ -9,7 +9,7 @@ import { CategoriesService } from './servises/categories.service';
 import { TasksService } from './servises/tasks.service';
 import { TaskComponent } from './task/task.component';
 import { TasksViewComponent } from './tasks-view.component';
-import { CategoriesRouting } from './categories.routing';
+import { CategoriesRouting } from './categories-routing.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { TasksResolverService } from './servises/tasks-resolver.service';
 
