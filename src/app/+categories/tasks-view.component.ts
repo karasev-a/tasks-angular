@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from './servises/categories.service';
 import { ICategory } from './models/categories';
 import { ITask } from './models/task';
@@ -20,5 +20,10 @@ export class TasksViewComponent implements OnInit {
         this.tasksService.getAllTasks().subscribe(tasks => {
             this.tasks = tasks;
         });
+        // get all categories for nav bar
+        this.categoriesService.getAllCategories().subscribe(categories => {
+            this.categories = categories;
+        });
+
     }
 }

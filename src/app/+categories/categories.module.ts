@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { CustomMaterialModule } from '../core/material.module';
 
-import { CategoriesComponent } from './categories.component';
+import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesService } from './servises/categories.service';
 import { TasksService } from './servises/tasks.service';
 import { TaskComponent } from './task/task.component';

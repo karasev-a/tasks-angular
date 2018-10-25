@@ -9,7 +9,8 @@ export const categoriesRouting: Routes = [
     path: 'categories', component: TasksViewComponent,
     children: [
       { path: '', redirectTo: 'all', pathMatch: 'full' },
-      { path: 'all', component: TaskComponent, resolve: { tasks: TasksResolverService} },
+      // { path: 'all', component: TaskComponent, resolve: { tasks: TasksResolverService} },
+      { path: 'all', component: TaskComponent},
       { path: ':id', component: TaskComponent, resolve: { tasks: TasksResolverService} },
     ],
   },
