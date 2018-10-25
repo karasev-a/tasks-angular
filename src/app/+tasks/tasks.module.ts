@@ -4,12 +4,11 @@ import { RouterModule } from '@angular/router';
 
 import { CustomMaterialModule } from '../core/material.module';
 
-import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesService } from './servises/categories.service';
 import { TasksService } from './servises/tasks.service';
 import { TaskComponent } from './task/task.component';
-import { TasksViewComponent } from './tasks-view.component';
-import { CategoriesRouting } from './tasks-view-routing.module';
+import { TasksComponent } from './tasks.component';
+import { CategoriesRouting } from './tasks-routing.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { TasksResolverService } from './servises/tasks-resolver.service';
 
@@ -21,7 +20,7 @@ import { TasksResolverService } from './servises/tasks-resolver.service';
         AppRoutingModule,
         CategoriesRouting,
     ],
-    declarations: [CategoriesComponent, TaskComponent, TasksViewComponent],
+    declarations: [TaskComponent, TasksComponent],
     providers: [CategoriesService, TasksService, TasksResolverService],
     exports: [],
 })

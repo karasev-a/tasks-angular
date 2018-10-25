@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-// import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { ITask } from '../models/task';
 
 @Injectable()
 export class TasksService {
-    private urlApi = 'http://localhost:8888/api/v1/tasks'; // environment.serverApiUrl();
+    // private urlApi = 'http://localhost:8888/api/v1/tasks'; // environment.serverApiUrl();
+    private urlApi = `${environment.serverApiUrl}tasks`;
     constructor(private http: HttpClient) { }
     // create
     sendNewTask(category: ITask) {
@@ -30,6 +31,6 @@ export class TasksService {
     }
 
     getTasksByCategory(categoryId: string): Observable<ITask[]> {
-        return this.http.get<ITask[]>(`http://localhost:8888/api/v1/tasks?category=${categoryId}`); // #TODO: didn't check this method
+        return this.http.get<ITask[]>(`${this.urlApi}?categoryId=${categoryId}`); // #TODO: check
     }
 }
