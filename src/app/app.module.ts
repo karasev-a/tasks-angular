@@ -14,7 +14,7 @@ import { AlertComponent } from './alert/alert.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './+login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { CategoriesModule } from './+categories/categories.module';
+import { CategoriesModule } from './+tasks-view/categories.module';
 import { RouterModule } from '@angular/router';
 
 @NgModule({

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './+login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { TasksViewComponent } from './+categories/tasks-view.component';
+import { TasksViewComponent } from './+tasks-view/tasks-view.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
