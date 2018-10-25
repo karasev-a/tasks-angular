@@ -11,6 +11,7 @@ import { TaskComponent } from './task/task.component';
 import { TasksViewComponent } from './tasks-view.component';
 import { CategoriesRouting } from './categories.routing';
 import { AppRoutingModule } from '../app-routing.module';
+import { TasksResolverService } from './servises/tasks-resolver.service';
 
 @NgModule({
     imports: [
@@ -21,7 +22,7 @@ import { AppRoutingModule } from '../app-routing.module';
         CategoriesRouting,
     ],
     declarations: [CategoriesComponent, TaskComponent, TasksViewComponent],
-    providers: [CategoriesService, TasksService],
+    providers: [CategoriesService, TasksService, TasksResolverService],
     exports: [],
 })
 export class CategoriesModule { }

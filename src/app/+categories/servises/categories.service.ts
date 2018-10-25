@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-// import { environment } from '../../../environments/environment';
+// import { environment } from '../../../environments/environment'; #TODO: should be fixed, do not use hardcoded urls
 import { ICategory } from '../models/categories';
 
 @Injectable()

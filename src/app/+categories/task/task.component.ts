@@ -1,20 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ITask } from '../models/task';
-import { TasksService } from '../servises/tasks.service';
 
 @Component({
   selector: 'app-task',
   templateUrl: 'task.component.html',
-//   styleUrls: ['task.component.css'],
+  //   styleUrls: ['task.component.css'],
 })
 export class TaskComponent implements OnInit {
   tasks: ITask[];
-  // private task: ITask;
-  constructor(private tasksService: TasksService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.tasksService.getAllTasks().subscribe(tasks => {
-        this.tasks = tasks;
+    // get tasks from resolver
+    this.route.data
+    .subscribe((data: { tasks: ITask[] }) => {
+      this.tasks = data.tasks;
     });
-}
+  }
 }
