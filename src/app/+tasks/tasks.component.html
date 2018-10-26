@@ -1,0 +1,8 @@
+<ul>
+        <li> <a routerLink="/categories" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">all</a></li>
+        <div *ngFor="let category of categories">
+                <li> <a (click) = "categoryClick(category.id)" routerLink="/categories/{{category.id}}" routerLinkActive="active">{{category.name}}</a></li>
+        </div>
+</ul>
+
+<app-task [tasks]="tasks"></app-task>

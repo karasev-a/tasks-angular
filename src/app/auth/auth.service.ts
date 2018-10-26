@@ -32,18 +32,18 @@ export class AuthService {
 
         const data = {
             email: email,
-            password: pass
+            password: pass,
         };
 
         return this.http.post(`${this.API_URL}/login`, data, headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
-                
-                // this.router.navigateByUrl('/tasks');
+
+                this.router.navigateByUrl('/categories');
             },
             error => {
                 this.alertService.error(error);
-            }
+            },
         );
     }
 
