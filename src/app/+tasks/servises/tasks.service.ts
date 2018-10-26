@@ -31,6 +31,10 @@ export class TasksService {
     }
 
     getTasksByCategory(categoryId: string): Observable<ITask[]> {
-        return this.http.get<ITask[]>(`${this.urlApi}?categoryId=${categoryId}`); // #TODO: check
+        if (categoryId) {
+            return this.http.get<ITask[]>(`${this.urlApi}?categoryId=${categoryId}`); // #TODO: check
+        } else {
+            return this.http.get<ITask[]>(`${this.urlApi}`); // #TODO: check
+        }
     }
 }

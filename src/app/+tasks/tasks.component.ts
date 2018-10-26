@@ -22,13 +22,20 @@ export class TasksComponent implements OnInit {
         this.categoriesService.getAllCategories().subscribe(categories => {
             this.categories = categories;
         });
-
+        // this.tasksService.getAllTasks().subscribe(tasks => {
+        //             this.tasks = tasks;
+        // });
+        this.route.data
+        .subscribe((data: { tasks: ITask[] }) => {
+            this.tasks = data.tasks;
+        });
     }
     categoryClick(id: string) {
         this.route.data
         .subscribe((data: { tasks: ITask[] }) => {
             this.tasks = data.tasks;
         });
+
         // if (id !== '') {
         //     this.tasksService.getTasksByCategory(id).subscribe(tasks => {
         //         this.tasks = tasks;
