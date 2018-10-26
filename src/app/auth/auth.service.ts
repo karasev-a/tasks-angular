@@ -10,7 +10,7 @@ export class AuthService {
     API_URL = 'http://localhost:8888';
     TOKEN_KEY = 'token';
 
-    constructor(private http: HttpClient, private router: Router,private alertService: AlertService) { }
+    constructor(private http: HttpClient, private router: Router, private alertService: AlertService) { }
 
     get token() {
         return localStorage.getItem(this.TOKEN_KEY);
@@ -25,14 +25,14 @@ export class AuthService {
         this.router.navigateByUrl('/');
     }
 
-    public login(email: string, pass: string) {
+    public login(email: string, password: string) {
         const headers = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' })
+            headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }),
         };
 
         const data = {
-            email: email,
-            password: pass,
+            email,
+            password,
         };
 
         return this.http.post(`${this.API_URL}/login`, data, headers).subscribe(
