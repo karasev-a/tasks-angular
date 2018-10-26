@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
 
         if (loginData.email && loginData.password) {
             this._authService.login(loginData.email, loginData.password);
-            this.router.navigate(['/categories']);
         }
     }
 }
