@@ -22,11 +22,12 @@ export class TasksResolverService implements Resolve<ITask[]> {
             mergeMap(tasks => {
               if (tasks) {
                 return of(tasks);
-              } else { // id not found
-                this.router.navigate(['/']); // #TODO: where I shoud to go?
-
-                return EMPTY;
               }
+              // else { // id not found
+              //   this.router.navigate(['/']); // #TODO: where I shoud to go?
+
+              //   return EMPTY;
+              // }
             }),
           );
     }
