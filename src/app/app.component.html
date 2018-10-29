@@ -1,11 +1,12 @@
 <app-alert></app-alert>
-<!-- <mat-card *ngIf="isLoggedIn$ | async as isLoggedIn"> -->
-        <mat-card>
-    <mat-grid-list cols="3" rowHeight = "100px">
+<mat-card *ngIf="isLoggedIn$ | async as isLoggedIn">
+        <!-- <mat-card> -->
+    <mat-grid-list cols="3" rowHeight = "30px">
         <mat-grid-tile>
             <mat-menu #appMenu="matMenu">
-                <button mat-menu-item>Settings</button>
-                <button mat-menu-item>Help</button>
+                <button mat-menu-item>PROFILE</button>
+                <button mat-menu-item>MY TASKS</button>
+                <button mat-menu-item (click) = "logout()" >LOGOUT</button>
             </mat-menu>
 
             <button mat-icon-button [matMenuTriggerFor]="appMenu">

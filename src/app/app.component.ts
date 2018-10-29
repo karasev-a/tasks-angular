@@ -3,6 +3,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 
 import '../assets/css/styles.css';
 import { AuthService } from './auth/auth.service';
+// import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-my',
@@ -11,14 +12,17 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-  private isLoggedIn: boolean;
+  private isLoggedIn$: boolean;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.isAuthenticated;
+    this.isLoggedIn$ = this.authService.isAuthenticated;
   }
   menuTrigger() {
     this.trigger.openMenu();
+  }
+  logout(): void {
+    this.authService.logout();
   }
 }
