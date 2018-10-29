@@ -14,7 +14,7 @@ export class TasksService {
         return this.http.post(`${this.urlApi}/`, category);
     }
     // get by id
-    getTask(id: string): Observable<ITask> {
+    getTask(id: number): Observable<ITask> {
         return this.http.get<ITask>(`${this.urlApi}/${id}`);
     }
     // get all
@@ -26,8 +26,12 @@ export class TasksService {
         return this.http.delete(`${this.urlApi}/`);
     }
     // Update
-    updateTask(id: string, category: ITask): Observable<ITask> {
+    updateTask(id: number, category: ITask): Observable<ITask> {
         return this.http.put<ITask>(`${this.urlApi}/${id}`, category);
+    }
+
+    public createTask(task: ITask): Observable<ITask> {
+        return this.http.post<ITask>(`${this.urlApi}`, task);
     }
 
     getTasksByCategory(categoryId: string): Observable<ITask[]> {
