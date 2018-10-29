@@ -9,6 +9,14 @@ export class AuthService {
 
     API_URL = 'http://localhost:8888';
     TOKEN_KEY = 'token';
+    private _redirectUrl: string;
+
+    get redirectUrl(): string {
+        return this._redirectUrl;
+    }
+    set redirectUrl(url: string) {
+        this._redirectUrl = url;
+    }
 
     constructor(private http: HttpClient, private router: Router, private alertService: AlertService) { }
 
@@ -39,7 +47,11 @@ export class AuthService {
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
 
-                this.router.navigateByUrl('/categories');
+                if (this._redirectUrl) {
+                    this.router.navigateByUrl(this._redirectUrl);
+                } else {
+                    this.router.navigateByUrl('/categories');
+                }
             },
             error => {
                 this.alertService.error(error);

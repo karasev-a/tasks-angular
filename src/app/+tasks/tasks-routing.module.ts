@@ -5,21 +5,8 @@ import { TasksResolverService } from './servises/tasks-resolver.service';
 import { AuthGuard } from '../auth/auth.guard';
 
 export const categoriesRouting: Routes = [ // TODO: rename module
-  {
-    path: 'categories',
-    component: TasksComponent,
-    resolve: { tasks: TasksResolverService },
-    canActivate: [
-      AuthGuard,
-    ],
-  },
-  {
-    path: 'categories/:id', component: TasksComponent,
-    resolve: { tasks: TasksResolverService },
-    canActivate: [
-      AuthGuard,
-    ],
-  },
+  { path: 'categories', component: TasksComponent, resolve: { tasks: TasksResolverService}, canActivate: [AuthGuard] },
+  { path: 'categories/:id', component: TasksComponent, resolve: { tasks: TasksResolverService}, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
