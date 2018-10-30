@@ -97,7 +97,7 @@
                         <br>
 
                         <mat-form-field>
-                                <mat-select placeholder="Category" formControlName="categoryId">
+                                <mat-select [compareWith]="compareFn" placeholder="Category" formControlName="categoryId" >
                                         <mat-option *ngFor="let category of categories" [value]="category.id" >
                                                 {{category.name}}
                                         </mat-option>
@@ -112,7 +112,7 @@
                         <br>
                         <p>
                                 <button type='submit' [disabled]="taskEditForm.invalid">Send on Review</button>
-                                <button type="button" [routerLink]="['/tasks']">Back</button>
+                                <button type="button" (click)="goToBack()">Back</button>
                         </p>
 
                 </form>

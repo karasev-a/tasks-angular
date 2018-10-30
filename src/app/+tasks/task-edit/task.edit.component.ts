@@ -37,6 +37,9 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.categories = this._route.snapshot.data.categories;
         this.currentDate = new Date();
+        // let currentCategoty = this.categories.find((category)=>{
+        //     return currentCategoty.id = this._route.queryParams.categoryId
+        // })
         this.taskEditForm = this._fb.group({
             title: new FormControl(``, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             description: new FormControl(''),
@@ -72,4 +75,12 @@ export class TaskEditComponent implements OnInit, OnDestroy {
             this._location.back();
         });
     }
+
+    public goToBack() {
+        this._location.back();
+    }
+
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
+   }
 }
