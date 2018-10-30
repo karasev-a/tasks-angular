@@ -20,6 +20,7 @@ import { ITask } from '../models/task';
 })
 export class TaskEditComponent implements OnInit, OnDestroy {
     @Input() public task: ITask;
+    public currentDate: Date;
     public taskEditForm: FormGroup;
     private _id: number;
     private _routeSubscription: Subscription;
@@ -32,15 +33,16 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit() {
+        this.currentDate = new Date();
         this.taskEditForm = this._fb.group({
             title: new FormControl(``, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             description: new FormControl(''),
-            people: new FormControl('', [Validators.min(1), Validators.max(5)]),
-            price: new FormControl('', [Validators.min(0)]),
-            date: new FormControl('', [CustomValidators.validateDateMoreCurrent(new Date())]),
+            people: new FormControl('', [Validators.required, Validators.min(1), Validators.max(5)]),
+            price: new FormControl('', [Validators.required, Validators.min(0)]),
+            date: new FormControl('', [Validators.required, CustomValidators.validateDateMoreCurrent(this.currentDate)]),
             // status: new FormControl(''),
             categoryId: new FormControl(''),
-            // userId: new FormControl(''),
+            userId: new FormControl(''),
         });
         this._routeSubscription = this._route.params.subscribe(params => {
             this._id = params.taskId;

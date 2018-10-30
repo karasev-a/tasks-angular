@@ -26,7 +26,7 @@ export class CustomValidators extends Validators {
             // } else {
             //     return null;
             // }
-            return (control.value < currentDate) ? { dateInvalid: true } : null;
+            return (control.value > currentDate) ? null : { dateInvalid: true };
         };
     }
   }
