@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesService } from './servises/categories.service';
-import { ICategory } from './models/categories';
+import { CategoriesService } from '../+categories/services/categories.service';
 import { ITask } from './models/task';
 import { TasksService } from './servises/tasks.service';
 import { ActivatedRoute } from '@angular/router';

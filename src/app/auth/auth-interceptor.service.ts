@@ -15,9 +15,10 @@ export class AuthInterceptorService implements HttpInterceptor {
         // const authRequest = req.clone({
         //     headers: reqHead,
         // });
-
+        // const reqHeader = req.headers;
+        // reqHeader['Authorization'] = `${authService.token}`;
         const authRequest = req.clone({
-            headers: req.headers.set('Authorization', `${authService.token}`),
+           headers: req.headers.set('Authorization', `${authService.token}`),
         });
 
         return next.handle(authRequest);

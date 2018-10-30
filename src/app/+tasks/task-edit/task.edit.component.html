@@ -1,0 +1,121 @@
+<mat-card class="example-card">
+        <mat-card-header>
+                <mat-card-title>
+                        <h2>Task</h2>
+                </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+                <form [formGroup]="taskEditForm" (ngSubmit)="onSubmit()">
+
+                        <mat-form-field>
+                                <mat-label>Title:</mat-label>
+                                <input matInput type="text" formControlName="title" required>
+                                <mat-error>
+                                        <div class="alert alert-danger" *ngIf="taskEditForm.controls['title'].invalid && taskEditForm.controls['title'].touched">
+                                                <div *ngIf="taskEditForm.controls['title'].errors.required">
+                                                        Name is required.
+                                                </div>
+                                                <div *ngIf="taskEditForm.controls['title'].errors.minlength">
+                                                        Name must be at least 3 characters long.
+                                                </div>
+                                                <div *ngIf="taskEditForm.controls['title'].errors.maxlength">
+                                                        Name must be less than 255 characters long.
+                                                </div>
+                                        </div>
+                                </mat-error>
+                        </mat-form-field>
+                        <br>
+
+                        <mat-form-field class="example-full-width">
+                                <mat-label>Description:</mat-label>
+                                <input matInput type="text" formControlName="description">
+                        </mat-form-field>
+
+                        <br>
+                        <mat-form-field class="example-full-width">
+                                <mat-label>People:</mat-label>
+                                <input matInput type="number" min="1" max="5" formControlName="people">
+                                <mat-error>
+                                        <div class="alert alert-danger" *ngIf="taskEditForm.controls['people'].invalid && taskEditForm.controls['people'].touched">
+                                                <div *ngIf="taskEditForm.controls['people'].errors.required">
+                                                        People is required.
+                                                </div>
+                                                <div *ngIf="taskEditForm.controls['people'].errors.max">
+                                                        Max needed people 5
+                                                </div>
+                                                <div *ngIf="taskEditForm.controls['people'].errors.min">
+                                                        Min needed people 1
+                                                </div>
+                                        </div>
+
+                                </mat-error>
+                        </mat-form-field>
+
+                        <br>
+                        <!-- <label>
+                                SubscribedPoeple:
+                                <input matInput type="text" formControlName="subscrebedPeople">
+                        </label>
+                        <br> -->
+
+                        <mat-form-field>
+                                <mat-label>Price:</mat-label>
+                                <input matInput type="number" min="0" formControlName="price">
+                                <mat-error>
+                                        <div class="alert alert-danger" *ngIf="taskEditForm.controls['price'].invalid && taskEditForm.controls['price'].touched">
+                                                <div *ngIf="taskEditForm.controls['price'].errors.required">
+                                                        People is required.
+                                                </div>
+                                                <div *ngIf="taskEditForm.controls['price'].errors.min">
+                                                        Min price equels 0.
+                                                </div>
+                                        </div>
+                                </mat-error>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field class="example-full-width">
+                                <mat-label>When:</mat-label>
+                                <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error>
+                                        <div class="alert alert-danger" *ngIf="taskEditForm.controls['date'].invalid && taskEditForm.controls['date'].touched">
+                                                <div *ngIf="taskEditForm.controls['date'].errors.required">
+                                                        Date is required.
+                                                </div>
+                                                <div *ngIf="taskEditForm.controls['date'].errors.dateInvalid">
+                                                        Date must more then current Date
+                                                </div>
+                                        </div>
+                                </mat-error>
+
+                        </mat-form-field>
+
+
+                        <br>
+
+                        <mat-form-field>
+                                <mat-select placeholder="Category" formControlName="categoryId">
+                                        <mat-option *ngFor="let category of categories" [value]="category.id" >
+                                                {{category.name}}
+                                        </mat-option>
+                                </mat-select>
+                                <div class="alert alert-danger" *ngIf="taskEditForm.controls['categoryId'].invalid && taskEditForm.controls['categoryId'].touched">
+                                        <div *ngIf="taskEditForm.controls['categoryId'].errors.required">
+                                                Category is required.
+                                        </div>
+                                </div>
+                        </mat-form-field>
+
+                        <br>
+                        <p>
+                                <button type='submit' [disabled]="taskEditForm.invalid">Send on Review</button>
+                                <button type="button" [routerLink]="['/tasks']">Back</button>
+                        </p>
+
+                </form>
+        </mat-card-content>
+
+</mat-card>

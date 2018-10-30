@@ -1,6 +1,6 @@
 <app-alert></app-alert>
-<mat-card *ngIf="isLoggedIn$ | async as isLoggedIn">
-        <!-- <mat-card> -->
+<!-- <mat-card *ngIf="isLoggedIn$ | async as isLoggedIn"> -->
+        <mat-card>
     <mat-grid-list cols="3" rowHeight = "30px">
         <mat-grid-tile>
             <mat-menu #appMenu="matMenu">
@@ -16,7 +16,7 @@
         <mat-grid-tile>
                 <h2>Orange</h2>
         </mat-grid-tile>
-        <mat-grid-tile><button>
+        <mat-grid-tile><button mat-button routerLink="/categories/newTask" >
                 <mat-icon>add</mat-icon>
             </button></mat-grid-tile>
     </mat-grid-list>
