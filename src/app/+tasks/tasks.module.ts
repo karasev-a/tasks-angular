@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CustomMaterialModule } from '../core/material.module';
 
-import { CategoriesService } from './servises/categories.service';
+import { CategoriesService } from '../+categories/services/categories.service';
 import { TasksService } from './servises/tasks.service';
 import { TaskComponent } from './task/task.component';
 import { TasksComponent } from './tasks.component';

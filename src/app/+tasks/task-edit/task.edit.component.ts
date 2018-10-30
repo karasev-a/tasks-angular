@@ -13,13 +13,15 @@ import { ITask } from '../models/task';
     selector: 'app-task-edit',
     templateUrl: './task.edit.component.html',
     styles: [`
-        input.ng-touched.ng-invalid {border:solid red 2px;}
-        input.ng-touched.ng-valid {border:solid green 2px;}
+        mat-form-field {
+        width: 100%;
+      }
     `],
 
 })
 export class TaskEditComponent implements OnInit, OnDestroy {
     @Input() public task: ITask;
+    public categories: ICategory[];
     public currentDate: Date;
     public taskEditForm: FormGroup;
     private _id: number;
@@ -33,6 +35,7 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit() {
+        this.categories = this._route.snapshot.data.categories;
         this.currentDate = new Date();
         this.taskEditForm = this._fb.group({
             title: new FormControl(``, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
@@ -41,8 +44,8 @@ export class TaskEditComponent implements OnInit, OnDestroy {
             price: new FormControl('', [Validators.required, Validators.min(0)]),
             date: new FormControl('', [Validators.required, CustomValidators.validateDateMoreCurrent(this.currentDate)]),
             // status: new FormControl(''),
-            categoryId: new FormControl(''),
-            userId: new FormControl(''),
+            categoryId: new FormControl('', [Validators.required]),
+            // userId: new FormControl(''),
         });
         this._routeSubscription = this._route.params.subscribe(params => {
             this._id = params.taskId;

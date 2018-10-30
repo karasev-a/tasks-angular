@@ -4,6 +4,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatDatepickerModule, MatInputModule,
   MatTableModule, MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule,
   MatGridListModule, MatTabsModule, MatNativeDateModule, MatFormFieldModule, MatFormFieldControl,
+  MatSelectModule,
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import {
     MatProgressSpinnerModule,
     MatTabsModule,
     MatFormFieldModule,
-    
+    MatSelectModule,
   ],
   exports: [
     MatTabsModule,
@@ -39,7 +40,7 @@ import {
     MatIconModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
-    
+    MatSelectModule,
   ],
 })
 export class CustomMaterialModule { }

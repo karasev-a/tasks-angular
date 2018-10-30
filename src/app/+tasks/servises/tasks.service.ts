@@ -26,8 +26,8 @@ export class TasksService {
         return this.http.delete(`${this.urlApi}/`);
     }
     // Update
-    updateTask(id: number, category: ITask): Observable<ITask> {
-        return this.http.put<ITask>(`${this.urlApi}/${id}`, category);
+    updateTask(id: number, task: ITask): Observable<ITask> {
+        return this.http.put<ITask>(`${this.urlApi}/${id}`, task);
     }
 
     public createTask(task: ITask): Observable<ITask> {
