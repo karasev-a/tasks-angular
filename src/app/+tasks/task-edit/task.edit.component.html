@@ -97,7 +97,7 @@
                         <br>
 
                         <mat-form-field>
-                                <mat-select [compareWith]="compareFn" placeholder="Category" formControlName="categoryId" >
+                                <mat-select [compareWith]="compareFn" placeholder="Category" formControlName="categoryId" [(ngModel)]="currentCategory" >
                                         <mat-option *ngFor="let category of categories" [value]="category.id" >
                                                 {{category.name}}
                                         </mat-option>
