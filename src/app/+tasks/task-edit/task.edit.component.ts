@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+
+import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription, from } from 'rxjs';
 
@@ -26,17 +27,28 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     public taskEditForm: FormGroup;
     private _id: number;
     private _routeSubscription: Subscription;
-
+    private _categoryId: number;
+    private _currentCategory: ICategory;
     constructor(
         private _route: ActivatedRoute,
         private _taskService: TasksService,
         private _location: Location,
         private _fb: FormBuilder,
+
+        private router: Router,
+        // private _acyiveRouterSnap: ActivatedRouteSnapshot,
+
     ) { }
 
     public ngOnInit() {
         this.categories = this._route.snapshot.data.categories;
         this.currentDate = new Date();
+        this._routeSubscription = this._route.params.subscribe(params => {
+            this._categoryId = parseInt(params['categoryId'], 10);
+          });
+        this._currentCategory = this.categories.find( category  => {
+            return this._categoryId === parseInt(category.id, 10);
+        });
         this.taskEditForm = this._fb.group({
             title: new FormControl(``, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             description: new FormControl(''),
@@ -72,4 +84,12 @@ export class TaskEditComponent implements OnInit, OnDestroy {
             this._location.back();
         });
     }
+
+    public goToBack() {
+        this._location.back();
+    }
+
+    compareFn(c1: ICategory, c2: ICategory): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
+   }
 }
