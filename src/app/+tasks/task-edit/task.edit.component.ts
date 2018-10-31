@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription, from } from 'rxjs';
 
@@ -34,6 +34,7 @@ export class TaskEditComponent implements OnInit, OnDestroy {
         private _location: Location,
         private _fb: FormBuilder,
         private router: Router,
+        // private _acyiveRouterSnap: ActivatedRouteSnapshot,
     ) { }
 
     public ngOnInit() {
