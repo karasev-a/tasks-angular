@@ -6,6 +6,9 @@ import {
   MatGridListModule, MatTabsModule, MatNativeDateModule, MatFormFieldModule, MatFormFieldControl,
   MatSelectModule,
 } from '@angular/material';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +26,8 @@ import {
     MatTabsModule,
     MatFormFieldModule,
     MatSelectModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   exports: [
     MatTabsModule,
@@ -41,6 +46,8 @@ import {
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatSelectModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
 })
 export class CustomMaterialModule { }

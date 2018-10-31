@@ -75,30 +75,29 @@
 
                         <br>
 
-                        <mat-form-field class="example-full-width">
-                                <mat-label>When:</mat-label>
-                                <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
+                        <mat-form-field>
+                                <mat-label>When(Date and Time):</mat-label>
+                                <input matInput formControlName="date" [owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
+                                <owl-date-time #dtPicker2></owl-date-time>
                                 <mat-error>
                                         <div class="alert alert-danger" *ngIf="taskEditForm.controls['date'].invalid && taskEditForm.controls['date'].touched">
                                                 <div *ngIf="taskEditForm.controls['date'].errors.required">
                                                         Date is required.
                                                 </div>
                                                 <div *ngIf="taskEditForm.controls['date'].errors.dateInvalid">
-                                                        Date must more then current Date
+                                                        Date must more or equels then current Date.
+                                                        Time must be more by hour then current time.
                                                 </div>
                                         </div>
                                 </mat-error>
-
                         </mat-form-field>
-
 
                         <br>
 
                         <mat-form-field>
-                                <mat-select placeholder="Category" formControlName="categoryId">
-                                        <mat-option *ngFor="let category of categories" [value]="category.id" >
+                                <mat-select [compareWith]="compareFn" placeholder="Category" formControlName="categoryId"
+                                        [(ngModel)]="currentCategory">
+                                        <mat-option *ngFor="let category of categories" [value]="category.id">
                                                 {{category.name}}
                                         </mat-option>
                                 </mat-select>

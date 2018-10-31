@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription, from } from 'rxjs';
 
@@ -26,12 +26,12 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     public taskEditForm: FormGroup;
     private _id: number;
     private _routeSubscription: Subscription;
-
     constructor(
         private _route: ActivatedRoute,
         private _taskService: TasksService,
         private _location: Location,
         private _fb: FormBuilder,
+        private router: Router,
     ) { }
 
     public ngOnInit() {
@@ -42,11 +42,14 @@ export class TaskEditComponent implements OnInit, OnDestroy {
             description: new FormControl(''),
             people: new FormControl('', [Validators.required, Validators.min(1), Validators.max(5)]),
             price: new FormControl('', [Validators.required, Validators.min(0)]),
-            date: new FormControl('', [Validators.required, CustomValidators.validateDateMoreCurrent(this.currentDate)]),
+            date: new FormControl('', [Validators.required, CustomValidators.validateDateMoreCurrent]),
             // status: new FormControl(''),
             categoryId: new FormControl('', [Validators.required]),
-            // userId: new FormControl(''),
         });
+
+        // const toSelect = this.categories.find(c => c.id == 3);
+        // this.taskEditForm.get('categoryId').setValue(toSelect);
+
         this._routeSubscription = this._route.params.subscribe(params => {
             this._id = params.taskId;
             if (this._id) {
@@ -71,5 +74,13 @@ export class TaskEditComponent implements OnInit, OnDestroy {
             this.task = res;
             this._location.back();
         });
+    }
+
+    public goToBack() {
+        this._location.back();
+    }
+
+    compareFn(c1: ICategory, c2: ICategory): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 }
