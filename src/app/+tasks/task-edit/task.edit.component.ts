@@ -25,7 +25,9 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     public currentDate: Date;
     public taskEditForm: FormGroup;
     private _id: number;
+    private _categoryId: number;
     private _routeSubscription: Subscription;
+    private _querySubscription: Subscription;
     constructor(
         private _route: ActivatedRoute,
         private _taskService: TasksService,
@@ -37,6 +39,18 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.categories = this._route.snapshot.data.categories;
         this.currentDate = new Date();
+        this._routeSubscription = this._route.params.subscribe(params => {
+            this._id = params.taskId;
+            if (this._id) {
+                this.taskEditForm.patchValue(this._route.snapshot.data.task);
+            }
+        });
+        this._querySubscription = this._route.queryParams.subscribe(
+            (queryParam: any) => {
+                this._categoryId = parseInt(queryParam.categoryId, 10);
+            },
+        );
+        const toSelect = this.categories.find(c => parseInt(c.id, 10) === this._categoryId);
         this.taskEditForm = this._fb.group({
             title: new FormControl(``, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             description: new FormControl(''),
@@ -44,23 +58,16 @@ export class TaskEditComponent implements OnInit, OnDestroy {
             price: new FormControl('', [Validators.required, Validators.min(0)]),
             date: new FormControl('', [Validators.required, CustomValidators.validateDateMoreCurrent]),
             // status: new FormControl(''),
-            categoryId: new FormControl('', [Validators.required]),
-        });
-
-        // const toSelect = this.categories.find(c => c.id == 3);
-        // this.taskEditForm.get('categoryId').setValue(toSelect);
-
-        this._routeSubscription = this._route.params.subscribe(params => {
-            this._id = params.taskId;
-            if (this._id) {
-                this.taskEditForm.patchValue(this._route.snapshot.data.task);
-            }
+            categoryId: new FormControl(toSelect.id, [Validators.required]),
         });
     }
 
     public ngOnDestroy() {
         if (this._routeSubscription) {
             this._routeSubscription.unsubscribe();
+        }
+        if (this._querySubscription) {
+            this._querySubscription.unsubscribe();
         }
     }
 
@@ -80,7 +87,4 @@ export class TaskEditComponent implements OnInit, OnDestroy {
         this._location.back();
     }
 
-    compareFn(c1: ICategory, c2: ICategory): boolean {
-        return c1 && c2 ? c1.id === c2.id : c1 === c2;
-    }
 }
