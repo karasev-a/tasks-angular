@@ -10,7 +10,6 @@ import { TasksService } from './servises/tasks.service';
 import { TaskComponent } from './task/task.component';
 import { TasksComponent } from './tasks.component';
 import { CategoriesRouting } from './tasks-routing.module';
-import { AppRoutingModule } from '../app-routing.module';
 import { TasksResolverService } from './servises/tasks-resolver.service';
 import { TaskEditComponent } from './task-edit/task.edit.component';
 
@@ -19,7 +18,6 @@ import { TaskEditComponent } from './task-edit/task.edit.component';
         CommonModule,
         RouterModule,
         CustomMaterialModule,
-        AppRoutingModule,
         CategoriesRouting,
         ReactiveFormsModule,
     ],

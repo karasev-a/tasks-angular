@@ -29,12 +29,10 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     CustomMaterialModule,
-
+    AppRoutingModule,
     HttpClientModule,
     FormsModule,
     CategoriesModule,
-    AppRoutingModule,
-
   ],
   providers: [
     AuthService,
