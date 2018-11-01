@@ -41,4 +41,9 @@ export class TasksService {
             return this.http.get<ITask[]>(`${this.urlApi}`); // #TODO: check
         }
     }
+
+    public getTasksOfUser(): Observable<ITask[]> {
+        return this.http.get<ITask[]>(`${this.urlApi}/tasks`);
+    }
+
 }

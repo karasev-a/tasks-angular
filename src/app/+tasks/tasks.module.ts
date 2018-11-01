@@ -12,6 +12,7 @@ import { TasksComponent } from './tasks.component';
 import { CategoriesRouting } from './tasks-routing.module';
 import { TasksResolverService } from './servises/tasks-resolver.service';
 import { TaskEditComponent } from './task-edit/task.edit.component';
+import { TasksTableComponent } from './tasks-table/tasks-table.component';
 
 @NgModule({
     imports: [
@@ -21,7 +22,7 @@ import { TaskEditComponent } from './task-edit/task.edit.component';
         CategoriesRouting,
         ReactiveFormsModule,
     ],
-    declarations: [TaskComponent, TasksComponent, TaskEditComponent],
+    declarations: [TaskComponent, TasksComponent, TaskEditComponent, TasksTableComponent],
     providers: [CategoriesService, TasksService, TasksResolverService],
     exports: [],
 })

@@ -9,4 +9,5 @@ export interface ITask {
     status?: string;
     userId?: number; // who create
     categoryId?: number;
+    createdAt?: Date;
   }
