@@ -32,26 +32,6 @@
                         </mat-form-field>
 
                         <br>
-                        <mat-form-field class="example-full-width">
-                                <mat-label>People:</mat-label>
-                                <input matInput type="number" min="1" max="5" formControlName="people">
-                                <mat-error>
-                                        <div class="alert alert-danger" *ngIf="taskEditForm.controls['people'].invalid && taskEditForm.controls['people'].touched">
-                                                <div *ngIf="taskEditForm.controls['people'].errors.required">
-                                                        People is required.
-                                                </div>
-                                                <div *ngIf="taskEditForm.controls['people'].errors.max">
-                                                        Max needed people 5
-                                                </div>
-                                                <div *ngIf="taskEditForm.controls['people'].errors.min">
-                                                        Min needed people 1
-                                                </div>
-                                        </div>
-
-                                </mat-error>
-                        </mat-form-field>
-
-                        <br>
                         <!-- <label>
                                 SubscribedPoeple:
                                 <input matInput type="text" formControlName="subscrebedPeople">
@@ -74,38 +54,60 @@
                         </mat-form-field>
 
                         <br>
-
-                        <mat-form-field>
-                                <mat-label>When(Date and Time):</mat-label>
-                                <input matInput formControlName="date" [owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
-                                <owl-date-time #dtPicker2></owl-date-time>
-                                <mat-error>
-                                        <div class="alert alert-danger" *ngIf="taskEditForm.controls['date'].invalid && taskEditForm.controls['date'].touched">
-                                                <div *ngIf="taskEditForm.controls['date'].errors.required">
-                                                        Date is required.
+                        <div class="flex-conteiner">
+                                <mat-form-field>
+                                        <mat-label>People:</mat-label>
+                                        <input matInput type="number" min="1" max="5" formControlName="people">
+                                        <mat-error>
+                                                <div class="alert alert-danger" *ngIf="taskEditForm.controls['people'].invalid && taskEditForm.controls['people'].touched">
+                                                        <div *ngIf="taskEditForm.controls['people'].errors.required">
+                                                                People is required.
+                                                        </div>
+                                                        <div *ngIf="taskEditForm.controls['people'].errors.max">
+                                                                Max needed people 5
+                                                        </div>
+                                                        <div *ngIf="taskEditForm.controls['people'].errors.min">
+                                                                Min needed people 1
+                                                        </div>
                                                 </div>
-                                                <div *ngIf="taskEditForm.controls['date'].errors.dateInvalid">
-                                                        Date must more or equels then current Date.
-                                                        Time must be more by hour then current time.
+
+                                        </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field>
+                                        <mat-label>Category</mat-label>
+                                        <mat-select formControlName="categoryId">
+                                                <mat-option *ngFor="let category of categories" [value]="category.id">
+                                                        {{category.name}}
+                                                </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                                <div class="alert alert-danger" *ngIf="taskEditForm.controls['categoryId'].invalid && taskEditForm.controls['categoryId'].touched">
+                                                        <div *ngIf="taskEditForm.controls['categoryId'].errors.required">
+                                                                Category is required.
+                                                        </div>
                                                 </div>
-                                        </div>
-                                </mat-error>
-                        </mat-form-field>
+                                        </mat-error>
+                                </mat-form-field>
 
-                        <br>
-
-                        <mat-form-field>
-                                <mat-select  placeholder="Category" formControlName="categoryId">
-                                        <mat-option *ngFor="let category of categories" [value]="category.id">
-                                                {{category.name}}
-                                        </mat-option>
-                                </mat-select>
-                                <div class="alert alert-danger" *ngIf="taskEditForm.controls['categoryId'].invalid && taskEditForm.controls['categoryId'].touched">
-                                        <div *ngIf="taskEditForm.controls['categoryId'].errors.required">
-                                                Category is required.
-                                        </div>
-                                </div>
-                        </mat-form-field>
+                                <mat-form-field>
+                                        <mat-label>When(Date and Time):</mat-label>
+                                        <input matInput formControlName="date" [owlDateTimeTrigger]="dtPicker2"
+                                                [owlDateTime]="dtPicker2">
+                                        <owl-date-time #dtPicker2></owl-date-time>
+                                        <mat-error>
+                                                <div class="alert alert-danger" *ngIf="taskEditForm.controls['date'].invalid && taskEditForm.controls['date'].touched">
+                                                        <div *ngIf="taskEditForm.controls['date'].errors.required">
+                                                                Date is required.
+                                                        </div>
+                                                        <div *ngIf="taskEditForm.controls['date'].errors.dateInvalid">
+                                                                Date must more or equels then current Date.
+                                                                Time must be more by hour then current time.
+                                                        </div>
+                                                </div>
+                                        </mat-error>
+                                </mat-form-field>
+                        </div>
 
                         <br>
                         <p>

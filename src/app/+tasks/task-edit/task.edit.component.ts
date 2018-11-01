@@ -12,12 +12,7 @@ import { ITask } from '../models/task';
 @Component({
     selector: 'app-task-edit',
     templateUrl: './task.edit.component.html',
-    styles: [`
-        mat-form-field {
-        width: 100%;
-      }
-    `],
-
+    styleUrls: ['./task.edit.component.css'],
 })
 export class TaskEditComponent implements OnInit, OnDestroy {
     @Input() public task: ITask;

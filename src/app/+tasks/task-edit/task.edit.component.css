@@ -1,0 +1,10 @@
+mat-form-field {
+    width: 100%;
+}
+
+.flex-conteiner{
+    display: flex;
+}
+.flex-conteiner > *{ margin: 0 15px; }
+.flex-conteiner > :first-child{ margin-left: 0; }
+.flex-conteiner > :last-child{ margin-right: 0; }
