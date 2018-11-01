@@ -21,7 +21,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isAuthenticated;
-    // this._categoryId = this._route.snapshot.params.categoryId;
     this._routeSubscription = this._route.params.subscribe(params => {
       this._categoryId = params.categoryId;
     });
@@ -40,11 +39,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   goToCreateTask() {
+    const parseUrl = this._router.routerState.snapshot.url.split('/');
+    const isPartNamedCategories = ( parseUrl[parseUrl.length - 2].trim() === 'categories' );
+    const categoryIdUrl = parseInt(parseUrl[parseUrl.length - 1], 10);
+    (isPartNamedCategories && categoryIdUrl)
+      ? this._categoryId = categoryIdUrl
+      : this._categoryId = null;
     this._router.navigate(
       ['/categories/newTask'],
       {
         queryParams: {
-          categoryId: 2,
+          categoryId:  this._categoryId,
         },
       },
 

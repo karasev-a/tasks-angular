@@ -40,18 +40,11 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.categories = this._route.snapshot.data.categories;
         this.currentDate = new Date();
-        this._routeSubscription = this._route.params.subscribe(params => {
-            this._id = params.taskId;
-            if (this._id) {
-                this.taskEditForm.patchValue(this._route.snapshot.data.task);
-            }
-        });
         this._querySubscription = this._route.queryParams.subscribe(
             (queryParam: any) => {
                 this._categoryId = parseInt(queryParam.categoryId, 10);
             },
         );
-        const toSelect = this.categories.find(c => parseInt(c.id, 10) === this._categoryId);
         this.taskEditForm = this._fb.group({
             title: new FormControl(``, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             description: new FormControl(''),
@@ -59,7 +52,15 @@ export class TaskEditComponent implements OnInit, OnDestroy {
             price: new FormControl('', [Validators.required, Validators.min(0)]),
             date: new FormControl('', [Validators.required, CustomValidators.validateDateMoreCurrent]),
             // status: new FormControl(''),
-            categoryId: new FormControl(toSelect.id, [Validators.required]),
+            categoryId: new FormControl('', [Validators.required]),
+        });
+        const toSelect = this.categories.find(c => parseInt(c.id, 10) === this._categoryId);
+        toSelect ? this.taskEditForm.get('categoryId').setValue(toSelect.id) : this.taskEditForm.get('categoryId').setValue('');
+        this._routeSubscription = this._route.params.subscribe(params => {
+            this._id = params.taskId;
+            if (this._id) {
+                this.taskEditForm.patchValue(this._route.snapshot.data.task);
+            }
         });
     }
 
