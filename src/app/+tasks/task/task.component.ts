@@ -1,22 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-// import { ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
 import { ITask } from '../models/task';
 
 @Component({
   selector: 'app-task',
   templateUrl: 'task.component.html',
-  //   styleUrls: ['task.component.css'],
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent {
   @Input() tasks: ITask[];
-  // constructor(private route: ActivatedRoute) { }
   constructor() { }
-
-  ngOnInit() {
-    // get tasks from resolver
-    // this.route.data
-    // .subscribe((data: { tasks: ITask[] }) => {
-    //   this.tasks = data.tasks;
-    // });
-  }
 }

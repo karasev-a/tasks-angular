@@ -6,27 +6,33 @@ import { ITask } from '../models/task';
 
 @Injectable()
 export class TasksService {
-    // private urlApi = 'http://localhost:8888/api/v1/tasks'; // environment.serverApiUrl();
     private urlApi = `${environment.serverApiUrl}tasks`;
+    private limit = 10;
+
     constructor(private http: HttpClient) { }
+
     // create
-    sendNewTask(category: ITask) {
+    public sendNewTask(category: ITask) {
         return this.http.post(`${this.urlApi}/`, category);
     }
     // get by id
-    getTask(id: number): Observable<ITask> {
+    public getTask(id: number): Observable<ITask> {
         return this.http.get<ITask>(`${this.urlApi}/${id}`);
     }
+
     // get all
-    getAllTasks(): Observable<ITask[]> {
-        return this.http.get<ITask[]>(`${this.urlApi}/`);
+    public getAllTasks(params?: string): Observable<ITask[]> {
+        const queryStr = `${this.urlApi}/?limit=${this.limit}${params}`; // you should always add & at the begining of you param
+
+        return this.http.get<ITask[]>(queryStr);
     }
+
     // delete
-    deleteTask(id: string) {
+    public deleteTask(id: string) {
         return this.http.delete(`${this.urlApi}/`);
     }
     // Update
-    updateTask(id: number, task: ITask): Observable<ITask> {
+    public updateTask(id: number, task: ITask): Observable<ITask> {
         return this.http.put<ITask>(`${this.urlApi}/${id}`, task);
     }
 
@@ -34,11 +40,8 @@ export class TasksService {
         return this.http.post<ITask>(`${this.urlApi}`, task);
     }
 
-    getTasksByCategory(categoryId: string): Observable<ITask[]> {
-        if (categoryId) {
-            return this.http.get<ITask[]>(`${this.urlApi}?categoryId=${categoryId}`); // #TODO: check
-        } else {
-            return this.http.get<ITask[]>(`${this.urlApi}`); // #TODO: check
-        }
+    public getTasksOfUser(): Observable<ITask[]> {
+        return this.http.get<ITask[]>(`${this.urlApi}/tasks`);
     }
+
 }

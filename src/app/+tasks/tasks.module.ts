@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { CustomMaterialModule } from '../core/material.module';
 
@@ -20,6 +21,7 @@ import { TaskEditComponent } from './task-edit/task.edit.component';
         CustomMaterialModule,
         CategoriesRouting,
         ReactiveFormsModule,
+        InfiniteScrollModule,
     ],
     declarations: [TaskComponent, TasksComponent, TaskEditComponent],
     providers: [CategoriesService, TasksService, TasksResolverService],

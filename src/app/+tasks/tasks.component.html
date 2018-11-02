@@ -1,8 +1,9 @@
 <ul>
         <li> <a routerLink="/categories" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">all</a></li>
         <div *ngFor="let category of categories">
-                <li> <a  routerLink="/categories/{{category.id}}" routerLinkActive="active">{{category.name}}</a></li>
+                <li> <a routerLink="/categories/{{category.id}}" routerLinkActive="active">{{category.name}}</a></li>
         </div>
 </ul>
-
-<app-task [tasks]="tasks"></app-task>
+<div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+        <app-task [tasks]="tasks"></app-task>
+</div>
