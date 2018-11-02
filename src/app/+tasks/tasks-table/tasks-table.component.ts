@@ -3,7 +3,7 @@ import { ITask } from '../models/task';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
-import { DeleteDialogComponent } from '../../dialogs/delete/delete-dialog.component';
+// import { DeleteDialogComponent } from '../../dialogs/delete/delete-dialog.component';
 
 
 @Component({
@@ -29,13 +29,13 @@ export class TasksTableComponent implements OnInit {
 
     deleteTask(task: ITask) {
 
-        const dialogRef = this.dialog.open(DeleteDialogComponent, {
-            data: {
-                id: task.id,
-                title: task.title,
-                state: { createdAt: task.createdAt, date: task.date }
-            },
-        });
+        // const dialogRef = this.dialog.open(DeleteDialogComponent, {
+        //     data: {
+        //         id: task.id,
+        //         title: task.title,
+        //         state: { createdAt: task.createdAt, date: task.date },
+        //     },
+        // });
 
         // dialogRef.afterClosed().subscribe(result => {
         //     if (result === 1) {
@@ -45,6 +45,10 @@ export class TasksTableComponent implements OnInit {
         //         this.refreshTable();
         //     }
         // });
+    }
+
+    public editTask(task: ITask) {
+        this._router.navigate(['/tasks', task.id]);
     }
 
 }

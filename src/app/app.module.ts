@@ -16,7 +16,6 @@ import { LoginComponent } from './+login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CategoriesModule } from './+tasks/tasks.module';
 import { RouterModule } from '@angular/router';
-import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component'
     LoginComponent,
     RegisterComponent,
     AlertComponent,
-    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
