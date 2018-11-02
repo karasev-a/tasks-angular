@@ -20,7 +20,7 @@ export class TasksTableResolverService implements Resolve<ITask[]> {
     constructor(private _tasksService: TasksService, private _router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ITask[] | Observable<ITask[]> | Promise<ITask[]> {
-        return this._tasksService.getAllTasks();
+        return this._tasksService.getAllTasksOfUser();
     }
 
 }

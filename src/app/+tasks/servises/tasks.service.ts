@@ -21,6 +21,10 @@ export class TasksService {
     getAllTasks(): Observable<ITask[]> {
         return this.http.get<ITask[]>(`${this.urlApi}/`);
     }
+
+    getAllTasksOfUser(): Observable<ITask[]> {
+        return this.http.get<ITask[]>(`${this.urlApi}/myTasks`);
+    }
     // delete
     deleteTask(id: string) {
         return this.http.delete(`${this.urlApi}/`);
