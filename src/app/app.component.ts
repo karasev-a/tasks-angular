@@ -23,7 +23,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn;
-    console.log("---------------------------------------------------------------------------------------------------------------------------->");
 
     this._routeSubscription = this._route.params.subscribe(params => {
       this._categoryId = params.categoryId;
