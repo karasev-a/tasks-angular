@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../../environments/environment';
 import { ITask } from '../models/task';
@@ -21,10 +21,13 @@ export class TasksService {
     }
 
     // get all
-    public getAllTasks(params?: string): Observable<ITask[]> {
-        const queryStr = `${this.urlApi}/?limit=${this.limit}${params}`; // you should always add & at the begining of you param
+    public getAllTasks(params?: any): Observable<ITask[]> {
+        const queryStr = `${this.urlApi}`;
+        const allParams = new HttpParams({
+            fromObject: params,
+          });
 
-        return this.http.get<ITask[]>(queryStr);
+        return this.http.get<ITask[]>(queryStr, { params: allParams });
     }
 
     // delete
