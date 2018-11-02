@@ -7,7 +7,7 @@ import { ITask } from '../models/task';
 @Injectable()
 export class TasksService {
     private urlApi = `${environment.serverApiUrl}tasks`;
-    private limit = 10;
+    private limit = '10';
 
     constructor(private http: HttpClient) { }
 
@@ -25,7 +25,8 @@ export class TasksService {
         const queryStr = `${this.urlApi}`;
         const allParams = new HttpParams({
             fromObject: params,
-          });
+        });
+        allParams.append('limit', `${this.limit}`);
 
         return this.http.get<ITask[]>(queryStr, { params: allParams });
     }

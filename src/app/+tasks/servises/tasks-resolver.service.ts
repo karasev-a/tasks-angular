@@ -16,9 +16,9 @@ export class TasksResolverService implements Resolve<ITask[]> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<ITask[]> | Observable<never> {
         const id = route.paramMap.get('categoryId');
-        let param = '';
+        let param = {};
         if (id) {
-            param = `&categoryId=${id}`;
+            param = { categoryId: id };
         }
 
         return this.ts.getAllTasks(param).pipe(
