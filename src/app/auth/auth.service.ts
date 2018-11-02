@@ -9,8 +9,16 @@ export class AuthService {
 
     API_URL = 'http://localhost:8888';
     TOKEN_KEY = 'token';
+    private _redirectUrl: string;
 
-    constructor(private http: HttpClient, private router: Router,private alertService: AlertService) { }
+    get redirectUrl(): string {
+        return this._redirectUrl;
+    }
+    set redirectUrl(url: string) {
+        this._redirectUrl = url;
+    }
+
+    constructor(private http: HttpClient, private router: Router, private alertService: AlertService) { }
 
     get token() {
         return localStorage.getItem(this.TOKEN_KEY);
@@ -25,21 +33,25 @@ export class AuthService {
         this.router.navigateByUrl('/');
     }
 
-    public login(email: string, pass: string) {
+    public login(email: string, password: string) {
         const headers = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' })
+            headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }),
         };
 
         const data = {
-            email: email,
-            password: pass,
+            email,
+            password,
         };
 
         return this.http.post(`${this.API_URL}/login`, data, headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
 
-                this.router.navigateByUrl('/categories');
+                if (this._redirectUrl) {
+                    this.router.navigateByUrl(this._redirectUrl);
+                } else {
+                    this.router.navigateByUrl('/categories');
+                }
             },
             error => {
                 this.alertService.error(error);
