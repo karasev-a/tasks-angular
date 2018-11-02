@@ -5,7 +5,6 @@ import { Observable, Subscription, from } from 'rxjs';
 
 import '../assets/css/styles.css';
 import { AuthService } from './auth/auth.service';
-// import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-my',
@@ -15,18 +14,23 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   private isLoggedIn$: boolean;
-  private _routeSubscription: Subscription;
   private _categoryId: number;
+  private _routeSubscription: Subscription;
 
   constructor(private authService: AuthService, private _router: Router, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isAuthenticated;
-    // this._categoryId = this._route.snapshot.params.categoryId;
     this._routeSubscription = this._route.params.subscribe(params => {
-      this._categoryId = params['categoryId'];
+      this._categoryId = params.categoryId;
     });
   }
+  public ngOnDestroy() {
+    if (this._routeSubscription) {
+      this._routeSubscription.unsubscribe();
+    }
+  }
+
   menuTrigger() {
     this.trigger.openMenu();
   }
@@ -34,20 +38,21 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
-  public ngOnDestroy() {
-    if (this._routeSubscription) {
-      this._routeSubscription.unsubscribe();
-    }
-  }
-
   goToCreateTask() {
+    const parseUrl = this._router.routerState.snapshot.url.split('/');
+    const isPartNamedCategories = ( parseUrl[parseUrl.length - 2].trim() === 'categories' );
+    const categoryIdUrl = parseInt(parseUrl[parseUrl.length - 1], 10);
+    (isPartNamedCategories && categoryIdUrl)
+      ? this._categoryId = categoryIdUrl
+      : this._categoryId = null;
     this._router.navigate(
       ['/categories/newTask'],
-      // {
-      //   queryParams: {
-      //     categotyId: this._categoryId,
-      //   },
-      // },
+      {
+        queryParams: {
+          categoryId:  this._categoryId,
+        },
+      },
+
     );
   }
 }
