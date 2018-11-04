@@ -1,21 +1,22 @@
-// import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-// import { Component, Inject } from '@angular/core';
-// import { TasksService } from '../../+tasks/servises/tasks.service';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { TasksService } from '../../+tasks/servises/tasks.service';
 
-// @Component({
-//     selector: 'app-delete.dialog',
-//     templateUrl: './delete-dialog.component.html',
-// })
-// export class DeleteDialogComponent {
+@Component({
+  selector: 'app-delete.dialog',
+  templateUrl: './delete-dialog.component.html',
+})
 
-//     constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
-//                 @Inject(MAT_DIALOG_DATA) public data: any, public tasksService: TasksService) { }
+export class DeleteDialogComponent {
 
-//     onNoClick(): void {
-//         this.dialogRef.close();
-//     }
+  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any, public tasksService: TasksService) { }
 
-//     confirmDelete(): void {
-//         this.tasksService.deleteTask(this.data.id);
-//     }
-// }
+  public onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  public confirmDelete(): void {
+    this.tasksService.deleteTask(this.data.id);
+  }
+}
