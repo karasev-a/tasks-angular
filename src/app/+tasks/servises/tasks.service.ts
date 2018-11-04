@@ -21,12 +21,14 @@ export class TasksService {
     }
 
     // get all
-    public getAllTasks(params?: any): Observable<ITask[]> {
+    public getAllTasks(params?: {
+        [param: string]: string | string[];
+    }): Observable<ITask[]> {
         const queryStr = `${this.urlApi}`;
-        const allParams = new HttpParams({
+        let allParams = new HttpParams({
             fromObject: params,
         });
-        allParams.append('limit', `${this.limit}`);
+        allParams = allParams.append('limit', `${this.limit}`); // here is problem
 
         return this.http.get<ITask[]>(queryStr, { params: allParams });
     }

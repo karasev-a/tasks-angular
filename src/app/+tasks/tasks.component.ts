@@ -37,15 +37,13 @@ export class TasksComponent implements OnInit {
         });
 
         const paramsObj = {
-            offset: this.taskOffset,
+            offset: this.taskOffset.toString(),
         };
-        // `&offset=${this.taskOffset}`;
         if (this._categoryId) {
-            // params += `&categoryId=${this._categoryId}`;
-            Object.assign(paramsObj, {categoryId: this._categoryId});
+            Object.assign(paramsObj, {categoryId: this._categoryId.toString});
         }
 
-        this.tasksService.getAllTasks(paramsObj).subscribe(tasks => {
+        this.tasksService.getAllTasks(paramsObj).subscribe( (tasks: ITask[]) => {
             this.tasks = this.tasks.concat(tasks);
         });
         this.taskOffset += 10;
