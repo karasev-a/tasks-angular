@@ -36,12 +36,14 @@ export class TasksComponent implements OnInit {
             this._categoryId = parseInt(currentParams.categoryId, 10);
         });
 
-        let params = `&offset=${this.taskOffset}`;
+        const paramsObj = {
+            offset: this.taskOffset.toString(),
+        };
         if (this._categoryId) {
-            params += `&categoryId=${this._categoryId}`;
+            Object.assign(paramsObj, {categoryId: this._categoryId.toString});
         }
 
-        this.tasksService.getAllTasks(params).subscribe(tasks => {
+        this.tasksService.getAllTasks(paramsObj).subscribe( (tasks: ITask[]) => {
             this.tasks = this.tasks.concat(tasks);
         });
         this.taskOffset += 10;

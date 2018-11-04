@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../../environments/environment';
 import { ITask } from '../models/task';
@@ -7,7 +7,7 @@ import { ITask } from '../models/task';
 @Injectable()
 export class TasksService {
     private urlApi = `${environment.serverApiUrl}tasks`;
-    private limit = 10;
+    private limit = '10';
 
     constructor(private http: HttpClient) { }
 
@@ -21,10 +21,16 @@ export class TasksService {
     }
 
     // get all
-    public getAllTasks(params?: string): Observable<ITask[]> {
-        const queryStr = `${this.urlApi}/?limit=${this.limit}${params}`; // you should always add & at the begining of you param
+    public getAllTasks(params?: {
+        [param: string]: string | string[];
+    }): Observable<ITask[]> {
+        const queryStr = `${this.urlApi}`;
+        let allParams = new HttpParams({
+            fromObject: params,
+        });
+        allParams = allParams.append('limit', `${this.limit}`); // here is problem
 
-        return this.http.get<ITask[]>(queryStr);
+        return this.http.get<ITask[]>(queryStr, { params: allParams });
     }
 
     // delete
