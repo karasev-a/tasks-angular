@@ -30,6 +30,10 @@ export class TasksComponent implements OnInit {
             });
     }
 
+    onAccept(taskId: string) {
+        this.tasksService.subscribeToTask(taskId).subscribe();
+    }
+
     onScroll() {
         // get current category id
         this._routeSubscription = this._route.params.subscribe(currentParams => {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ITask } from '../models/task';
 
 @Component({
@@ -7,5 +7,10 @@ import { ITask } from '../models/task';
 })
 export class TaskComponent {
   @Input() tasks: ITask[];
+  @Output() accept: EventEmitter<string> = new EventEmitter();
   constructor() { }
+  onAccept(taskId: string) {
+    this.accept.emit(taskId);
+
+  }
 }

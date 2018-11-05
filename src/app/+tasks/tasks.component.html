@@ -5,5 +5,5 @@
         </div>
 </ul>
 <div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-        <app-task [tasks]="tasks"></app-task>
+        <app-task [tasks]="tasks" (accept)="onAccept($event)"></app-task>
 </div>

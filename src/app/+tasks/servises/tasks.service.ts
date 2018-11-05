@@ -50,4 +50,7 @@ export class TasksService {
         return this.http.get<ITask[]>(`${this.urlApi}/tasks`);
     }
 
+    public subscribeToTask(id: string): Observable<ITask> {
+        return this.http.get(`${this.urlApi}/${id}/subscription`);
+    }
 }
