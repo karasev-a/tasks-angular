@@ -17,6 +17,6 @@ export class DeleteDialogComponent {
   }
 
   public confirmDelete(): void {
-    this.tasksService.deleteTask(this.data.id);
+    this.tasksService.deleteTask(this.data.id).subscribe();
   }
 }

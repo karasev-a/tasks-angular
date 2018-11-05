@@ -3,6 +3,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CustomMaterialModule } from './core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +35,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component'
     CustomMaterialModule,
     AppRoutingModule,
     HttpClientModule,
+    InfiniteScrollModule,
     FormsModule,
     CategoriesModule,
   ],

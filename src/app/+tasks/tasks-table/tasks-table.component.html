@@ -2,11 +2,7 @@
     MY Tasks
 </h2>
 
-
-
-
-<mat-table [dataSource]="tasks" class="mat-elevation-z8">
-    <!-- Position Column -->
+<mat-table [dataSource]="tasks">
     <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
         <mat-cell *matCellDef="let task"> {{task.title}} </mat-cell>
@@ -24,7 +20,7 @@
 
     <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-        <mat-cell *matCellDef="let task"> {{task.status}} </mat-cell>
+        <mat-cell *matCellDef="let task"> {{statuses[task.status]}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="people">
@@ -49,6 +45,7 @@
         </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" infiniteScroll [infiniteScrollDistance]="4"
+        [infiniteScrollThrottle]="50" (scrolled)="onScroll()"></mat-row>
 </mat-table>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../../environments/environment';
 import { ITask } from '../models/task';
@@ -8,6 +8,7 @@ import { ITask } from '../models/task';
 export class TasksService {
     // private urlApi = 'http://localhost:8888/api/v1/tasks'; // environment.serverApiUrl();
     private urlApi = `${environment.serverApiUrl}tasks`;
+    private limit = '2';
     constructor(private http: HttpClient) { }
     // create
     sendNewTask(category: ITask) {
@@ -22,8 +23,16 @@ export class TasksService {
         return this.http.get<ITask[]>(`${this.urlApi}/`);
     }
 
-    getAllTasksOfUser(): Observable<ITask[]> {
-        return this.http.get<ITask[]>(`${this.urlApi}/myTasks`);
+    getAllTasksOfUser(params?: {[param: string]: string | string[]}): Observable<ITask[]> {
+        const queryStr = `${this.urlApi}/myTasks`;
+        let allParams = new HttpParams({
+            fromObject: params,
+        });
+        allParams = allParams.append('limit', `${this.limit}`);
+
+        return this.http.get<ITask[]>(queryStr, { params: allParams });
+
+       //  return this.http.get<ITask[]>(`${this.urlApi}/myTasks`);
     }
     // delete
     deleteTask(id: string) {

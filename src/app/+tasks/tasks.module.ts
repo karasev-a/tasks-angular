@@ -13,6 +13,7 @@ import { CategoriesRouting } from './tasks-routing.module';
 import { TasksResolverService } from './servises/tasks-resolver.service';
 import { TaskEditComponent } from './task-edit/task.edit.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
         CustomMaterialModule,
         CategoriesRouting,
         ReactiveFormsModule,
+        InfiniteScrollModule,
     ],
     declarations: [TaskComponent, TasksComponent, TaskEditComponent, TasksTableComponent],
     providers: [CategoriesService, TasksService, TasksResolverService],
