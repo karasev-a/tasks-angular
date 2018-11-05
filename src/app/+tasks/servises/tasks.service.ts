@@ -51,6 +51,6 @@ export class TasksService {
     }
 
     public subscribeToTask(id: string): Observable<ITask> {
-        return this.http.get(`${this.urlApi}/${id}/subscription`);
+        return this.http.post(`${this.urlApi}/${id}/subscription`, {});
     }
 }
