@@ -7,8 +7,7 @@ import { ITask } from '../models/task';
 @Injectable()
 export class TasksService {
     private urlApi = `${environment.serverApiUrl}tasks`;
-    private limit = '10';
-
+    private limit = '2';
     constructor(private http: HttpClient) { }
 
     // create
@@ -33,9 +32,20 @@ export class TasksService {
         return this.http.get<ITask[]>(queryStr, { params: allParams });
     }
 
+    getAllTasksOfUser(params?: {[param: string]: string | string[]}): Observable<ITask[]> {
+        const queryStr = `${this.urlApi}/myTasks`;
+        let allParams = new HttpParams({
+            fromObject: params,
+        });
+        allParams = allParams.append('limit', `${this.limit}`);
+
+        return this.http.get<ITask[]>(queryStr, { params: allParams });
+
+       //  return this.http.get<ITask[]>(`${this.urlApi}/myTasks`);
+    }
     // delete
-    public deleteTask(id: string) {
-        return this.http.delete(`${this.urlApi}/`);
+    deleteTask(id: string) {
+        return this.http.delete(`${this.urlApi}/${id}`);
     }
     // Update
     public updateTask(id: number, task: ITask): Observable<ITask> {
@@ -53,4 +63,5 @@ export class TasksService {
     public subscribeToTask(id: string): Observable<ITask> {
         return this.http.post(`${this.urlApi}/${id}/subscription`, {});
     }
+
 }
