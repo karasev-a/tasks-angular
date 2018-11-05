@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../+categories/services/categories.service';
 import { ITask } from './models/task';
 import { TasksService } from './servises/tasks.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/index';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AcceptDialogComponent } from '../dialogs/accept/accept-dialog.component';
 
 @Component({
@@ -15,7 +15,6 @@ import { AcceptDialogComponent } from '../dialogs/accept/accept-dialog.component
 })
 
 export class TasksComponent implements OnInit {
-    // public acceptDialogRef: MatDialogRef<AcceptDialogComponent>;
     private categories: ICategory[];
     private taskOffset = 10;
     private tasks: ITask[];
@@ -53,7 +52,6 @@ export class TasksComponent implements OnInit {
     }
 
     onAccept(task: ITask) {
-
         const acceptDialogRef = this.dialog.open(AcceptDialogComponent, {
             hasBackdrop: false,
             data: {
@@ -61,8 +59,14 @@ export class TasksComponent implements OnInit {
                 title: task.title,
             },
         });
-        acceptDialogRef.afterClosed().pipe( // #TODO: emits each time and this is bad should be fixed next time
-            switchMap(() => this.tasksService.getAllTasks(this._categoryParam))).subscribe(
+        acceptDialogRef.afterClosed().pipe(
+            switchMap(event => {
+                if (event === 'submit') {
+                    return this.tasksService.getAllTasks(this._categoryParam);
+                } else {
+                    return []; // what I should return?
+                }
+            })).subscribe(
                 tasks => {
                     this.tasks = tasks;
                 });

@@ -13,10 +13,11 @@ export class AcceptDialogComponent {
               @Inject(MAT_DIALOG_DATA) public data: any, public tasksService: TasksService) { }
 
   public onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('close');
   }
 
   public confirmAccept(taskId: string): void {
     this.tasksService.subscribeToTask(taskId).subscribe();
+    this.dialogRef.close('submit');
   }
 }
