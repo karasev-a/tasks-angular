@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { CustomMaterialModule } from '../core/material.module';
 
@@ -12,6 +13,7 @@ import { TasksComponent } from './tasks.component';
 import { CategoriesRouting } from './tasks-routing.module';
 import { TasksResolverService } from './servises/tasks-resolver.service';
 import { TaskEditComponent } from './task-edit/task.edit.component';
+import { AcceptDialogComponent } from '../dialogs/accept/accept-dialog.component';
 
 @NgModule({
     imports: [
@@ -20,8 +22,12 @@ import { TaskEditComponent } from './task-edit/task.edit.component';
         CustomMaterialModule,
         CategoriesRouting,
         ReactiveFormsModule,
+        InfiniteScrollModule,
     ],
-    declarations: [TaskComponent, TasksComponent, TaskEditComponent],
+    declarations: [TaskComponent, TasksComponent, TaskEditComponent, AcceptDialogComponent],
+    entryComponents: [
+        AcceptDialogComponent,
+      ],
     providers: [CategoriesService, TasksService, TasksResolverService],
     exports: [],
 })

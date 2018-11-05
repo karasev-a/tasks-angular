@@ -16,8 +16,12 @@ export class TasksResolverService implements Resolve<ITask[]> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<ITask[]> | Observable<never> {
         const id = route.paramMap.get('categoryId');
+        let param = {};
+        if (id) {
+            param = { categoryId: id };
+        }
 
-        return this.ts.getTasksByCategory(id).pipe(
+        return this.ts.getAllTasks(param).pipe(
             take(1),
             mergeMap(tasks => {
               if (tasks) {
@@ -25,7 +29,6 @@ export class TasksResolverService implements Resolve<ITask[]> {
               }
               // else { // id not found
               //   this.router.navigate(['/']); // #TODO: where I shoud to go?
-
               //   return EMPTY;
               // }
             }),
