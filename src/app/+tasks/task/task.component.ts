@@ -7,10 +7,10 @@ import { ITask } from '../models/task';
 })
 export class TaskComponent {
   @Input() tasks: ITask[];
-  @Output() accept: EventEmitter<string> = new EventEmitter();
+  @Output() accept: EventEmitter<ITask> = new EventEmitter();
   constructor() { }
-  onAccept(taskId: string) {
-    this.accept.emit(taskId);
+  onAccept(task: ITask) {
+    this.accept.emit(task);
 
   }
 }

@@ -2,8 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategoriesService } from '../+categories/services/categories.service';
 import { ITask } from './models/task';
 import { TasksService } from './servises/tasks.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/index';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { AcceptDialogComponent } from '../dialogs/accept/accept-dialog.component';
 
 @Component({
     selector: 'app-tasks',
@@ -12,42 +15,68 @@ import { Subscription } from 'rxjs/index';
 })
 
 export class TasksComponent implements OnInit {
+    // public acceptDialogRef: MatDialogRef<AcceptDialogComponent>;
     private categories: ICategory[];
     private taskOffset = 10;
     private tasks: ITask[];
     private _routeSubscription: Subscription;
     private _categoryId: number;
-    constructor(private categoriesService: CategoriesService, private tasksService: TasksService, private _route: ActivatedRoute) { }
+    private _categoryParam = {};
 
+    constructor(
+        private categoriesService: CategoriesService,
+        private tasksService: TasksService,
+        private _route: ActivatedRoute,
+        private router: Router,
+        public dialog: MatDialog,
+    ) { }
+
+    public acceptTask(task: ITask) {
+    }
     ngOnInit() {
         // get all categories for nav bar
         this.categoriesService.getAllCategories().subscribe(categories => {
             this.categories = categories;
         });
+        // get current category id
+        this._routeSubscription = this._route.params.subscribe(currentParams => {
+            this._categoryId = parseInt(currentParams.categoryId, 10);
+            if (this._categoryId) {
+                this._categoryParam = { categoryId: this._categoryId.toString() };
+            }
+        });
+        // get relevant tasks
         this._route.data
             .subscribe((data: { tasks: ITask[] }) => {
                 this.tasks = data.tasks;
             });
     }
 
-    onAccept(taskId: string) {
-        this.tasksService.subscribeToTask(taskId).subscribe();
+    onAccept(task: ITask) {
+
+        const acceptDialogRef = this.dialog.open(AcceptDialogComponent, {
+            hasBackdrop: false,
+            data: {
+                id: task.id,
+                title: task.title,
+            },
+        });
+        acceptDialogRef.afterClosed().pipe( // #TODO: emits each time and this is bad should be fixed next time
+            switchMap(() => this.tasksService.getAllTasks(this._categoryParam))).subscribe(
+                tasks => {
+                    this.tasks = tasks;
+                });
     }
 
     onScroll() {
-        // get current category id
-        this._routeSubscription = this._route.params.subscribe(currentParams => {
-            this._categoryId = parseInt(currentParams.categoryId, 10);
-        });
-
         const paramsObj = {
             offset: this.taskOffset.toString(),
         };
         if (this._categoryId) {
-            Object.assign(paramsObj, {categoryId: this._categoryId.toString});
+            Object.assign(paramsObj, this._categoryParam);
         }
 
-        this.tasksService.getAllTasks(paramsObj).subscribe( (tasks: ITask[]) => {
+        this.tasksService.getAllTasks(paramsObj).subscribe((tasks: ITask[]) => {
             this.tasks = this.tasks.concat(tasks);
         });
         this.taskOffset += 10;

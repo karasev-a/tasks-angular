@@ -13,6 +13,7 @@ import { TasksComponent } from './tasks.component';
 import { CategoriesRouting } from './tasks-routing.module';
 import { TasksResolverService } from './servises/tasks-resolver.service';
 import { TaskEditComponent } from './task-edit/task.edit.component';
+import { AcceptDialogComponent } from '../dialogs/accept/accept-dialog.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,10 @@ import { TaskEditComponent } from './task-edit/task.edit.component';
         ReactiveFormsModule,
         InfiniteScrollModule,
     ],
-    declarations: [TaskComponent, TasksComponent, TaskEditComponent],
+    declarations: [TaskComponent, TasksComponent, TaskEditComponent, AcceptDialogComponent],
+    entryComponents: [
+        AcceptDialogComponent,
+      ],
     providers: [CategoriesService, TasksService, TasksResolverService],
     exports: [],
 })

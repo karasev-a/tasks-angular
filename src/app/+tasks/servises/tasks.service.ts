@@ -28,7 +28,7 @@ export class TasksService {
         let allParams = new HttpParams({
             fromObject: params,
         });
-        allParams = allParams.append('limit', `${this.limit}`); // here is problem
+        allParams = allParams.append('limit', `${this.limit}`);
 
         return this.http.get<ITask[]>(queryStr, { params: allParams });
     }
