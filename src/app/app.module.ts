@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './+login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CategoriesModule } from './+tasks/tasks.module';
-import { RouterModule } from '@angular/router';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     FormsModule,
     CategoriesModule,
+    ProfileModule,
   ],
   providers: [
     AuthService,
