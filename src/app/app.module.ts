@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './+login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CategoriesModule } from './+tasks/tasks.module';
-import { ProfileModule } from './profile/profile.module';
+import { ProfileModule } from './+profile/profile.module';
 
 @NgModule({
   declarations: [

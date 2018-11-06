@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CustomMaterialModule } from '../core/material.module';
-import { UserProfileComponent } from './user-profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProfileRouting } from './profile-routing.module';
 
 @NgModule({
