@@ -7,6 +7,8 @@ import { CustomMaterialModule } from '../core/material.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProfileRouting } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
+import { UserService } from '../+user/models/services/user.service';
+import { UserResolverService } from './services/user-resolve.service';
 
 @NgModule({
     imports: [
@@ -18,7 +20,7 @@ import { ProfileComponent } from './profile.component';
         ProfileRouting,
     ],
     declarations: [UserProfileComponent, ProfileComponent],
-    providers: [],
+    providers: [UserService, UserResolverService],
     exports: [],
 })
 export class ProfileModule { }

@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { AuthGuard } from '../auth/auth.guard';
 import { ProfileComponent } from './profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserResolverService } from './services/user-resolve.service';
 
 export const profileRouting: Routes = [
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: UserProfileComponent, resolve: UserResolverService, canActivate: [AuthGuard]},
   // { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
 ];
 

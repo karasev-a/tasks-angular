@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { IUser } from '../../+user/models/user.model';
+import { Route } from '@angular/router';
 
 @Component({
     selector: 'app-user-profile',
@@ -10,9 +12,14 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 export class UserProfileComponent implements OnInit {
     public profileEditForm: FormGroup;
     private passState = false;
-    constructor(private _fb: FormBuilder) { }
+    private user: IUser;
+    constructor(private _fb: FormBuilder, private route: Route) { }
 
     ngOnInit() {
+        // this.route.data.subscribe((data: { user: IUser }) => {
+            // this.user = data.user;
+        // });
+
         this.profileEditForm = this._fb.group({
             firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
@@ -24,7 +31,6 @@ export class UserProfileComponent implements OnInit {
         });
     }
     onPswd() {
-        console.log(this.passState);
         this.passState = !this.passState;
     }
 }
