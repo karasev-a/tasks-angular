@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 export class UserProfileComponent implements OnInit {
     public profileEditForm: FormGroup;
+    private passState = false;
     constructor(private _fb: FormBuilder) { }
 
     ngOnInit() {
@@ -21,5 +22,9 @@ export class UserProfileComponent implements OnInit {
             cPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]),
 
         });
+    }
+    onPswd() {
+        console.log(this.passState);
+        this.passState = !this.passState;
     }
 }
