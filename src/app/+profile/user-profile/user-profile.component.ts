@@ -13,9 +13,13 @@ export class UserProfileComponent implements OnInit {
 
     ngOnInit() {
         this.profileEditForm = this._fb.group({
-            firstName: new FormControl(``, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            lastName: new FormControl(''),
-            email: new FormControl('', [Validators.required, Validators.min(1), Validators.max(5)]),
+            firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+            lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+            email: new FormControl('', [Validators.required, Validators.min(1), Validators.max(255)]),
+            oldPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]),
+            newPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]),
+            cPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]),
+
         });
     }
 }
