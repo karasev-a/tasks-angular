@@ -2,7 +2,49 @@
     MY Tasks
 </h2>
 
-<mat-table [dataSource]="tasks">
+<div class="example-header">
+    <mat-form-field>
+        <input matInput (keyup)="applySearch($event.target.value)" placeholder="Search">
+    </mat-form-field>
+</div>
+
+<div class="example-header">
+
+</div>
+
+<form [formGroup]="filterForm">
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status" (selectionChange)="onSelectStatus($event.value)">
+            <mat-option *ngFor="let key of keysOfStatuses" [value]="key">
+                {{statuses[key]}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="categoryId" (selectionChange)="onSelectCategory($event.value)">
+            <mat-option *ngFor="let category of categories" [value]="category.id">
+                {{category.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>When(Date and Time):</mat-label>
+        <input matInput formControlName="date" (dateTimeInput)="onSelectDate($event.value)" 
+            [style.width]="'350px'" [(ngModel)]="dateTimeRange" [selectMode]="'range'" [owlDateTimeTrigger]="dtRange1"
+            [owlDateTime]="dtRange1">
+        <owl-date-time #dtRange1></owl-date-time>
+    </mat-form-field>
+
+
+    <button type='button' (click)="resetForm()">Reset</button>
+</form>
+
+
+
+<mat-table [dataSource]="tasksDataSource">
     <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
         <mat-cell *matCellDef="let task"> {{task.title}} </mat-cell>
@@ -31,6 +73,11 @@
     <ng-container matColumnDef="numberSubscribedPeople">
         <mat-header-cell *matHeaderCellDef> Subscribed People </mat-header-cell>
         <mat-cell *matCellDef="let task"> {{task.numberSubscribedPeople}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+        <mat-cell *matCellDef="let task"> {{task.Category.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">

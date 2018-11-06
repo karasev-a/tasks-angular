@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ITask, Statuses } from '../models/task';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { DeleteDialogComponent } from '../../dialogs/delete/delete-dialog.component';
 import { TasksService } from '../servises/tasks.service';
-
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-tasks-table',
@@ -15,20 +15,103 @@ import { TasksService } from '../servises/tasks.service';
 
 export class TasksTableComponent implements OnInit {
   public tasks: ITask[];
-  public displayedColumns: string[] = ['title', 'createdAt', 'date', 'status', 'people', 'numberSubscribedPeople', 'actions'];
+  public displayedColumns: string[] = ['title', 'createdAt', 'date', 'status', 'people', 'numberSubscribedPeople', 'category', 'actions'];
   public deleteDialogRef: MatDialogRef<DeleteDialogComponent>;
   public statuses = Statuses;
+  public tasksDataSource = new MatTableDataSource<ITask>();
+  public paramsObj = {};
+  public filterForm: FormGroup;
+  public categories: ICategory[];
+  public keysOfStatuses: string[];
+  public str = '';
   private _taskOffset = 0;
+
   constructor(
     private _router: Router,
     private _activatrdRoute: ActivatedRoute,
     private _location: Location,
     public dialog: MatDialog,
     private _tasksService: TasksService,
+    private _fb: FormBuilder,
   ) { }
 
   ngOnInit() {
-    this.tasks = this._activatrdRoute.snapshot.data.tasksTable;
+    this.tasksDataSource.data = this._activatrdRoute.snapshot.data.tasksTable;
+    this.categories = this._activatrdRoute.snapshot.data.categories;
+    this.keysOfStatuses = Object.keys(this.statuses).filter(Number);
+
+    this.filterForm = this._fb.group({
+      categoryId: new FormControl(''),
+      status: new FormControl(''),
+      date: new FormControl(''),
+    });
+  }
+
+  applySearch(filterValue: string) {
+
+    if (filterValue) {
+      filterValue = filterValue.trim(); // Remove whitespace
+      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+      this.paramsObj['title'] = filterValue;
+      this._taskOffset = 0;
+      this.paramsObj['offset'] = this._taskOffset.toString();
+      this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
+        this.tasksDataSource.data = tasksUser;
+      });
+    } else {
+      this._taskOffset = 0;
+      this.paramsObj['offset'] = this._taskOffset.toString();
+      delete this.paramsObj['title'];
+      this._tasksService.getAllTasksOfUser().subscribe((tasksUser: ITask[]) => {
+        this.tasksDataSource.data = tasksUser;
+      });
+    }
+  }
+
+  onSelectStatus(filterValue: string) {
+    if (filterValue) {
+      filterValue = filterValue.trim(); // Remove whitespace
+      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+      this.paramsObj['status'] = filterValue;
+      this._taskOffset = 0;
+      this.paramsObj['offset'] = this._taskOffset.toString();
+      this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
+        this.tasksDataSource.data = tasksUser;
+      });
+    }
+  }
+
+  onSelectCategory(filterValue: string) {
+    if (filterValue) {
+      this.paramsObj['categoryId'] = filterValue;
+      this._taskOffset = 0;
+      this.paramsObj['offset'] = this._taskOffset.toString();
+      this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
+        this.tasksDataSource.data = tasksUser;
+      });
+    }
+  }
+  onSelectDate(filterValue: any) {
+    if (filterValue) {
+      this.paramsObj['dateStart'] = filterValue[0];
+      this.paramsObj['dateEnd'] = filterValue[1];
+      this._taskOffset = 0;
+      this.paramsObj['offset'] = this._taskOffset.toString();
+      this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
+        this.tasksDataSource.data = tasksUser;
+      });
+    }
+  }
+
+  resetForm() {
+    this.filterForm.reset();
+    this._taskOffset = 0;
+    this.paramsObj = {
+      offset: this._taskOffset.toString(),
+    };
+    this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
+      this.tasksDataSource.data = tasksUser;
+    });
   }
 
   public deleteTask(task: ITask) {
@@ -56,14 +139,12 @@ export class TasksTableComponent implements OnInit {
   }
 
   onScroll() {
-    const paramsObj = {
-      offset: this._taskOffset.toString(),
-    };
-
-    this._tasksService.getAllTasksOfUser(paramsObj).subscribe((tasks: ITask[]) => {
-      this.tasks = this.tasks.concat(tasks);
-    });
     this._taskOffset += 2;
+    this.paramsObj['offset'] = this._taskOffset.toString();
+
+    this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasks: ITask[]) => {
+      this.tasksDataSource.data = this.tasksDataSource.data.concat(tasks);
+    });
   }
 
 }
