@@ -41,17 +41,17 @@
                 </mat-form-field>
                 <mat-form-field>
                         <mat-label>Email:</mat-label>
-                        <input matInput type="text" formControlName="email" required>
+                        <input matInput type="text" formControlName="email" required type="email">
                         <mat-error>
                                 <div class="alert alert-danger" *ngIf="profileEditForm.controls['email'].invalid && profileEditForm.controls['email'].touched">
                                         <div *ngIf="profileEditForm.controls['email'].errors.required">
-                                                Name is required.
+                                                email is required.
                                         </div>
-                                        <div *ngIf="profileEditForm.controls['email'].errors.minlength">
-                                                Name must be at least 3 characters long.
+                                        <div *ngIf="profileEditForm.controls['email'].errors.email">
+                                                Email incorrect.
                                         </div>
                                         <div *ngIf="profileEditForm.controls['email'].errors.maxlength">
-                                                Name must be less than 255 characters long.
+                                                email must be less than 255 characters long.
                                         </div>
                                 </div>
                         </mat-error>
@@ -62,58 +62,57 @@
                 <div *ngIf="this._isPswdBeChng">
                         <mat-form-field>
                                 <mat-label>Old Password:</mat-label>
-                                <input matInput type="text" formControlName="oldPswd" required>
+                                <input matInput type="text" formControlName="oldPswd" required type="password">
                                 <mat-error>
                                         <div class="alert alert-danger" *ngIf="profileEditForm.controls['email'].invalid && profileEditForm.controls['oldPswd'].touched">
                                                 <div *ngIf="profileEditForm.controls['oldPswd'].errors.required">
-                                                        Name is required.
+                                                        password is required.
                                                 </div>
                                                 <div *ngIf="profileEditForm.controls['oldPswd'].errors.minlength">
-                                                        Name must be at least 3 characters long.
+                                                        password must be at least 3 characters long.
                                                 </div>
                                                 <div *ngIf="profileEditForm.controls['oldPswd'].errors.maxlength">
-                                                        Name must be less than 255 characters long.
+                                                        password must be less than 255 characters long.
                                                 </div>
                                         </div>
                                 </mat-error>
                         </mat-form-field>
                         <mat-form-field>
                                 <mat-label>New Password:</mat-label>
-                                <input matInput type="text" formControlName="newPswd" required>
+                                <input matInput type="text" formControlName="newPswd" required type="password">
                                 <mat-error>
                                         <div class="alert alert-danger" *ngIf="profileEditForm.controls['newPswd'].invalid && profileEditForm.controls['newPswd'].touched">
                                                 <div *ngIf="profileEditForm.controls['newPswd'].errors.required">
-                                                        Name is required.
+                                                        password is required.
                                                 </div>
                                                 <div *ngIf="profileEditForm.controls['newPswd'].errors.minlength">
-                                                        Name must be at least 3 characters long.
+                                                        password must be at least 3 characters long.
                                                 </div>
                                                 <div *ngIf="profileEditForm.controls['newPswd'].errors.maxlength">
-                                                        Name must be less than 255 characters long.
+                                                        password must be less than 255 characters long.
                                                 </div>
                                         </div>
                                 </mat-error>
                         </mat-form-field>
                         <mat-form-field>
                                 <mat-label>Confirm Password:</mat-label>
-                                <input matInput type="text" formControlName="cPswd" required>
+                                <input matInput type="text" formControlName="cPswd" required type="password">
                                 <mat-error>
                                         <div class="alert alert-danger" *ngIf="profileEditForm.controls['cPswd'].invalid && profileEditForm.controls['cPswd'].touched">
                                                 <div *ngIf="profileEditForm.controls['cPswd'].errors.required">
-                                                        Name is required.
+                                                        password is required.
                                                 </div>
                                                 <div *ngIf="profileEditForm.controls['cPswd'].errors.minlength">
-                                                        Name must be at least 3 characters long.
+                                                        password must be at least 3 characters long.
                                                 </div>
                                                 <div *ngIf="profileEditForm.controls['cPswd'].errors.maxlength">
-                                                        Name must be less than 255 characters long.
+                                                        password must be less than 255 characters long.
                                                 </div>
                                         </div>
                                 </mat-error>
                         </mat-form-field>
                 </div>
-                <button mat-button color="primary" (click)="onSave()">Save</button>
+                <button mat-button color="primary" [disabled]="profileEditForm.invalid" (click)="onSave()">Save</button>
                 <button mat-button color="primary" (click)="onCancel()">Cancel</button>
-                <!-- <div class="alert alert-danger" *ngIf=""> -->
         </form>
 </mat-card>

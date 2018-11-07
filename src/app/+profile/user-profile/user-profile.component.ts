@@ -24,14 +24,15 @@ export class UserProfileComponent implements OnInit {
         this.profileEditForm = this._fb.group({
             firstName: new FormControl(this._user.firstName, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             lastName: new FormControl(this._user.lastName, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-            email: new FormControl(this._user.email, [Validators.required, Validators.min(1), Validators.max(255)]),
-            oldPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]),
-            newPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]),
-            cPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]),
+            email: new FormControl(this._user.email, [Validators.required, Validators.email, Validators.max(255)]),
+            oldPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]).disable(),
+            newPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]).disable(),
+            cPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]).disable(),
         });
     }
     onPswd() {
         this._isPswdBeChng = true;
+        this.profileEditForm.enable();
     }
     onSave() {
         const formUser = {
@@ -47,13 +48,14 @@ export class UserProfileComponent implements OnInit {
             });
         }
         this.userService.updateUser(formUser).pipe(
-            mergeMap( success => {
+            mergeMap(success => {
                 if (success) {
                     return this.userService.getUser();
                 } else {
                     return;
                 }
-            })).subscribe( user => this._user = user);
+            })).subscribe(user => this._user = user);
+        this._isPswdBeChng = false;
     }
     onCancel() {
         this._isPswdBeChng = false;
@@ -62,5 +64,8 @@ export class UserProfileComponent implements OnInit {
             lastName: this._user.lastName,
             email: this._user.email,
         });
+        this.profileEditForm.controls.oldPswd.disable();
+        this.profileEditForm.controls.newPswd.disable();
+        this.profileEditForm.controls.cPswd.disable();
     }
 }
