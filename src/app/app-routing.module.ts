@@ -6,7 +6,6 @@ import { TaskEditComponent } from './+tasks/task-edit/task.edit.component';
 import { TaskEditResolverService } from './+tasks/servises/task.edit.resolver.service';
 import { CategoriesListResolverService } from './+categories/services/categories-list.resolver';
 import { TasksTableComponent } from './+tasks/tasks-table/tasks-table.component';
-import { TasksTableResolverService } from './+tasks/servises/tasks-table.resolver.service';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -29,7 +28,6 @@ const appRoutes: Routes = [
   {
     path: 'myTasks', component: TasksTableComponent,
     resolve: {
-      tasksTable: TasksTableResolverService,
       categories: CategoriesListResolverService,
     },
   },

@@ -34,10 +34,10 @@ export class TasksService {
 
     getAllTasksOfUser(params?: {[param: string]: string | string[]}): Observable<ITask[]> {
         const queryStr = `${this.urlApi}/myTasks`;
-        let allParams = new HttpParams({
+        const allParams = new HttpParams({
             fromObject: params,
         });
-        allParams = allParams.append('limit', `${this.limit}`);
+        // allParams = allParams.append('limit', `${this.limit}`);
 
         return this.http.get<ITask[]>(queryStr, { params: allParams });
 

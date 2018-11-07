@@ -25,6 +25,7 @@ export class TasksTableComponent implements OnInit {
   public keysOfStatuses: string[];
   public str = '';
   private _taskOffset = 0;
+  private _taskLimit = 2;
 
   constructor(
     private _router: Router,
@@ -36,7 +37,11 @@ export class TasksTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tasksDataSource.data = this._activatrdRoute.snapshot.data.tasksTable;
+    this.paramsObj['limit'] = this._taskLimit;
+    this.paramsObj['offset'] = this._taskOffset;
+    this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
+      this.tasksDataSource.data = tasksUser;
+    });
     this.categories = this._activatrdRoute.snapshot.data.categories;
     this.keysOfStatuses = Object.keys(this.statuses).filter(Number);
 
