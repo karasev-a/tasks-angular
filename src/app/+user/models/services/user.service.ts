@@ -21,4 +21,7 @@ export class UserService {
 
         return this.http.get<IUser>(`${this.urlApi}`, {params});
     }
+    public updateUser(user: IUser): Observable<IUser> {
+        return this.http.put<IUser>(`${this.urlApi}`, user);
+    }
 }
