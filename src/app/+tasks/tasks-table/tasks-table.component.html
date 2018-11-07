@@ -31,9 +31,9 @@
     </mat-form-field>
     
     <mat-form-field>
-        <mat-label>When(Date and Time):</mat-label>
+        <mat-label>Range of Finish Task:</mat-label>
         <input matInput formControlName="date" (dateTimeInput)="onSelectDate($event.value)" 
-            [style.width]="'350px'" [(ngModel)]="dateTimeRange" [selectMode]="'range'" [owlDateTimeTrigger]="dtRange1"
+            [(ngModel)]="dateTimeRange" [selectMode]="'range'" [owlDateTimeTrigger]="dtRange1"
             [owlDateTime]="dtRange1">
         <owl-date-time #dtRange1></owl-date-time>
     </mat-form-field>

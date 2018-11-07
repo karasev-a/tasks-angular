@@ -48,30 +48,23 @@ export class TasksTableComponent implements OnInit {
   }
 
   applySearch(filterValue: string) {
+    this._taskOffset = 0;
+    this.paramsObj['offset'] = this._taskOffset.toString();
 
     if (filterValue) {
       filterValue = filterValue.trim(); // Remove whitespace
       filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
       this.paramsObj['title'] = filterValue;
-      this._taskOffset = 0;
-      this.paramsObj['offset'] = this._taskOffset.toString();
-      this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
-        this.tasksDataSource.data = tasksUser;
-      });
     } else {
-      this._taskOffset = 0;
-      this.paramsObj['offset'] = this._taskOffset.toString();
       delete this.paramsObj['title'];
-      this._tasksService.getAllTasksOfUser().subscribe((tasksUser: ITask[]) => {
-        this.tasksDataSource.data = tasksUser;
-      });
     }
+    this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
+      this.tasksDataSource.data = tasksUser;
+    });
   }
 
-  onSelectStatus(filterValue: string) {
+  onSelectStatus(filterValue: number) {
     if (filterValue) {
-      filterValue = filterValue.trim(); // Remove whitespace
-      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
       this.paramsObj['status'] = filterValue;
       this._taskOffset = 0;
       this.paramsObj['offset'] = this._taskOffset.toString();
@@ -81,7 +74,7 @@ export class TasksTableComponent implements OnInit {
     }
   }
 
-  onSelectCategory(filterValue: string) {
+  public onSelectCategory(filterValue: number) {
     if (filterValue) {
       this.paramsObj['categoryId'] = filterValue;
       this._taskOffset = 0;
@@ -91,7 +84,7 @@ export class TasksTableComponent implements OnInit {
       });
     }
   }
-  onSelectDate(filterValue: any) {
+  public onSelectDate(filterValue: Date) {
     if (filterValue) {
       this.paramsObj['dateStart'] = filterValue[0];
       this.paramsObj['dateEnd'] = filterValue[1];
@@ -103,12 +96,15 @@ export class TasksTableComponent implements OnInit {
     }
   }
 
-  resetForm() {
+  public resetForm() {
     this.filterForm.reset();
     this._taskOffset = 0;
-    this.paramsObj = {
-      offset: this._taskOffset.toString(),
-    };
+    for (const key in this.paramsObj) {
+      if (key !== 'title') {
+        delete this.paramsObj[`${key}`];
+      }
+    }
+    this.paramsObj['offset'] = this._taskOffset.toString();
     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
       this.tasksDataSource.data = tasksUser;
     });
@@ -125,9 +121,11 @@ export class TasksTableComponent implements OnInit {
     });
 
     this.deleteDialogRef.afterClosed().subscribe(result => {
-      if (result === 1) {
-        this._tasksService.getAllTasksOfUser().subscribe(data => {
-          this.tasks = data;
+      if (result) {
+        this._taskOffset = 0;
+        this.paramsObj['offset'] = this._taskOffset.toString();
+        this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe(tasksUser => {
+          this.tasksDataSource.data = tasksUser;
         });
       }
     });
@@ -138,10 +136,9 @@ export class TasksTableComponent implements OnInit {
     this._router.navigate(['/tasks', task.id]);
   }
 
-  onScroll() {
+  public onScroll() {
     this._taskOffset += 2;
     this.paramsObj['offset'] = this._taskOffset.toString();
-
     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasks: ITask[]) => {
       this.tasksDataSource.data = this.tasksDataSource.data.concat(tasks);
     });
