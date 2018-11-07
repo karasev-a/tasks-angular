@@ -57,9 +57,9 @@
                         </mat-error>
                 </mat-form-field>
 
-                <button mat-button *ngIf="!this._passState" color="primary" (click)="onPswd()">Change Password</button>
+                <button mat-button *ngIf="!this._isPswdBeChng" color="primary" (click)="onPswd()">Change Password</button>
 
-                <div *ngIf="this._passState">
+                <div *ngIf="this._isPswdBeChng">
                         <mat-form-field>
                                 <mat-label>Old Password:</mat-label>
                                 <input matInput type="text" formControlName="oldPswd" required>

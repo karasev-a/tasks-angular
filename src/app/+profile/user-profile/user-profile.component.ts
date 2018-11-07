@@ -13,7 +13,7 @@ import { mergeMap } from 'rxjs/internal/operators/mergeMap';
 
 export class UserProfileComponent implements OnInit {
     public profileEditForm: FormGroup;
-    private _passState = false;
+    private _isPswdBeChng = false;
     private _user: IUser;
     constructor(private _fb: FormBuilder, private _route: ActivatedRoute, private userService: UserService) { }
 
@@ -31,14 +31,21 @@ export class UserProfileComponent implements OnInit {
         });
     }
     onPswd() {
-        this._passState = true;
+        this._isPswdBeChng = true;
     }
     onSave() {
         const formUser = {
             firstName: this.profileEditForm.controls.firstName.value,
             lastName: this.profileEditForm.controls.lastName.value,
-            address: this.profileEditForm.controls.email.value,
+            email: this.profileEditForm.controls.email.value,
         };
+        if (this._isPswdBeChng) {
+            Object.assign(formUser, {
+                oldPswd: this.profileEditForm.controls.oldPswd.value,
+                newPswd: this.profileEditForm.controls.newPswd.value,
+                cPswd: this.profileEditForm.controls.cPswd.value,
+            });
+        }
         this.userService.updateUser(formUser).pipe(
             mergeMap( success => {
                 if (success) {
@@ -49,7 +56,7 @@ export class UserProfileComponent implements OnInit {
             })).subscribe( user => this._user = user);
     }
     onCancel() {
-        this._passState = false;
+        this._isPswdBeChng = false;
         this.profileEditForm.patchValue({
             firstName: this._user.firstName,
             lastName: this._user.lastName,
