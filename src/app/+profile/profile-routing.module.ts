@@ -6,7 +6,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserResolverService } from './services/user-resolve.service';
 
 export const profileRouting: Routes = [
-  { path: 'profile', component: UserProfileComponent, resolve: UserResolverService, canActivate: [AuthGuard]},
+  { path: 'profile', component: ProfileComponent, resolve: { user: UserResolverService}, canActivate: [AuthGuard]},
   // { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
 ];
 

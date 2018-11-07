@@ -15,8 +15,15 @@ export class UserResolverService implements Resolve<IUser> {
     constructor(private router: Router, private us: UserService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-    Observable<IUser> | Observable<never> {
-        return this.us.getUser();
+        Observable<IUser> | Observable<never> {
+        return this.us.getUser().pipe(
+            take(1),
+            mergeMap(tasks => {
+                if (tasks) {
+                    return of(tasks);
+                }
+            }),
+        );
     }
 
 }

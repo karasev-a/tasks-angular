@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { IUser } from '../../+user/models/user.model';
-import { Route } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-user-profile',
@@ -11,17 +11,17 @@ import { Route } from '@angular/router';
 
 export class UserProfileComponent implements OnInit {
     public profileEditForm: FormGroup;
-    private passState = false;
-    private user: IUser;
-    constructor(private _fb: FormBuilder, private route: Route) { }
+    private _passState = false;
+    private _user: IUser;
+    constructor(private _fb: FormBuilder, private _route: ActivatedRoute) { }
 
     ngOnInit() {
-        // this.route.data.subscribe((data: { user: IUser }) => {
-            // this.user = data.user;
-        // });
+        this._route.data.subscribe((data: { user: IUser }) => {
+            this._user = data.user;
+        });
 
         this.profileEditForm = this._fb.group({
-            firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+            firstName: new FormControl(this._user.firstName, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
             email: new FormControl('', [Validators.required, Validators.min(1), Validators.max(255)]),
             oldPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]),
@@ -31,6 +31,14 @@ export class UserProfileComponent implements OnInit {
         });
     }
     onPswd() {
-        this.passState = !this.passState;
+        this._passState = true;
+    }
+    onCancel() {
+        this._passState = false;
+        this.profileEditForm.setValue({
+            firstname: this._user.firstName,
+            lastName: this._user.lastName,
+            email: this._user.email,
+        });
     }
 }
