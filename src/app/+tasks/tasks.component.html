@@ -4,6 +4,6 @@
                 <li> <a routerLink="/categories/{{category.id}}" routerLinkActive="active">{{category.name}}</a></li>
         </div>
 </ul>
-<div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+<div infiniteScroll [infiniteScrollDistance]="4" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
         <app-task [tasks]="tasks" (accept)="onAccept($event)"></app-task>
 </div>
