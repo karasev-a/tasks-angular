@@ -19,7 +19,7 @@ export class TasksTableComponent implements OnInit {
   public deleteDialogRef: MatDialogRef<DeleteDialogComponent>;
   public statuses = Statuses;
   public tasksDataSource = new MatTableDataSource<ITask>();
-  public paramsObj = {};
+  public paramsObj: IParamsQueryTask;
   public filterForm: FormGroup;
   public categories: ICategory[];
   public keysOfStatuses: string[];
@@ -37,8 +37,10 @@ export class TasksTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.paramsObj['limit'] = this._taskLimit;
-    this.paramsObj['offset'] = this._taskOffset;
+    this.paramsObj = {
+      limit: this._taskLimit.toString(),
+      offset: this._taskOffset.toString(),
+    };
     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
       this.tasksDataSource.data = tasksUser;
     });
@@ -54,14 +56,14 @@ export class TasksTableComponent implements OnInit {
 
   applySearch(filterValue: string) {
     this._taskOffset = 0;
-    this.paramsObj['offset'] = this._taskOffset.toString();
+    this.paramsObj.offset = this._taskOffset.toString();
 
     if (filterValue) {
-      filterValue = filterValue.trim(); // Remove whitespace
-      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-      this.paramsObj['title'] = filterValue;
+      filterValue = filterValue.trim();
+      filterValue = filterValue.toLowerCase();
+      this.paramsObj.title = filterValue;
     } else {
-      delete this.paramsObj['title'];
+      delete this.paramsObj.title;
     }
     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
       this.tasksDataSource.data = tasksUser;
@@ -70,9 +72,9 @@ export class TasksTableComponent implements OnInit {
 
   onSelectStatus(filterValue: number) {
     if (filterValue) {
-      this.paramsObj['status'] = filterValue;
+      this.paramsObj.status = filterValue.toString();
       this._taskOffset = 0;
-      this.paramsObj['offset'] = this._taskOffset.toString();
+      this.paramsObj.offset = this._taskOffset.toString();
       this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
         this.tasksDataSource.data = tasksUser;
       });
@@ -81,9 +83,9 @@ export class TasksTableComponent implements OnInit {
 
   public onSelectCategory(filterValue: number) {
     if (filterValue) {
-      this.paramsObj['categoryId'] = filterValue;
+      this.paramsObj.categoryId = filterValue.toString();
       this._taskOffset = 0;
-      this.paramsObj['offset'] = this._taskOffset.toString();
+      this.paramsObj.offset = this._taskOffset.toString();
       this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
         this.tasksDataSource.data = tasksUser;
       });
@@ -91,10 +93,10 @@ export class TasksTableComponent implements OnInit {
   }
   public onSelectDate(filterValue: Date) {
     if (filterValue) {
-      this.paramsObj['dateStart'] = filterValue[0];
-      this.paramsObj['dateEnd'] = filterValue[1];
+      this.paramsObj.dateStart = filterValue[0];
+      this.paramsObj.dateEnd = filterValue[1];
       this._taskOffset = 0;
-      this.paramsObj['offset'] = this._taskOffset.toString();
+      this.paramsObj.offset = this._taskOffset.toString();
       this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
         this.tasksDataSource.data = tasksUser;
       });
@@ -109,7 +111,7 @@ export class TasksTableComponent implements OnInit {
         delete this.paramsObj[`${key}`];
       }
     }
-    this.paramsObj['offset'] = this._taskOffset.toString();
+    this.paramsObj.offset = this._taskOffset.toString();
     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
       this.tasksDataSource.data = tasksUser;
     });
@@ -128,7 +130,7 @@ export class TasksTableComponent implements OnInit {
     this.deleteDialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._taskOffset = 0;
-        this.paramsObj['offset'] = this._taskOffset.toString();
+        this.paramsObj.offset = this._taskOffset.toString();
         this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe(tasksUser => {
           this.tasksDataSource.data = tasksUser;
         });
@@ -143,7 +145,7 @@ export class TasksTableComponent implements OnInit {
 
   public onScroll() {
     this._taskOffset += 2;
-    this.paramsObj['offset'] = this._taskOffset.toString();
+    this.paramsObj.offset = this._taskOffset.toString();
     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasks: ITask[]) => {
       this.tasksDataSource.data = this.tasksDataSource.data.concat(tasks);
     });
