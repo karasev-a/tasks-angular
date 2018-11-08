@@ -16,14 +16,7 @@ export class UserResolverService implements Resolve<IUser> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         Observable<IUser> | Observable<never> {
-        return this.us.getUser().pipe(
-            take(1),
-            mergeMap(tasks => {
-                if (tasks) {
-                    return of(tasks);
-                }
-            }),
-        );
+        return this.us.getUser();
     }
 
 }
