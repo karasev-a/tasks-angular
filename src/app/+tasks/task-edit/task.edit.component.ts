@@ -8,6 +8,7 @@ import { TasksService } from '../servises/tasks.service';
 import { CustomValidators } from '../../core/custom-validators/customValidator';
 
 import { ITask } from '../models/task';
+import { ICategory } from '../../+categories/models/category';
 
 @Component({
     selector: 'app-task-edit',

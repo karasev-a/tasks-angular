@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ICategory } from '../../+categories/models/category';
 
 @Component({
     selector: 'app-categories-list',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ACategoryListComponent implements OnInit {
+    private categories: ICategory[];
     constructor() { }
     ngOnInit() {
     }
