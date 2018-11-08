@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, from } from 'rxjs';
+import { Observable, Subscription, from } from 'rxjs/index';
 
 import '../assets/css/styles.css';
 import { AuthService } from './auth/auth.service';
