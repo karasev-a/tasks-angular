@@ -83,6 +83,6 @@ export class TasksComponent implements OnInit {
         this.tasksService.getAllTasks(paramsObj).subscribe((tasks: ITask[]) => {
             this.tasks = this.tasks.concat(tasks);
         });
-        this.taskOffset += 10;
+        this.taskOffset += 2;
     }
 }

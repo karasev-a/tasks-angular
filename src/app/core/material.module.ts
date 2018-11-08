@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatDatepickerModule, MatInputModule,
   MatTableModule, MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule,
-  MatGridListModule, MatTabsModule, MatNativeDateModule, MatFormFieldModule, MatFormFieldControl,
-  MatSelectModule,
+  MatGridListModule, MatTabsModule, MatNativeDateModule, MatFormFieldModule, MatSelectModule,
 } from '@angular/material';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 

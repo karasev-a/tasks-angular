@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute, Router, ActivatedRouteSnapshot, Params } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription, from } from 'rxjs';
 
@@ -36,7 +36,7 @@ export class TaskEditComponent implements OnInit, OnDestroy {
         this.categories = this._route.snapshot.data.categories;
         this.currentDate = new Date();
         this._querySubscription = this._route.queryParams.subscribe(
-            (queryParam: any) => {
+            (queryParam: Params) => {
                 this._categoryId = parseInt(queryParam.categoryId, 10);
             },
         );
