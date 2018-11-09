@@ -1,10 +1,10 @@
 interface IParamsQueryTask {
-    limit: string|null;
+    limit?: string|null;
     offset?: string;
     title?: string;
     status?: string;
-    categoryId?: string;
+    categoryId?: string|string[];
     dateStart?: string;
     dateEnd?: string;
-    [index: string]: string;
+    [index: string]: string|string[];
 }
