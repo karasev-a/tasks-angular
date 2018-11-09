@@ -7,6 +7,7 @@ import { first } from 'rxjs/operators';
 import { MyErrorStateMatcher } from '../error/error-state-matcher';
 import { environment } from '../../environments/environment';
 import { AlertService } from '../alert/services/alert.service';
+import { IUser } from '../+user/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -52,7 +53,7 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.passwords.password,
       phone: this.registerForm.value.phone,
     };
-
+    // #TODO: Use user service instead;
     this._http.post<IUser>(`${this._serverUrl}users`, user)
     .pipe(first())
     .subscribe(

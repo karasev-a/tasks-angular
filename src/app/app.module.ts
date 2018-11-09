@@ -17,6 +17,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './+login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CategoriesModule } from './+tasks/tasks.module';
+import { ProfileModule } from './+profile/profile.module';
+import { RouterModule } from '@angular/router';
 import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component';
 
 @NgModule({
@@ -37,6 +39,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component'
     InfiniteScrollModule,
     FormsModule,
     CategoriesModule,
+    ProfileModule,
   ],
   providers: [
     AuthService,
