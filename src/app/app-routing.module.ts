@@ -12,7 +12,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegisterComponent },
   {
-    path: 'categories/newTask',
+    path: 'categories/new-task',
     component: TaskEditComponent,
     resolve: {
       categories: CategoriesListResolverService,
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     },
   },
   {
-    path: 'myTasks', component: TasksTableComponent,
+    path: 'my-tasks', component: TasksTableComponent,
     resolve: {
       categories: CategoriesListResolverService,
     },
