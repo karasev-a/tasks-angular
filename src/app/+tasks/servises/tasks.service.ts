@@ -41,7 +41,7 @@ export class TasksService {
         return this.http.get<ITask[]>(queryStr, { params: allParams });
     }
     // delete
-    deleteTask(id: string) {
+    deleteTask(id: number) {
         return this.http.delete(`${this.urlApi}/${id}`);
     }
     // Update
@@ -61,7 +61,7 @@ export class TasksService {
         return this.http.post(`${this.urlApi}/${id}/subscription`, {});
     }
 
-    public geAlTasksOfManager(params?: IParamsQueryTask): Observable<ITask[]> {
+    public geAllTasksOfManager(params?: IParamsQueryTask): Observable<ITask[]> {
         const allParams = new HttpParams({
             fromObject: params,
         });

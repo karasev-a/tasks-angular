@@ -1,0 +1,22 @@
+<div class="container">
+    <h3 mat-dialog-title>Info about task</h3>
+    <div mat-dialog-content>
+        Title: {{data.task.title}}
+        <p></p>
+        Description: {{data.task.description}}
+        <p></p>
+        Poeple: {{data.task.people}}
+        <p></p>
+        Price: {{data.task.price}}
+        <p></p>
+        When: {{data.task.date}}
+        <p></p>
+        Category: {{data.category.name}}
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="1" (click)="confirmApprove(data.task)">Approve</button>
+        <button mat-button (click)="showComfirmDialog()">Decline</button>
+        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+</div>

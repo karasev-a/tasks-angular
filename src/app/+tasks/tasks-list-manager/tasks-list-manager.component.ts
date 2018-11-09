@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { ITask, Statuses } from '../models/task';
 import { TasksService } from '../servises/tasks.service';
 import { CategoriesService } from '../../+categories/services/categories.service';
+import { InfoTaskDialogComponent } from '../../dialogs/info-task/info-task-dialog.component';
 
 @Component({
     selector: 'app-tasks-list-manager',
@@ -18,29 +19,53 @@ export class TasksListManagerComponent implements OnInit {
     public categories: ICategory[];
     public tasksDataSource = new MatTableDataSource<ITask>();
     public paramsObj: IParamsQueryTask;
+    public infoTaskDialogRef: MatDialogRef<InfoTaskDialogComponent>;
 
     constructor(
         // private _router: Router,
         private _activatedRoute: ActivatedRoute,
         // private _location: Location,
-        // public dialog: MatDialog,
+        public dialog: MatDialog,
         private _tasksService: TasksService,
         private _categoriesService: CategoriesService,
     ) { }
 
-    ngOnInit() {
-        this._categoriesService.getCategoryOfManager().subscribe( (categories: ICategory[]) => {
+    public ngOnInit() {
+        this._categoriesService.getCategoryOfManager().subscribe((categories: ICategory[]) => {
             this.categories = categories;
         });
-        this._tasksService.geAlTasksOfManager().subscribe((tasksUser: ITask[]) => {
+        this._tasksService.geAllTasksOfManager().subscribe((tasksUser: ITask[]) => {
             this.tasksDataSource.data = tasksUser;
         });
     }
 
     public onSelectCategory(filterValue: string[]) {
-        this.paramsObj = {categoryId: filterValue};
-        this._tasksService.geAlTasksOfManager(this.paramsObj).subscribe((tasksUser: ITask[]) => {
+        this.paramsObj = { categoryId: filterValue };
+        this._tasksService.geAllTasksOfManager(this.paramsObj).subscribe((tasksUser: ITask[]) => {
             this.tasksDataSource.data = tasksUser;
+        });
+    }
+
+    public showInfoTask(task: ITask) {
+        // delete task['Category'];
+        // delete task['firstLastName'];
+        const category = this.categories.find(category => parseInt(category.id, 10) === task.categoryId);
+        this.infoTaskDialogRef = this.dialog.open(InfoTaskDialogComponent, {
+            hasBackdrop: false,
+            data: {
+                task,
+                category,
+            },
+        });
+
+        this.infoTaskDialogRef.afterClosed().subscribe(result => {
+            // if (result) {
+            //     this._taskOffset = 0;
+            //     this.paramsObj.offset = this._taskOffset.toString();
+            //     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe(tasksUser => {
+            //         this.tasksDataSource.data = tasksUser;
+            //     });
+            // }
         });
     }
 }
