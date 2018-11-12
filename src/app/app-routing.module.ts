@@ -27,7 +27,7 @@ const appRoutes: Routes = [
     },
   },
   {
-    path: 'myTasks', component: TasksTableComponent,
+    path: 'mytasks', component: TasksTableComponent,
     resolve: {
       categories: CategoriesListResolverService,
     },
