@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { TasksService } from '../../+tasks/servises/tasks.service';
 import { ITask, Statuses } from '../../+tasks/models/task';
+import { DeclineTaskDialogComponent } from '../decline-dialog/decline-task-dialog.component';
 
 @Component({
     selector: 'app-info-task-dialog',
@@ -9,22 +10,36 @@ import { ITask, Statuses } from '../../+tasks/models/task';
 })
 
 export class InfoTaskDialogComponent {
+    public declineTaskDialogRef: MatDialogRef<DeclineTaskDialogComponent>;
 
     constructor(public dialogRef: MatDialogRef<InfoTaskDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: ITask, private _tasksService: TasksService) { }
+                public dialog: MatDialog,
+                @Inject(MAT_DIALOG_DATA) public data: any, private _tasksService: TasksService) { }
 
     public onNoClick(): void {
         this.dialogRef.close();
     }
 
-    public confirmApprove(task: ITask): void {
-        task.status = Statuses.Open;
-        // delete task['Category'];
-        // delete task['firstLastName'];
-        this._tasksService.updateTask(task.id, task).subscribe();
+    public confirmApprove(): void {
+        this.data.task.status = Statuses.Open;
+        const tmpTask = this.data.task;
+        delete tmpTask.Category;
+        delete tmpTask.firstLastName;
+        this._tasksService.updateTask(this.data.task.id, tmpTask).subscribe(result => result);
     }
-    public showComfirmDialog(): void {
-        // this.tasksService.deleteTask(this.data.id).subscribe(result => result);
+    public showDeclineDialog(task: ITask): void {
+        this.declineTaskDialogRef = this.dialog.open(DeclineTaskDialogComponent, {
+            hasBackdrop: false,
+            data: {
+                task,
+            },
+        });
+
+        this.declineTaskDialogRef.afterClosed().subscribe( result => {
+            if (result) {
+                this.dialogRef.close('Confirm');
+            }
+        });
     }
 
 }

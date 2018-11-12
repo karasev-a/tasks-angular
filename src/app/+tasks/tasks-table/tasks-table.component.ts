@@ -123,7 +123,8 @@ export class TasksTableComponent implements OnInit {
       data: {
         id: task.id,
         title: task.title,
-        state: { createdAt: task.createdAt, date: task.date },
+        createdAt: task.createdAt,
+        date: task.date,
       },
     });
 

@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, Params } from '@angular/router';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Observable, Subscription, from } from 'rxjs';
 import { MatDialog, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { ITask, Statuses } from '../models/task';
 import { TasksService } from '../servises/tasks.service';
@@ -47,25 +45,19 @@ export class TasksListManagerComponent implements OnInit {
     }
 
     public showInfoTask(task: ITask) {
-        // delete task['Category'];
-        // delete task['firstLastName'];
-        const category = this.categories.find(category => parseInt(category.id, 10) === task.categoryId);
         this.infoTaskDialogRef = this.dialog.open(InfoTaskDialogComponent, {
             hasBackdrop: false,
             data: {
                 task,
-                category,
             },
         });
 
-        this.infoTaskDialogRef.afterClosed().subscribe(result => {
-            // if (result) {
-            //     this._taskOffset = 0;
-            //     this.paramsObj.offset = this._taskOffset.toString();
-            //     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe(tasksUser => {
-            //         this.tasksDataSource.data = tasksUser;
-            //     });
-            // }
+        this.infoTaskDialogRef.afterClosed().subscribe( result => {
+            if (result) {
+                this._tasksService.geAllTasksOfManager().subscribe(tasksUser => {
+                    this.tasksDataSource.data = tasksUser;
+                });
+            }
         });
     }
 }

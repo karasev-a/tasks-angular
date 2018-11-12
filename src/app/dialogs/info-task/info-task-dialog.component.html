@@ -11,12 +11,12 @@
         <p></p>
         When: {{data.task.date}}
         <p></p>
-        Category: {{data.category.name}}
+        Category: {{data?.task?.Category?.name}}
     </div>
 
     <div mat-dialog-actions>
-        <button mat-button [mat-dialog-close]="1" (click)="confirmApprove(data.task)">Approve</button>
-        <button mat-button (click)="showComfirmDialog()">Decline</button>
+        <button mat-button [mat-dialog-close]="1" (click)="confirmApprove()">Approve</button>
+        <button mat-button  (click)="showDeclineDialog(data.task)">Decline</button>
         <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
     </div>
 </div>
