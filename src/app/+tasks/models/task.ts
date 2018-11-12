@@ -1,12 +1,12 @@
 export interface ITask {
-  id?: string;
+  id?: number;
   title?: string;
   people?: number;
   price?: number;
   description?: string;
   date?: Date;
   subscrebedPeople?: number;
-  status?: string;
+  status?: number;
   userId?: number; // who create
   categoryId?: number;
   createdAt?: Date;

@@ -41,7 +41,7 @@ export class TasksService {
         return this.http.get<ITask[]>(queryStr, { params: allParams });
     }
     // delete
-    deleteTask(id: string) {
+    deleteTask(id: number) {
         return this.http.delete(`${this.urlApi}/${id}`);
     }
     // Update
@@ -59,6 +59,14 @@ export class TasksService {
 
     public subscribeToTask(id: string): Observable<ITask> {
         return this.http.post(`${this.urlApi}/${id}/subscription`, {});
+    }
+
+    public geAllTasksOfManager(params?: IParamsQueryTask): Observable<ITask[]> {
+        const allParams = new HttpParams({
+            fromObject: params,
+        });
+
+        return this.http.get<ITask[]>(`${this.urlApi}/managerTasks`, {params: allParams});
     }
 
 }
