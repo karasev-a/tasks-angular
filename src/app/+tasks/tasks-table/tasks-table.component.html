@@ -23,7 +23,7 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>Category</mat-label>
-        <mat-select formControlName="categoryId" (selectionChange)="onSelectCategory($event.value)">
+        <mat-select formControlName="categoryId" (selectionChange)="onSelectCategory($event.value)" multiple>
             <mat-option *ngFor="let category of categories" [value]="category.id">
                 {{category.name}}
             </mat-option>

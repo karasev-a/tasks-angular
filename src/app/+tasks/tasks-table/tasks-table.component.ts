@@ -81,9 +81,9 @@ export class TasksTableComponent implements OnInit {
     }
   }
 
-  public onSelectCategory(filterValue: number) {
+  public onSelectCategory(filterValue: string[]) {
     if (filterValue) {
-      this.paramsObj.categoryId = filterValue.toString();
+      this.paramsObj.categoryId = filterValue;
       this._taskOffset = 0;
       this.paramsObj.offset = this._taskOffset.toString();
       this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
@@ -112,6 +112,7 @@ export class TasksTableComponent implements OnInit {
       }
     }
     this.paramsObj.offset = this._taskOffset.toString();
+    this.paramsObj.limit = this._taskLimit.toString();
     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
       this.tasksDataSource.data = tasksUser;
     });
@@ -147,6 +148,7 @@ export class TasksTableComponent implements OnInit {
   public onScroll() {
     this._taskOffset += 2;
     this.paramsObj.offset = this._taskOffset.toString();
+    this.paramsObj.limit = this._taskLimit.toString();
     this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasks: ITask[]) => {
       this.tasksDataSource.data = this.tasksDataSource.data.concat(tasks);
     });
