@@ -1,5 +1,9 @@
 <mat-list>
-    <div *ngFor="let category of categories">
-            <mat-list-item> {{category.name}} </mat-list-item>
+    <div *ngFor="let statistic of statistics">
+        <mat-list-item>
+            category: {{statistic.Catagory.name}} <br>
+            All tasks: {{statistic.all}} <br>
+            Opened: {{statistic.open}} <br>
+        </mat-list-item>
     </div>
 </mat-list>

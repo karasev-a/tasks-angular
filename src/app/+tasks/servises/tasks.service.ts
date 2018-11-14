@@ -61,4 +61,8 @@ export class TasksService {
         return this.http.post(`${this.urlApi}/${id}/subscription`, {});
     }
 
+    public getCategoriesStatistic(): Observable<object> {
+        return this.http.get(`${this.urlApi}/statistics`);
+    }
+
 }

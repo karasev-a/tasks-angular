@@ -11,11 +11,15 @@ import { TasksService } from '../../+tasks/servises/tasks.service';
 })
 
 export class ACategoryListComponent implements OnInit {
-    categories: ICategory[];
-    tasks: ITask;
+    // categories: ICategory[];
+    // tasks: ITask;
+    statistics: any;
     constructor(private categoriesService: CategoriesService, private tasksService: TasksService) { }
     ngOnInit() {
-        this.categoriesService.getAllCategories().subscribe( categories => this.categories = categories );
-        // this.tasksService.().subscribe( categories => this.categories = categories );
+        this.tasksService.getCategoriesStatistic().subscribe( result => {
+            this.statistics = result;
+        });
+        console.log(this.statistics);
+        
     }
 }
