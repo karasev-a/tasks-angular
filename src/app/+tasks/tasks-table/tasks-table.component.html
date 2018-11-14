@@ -1,7 +1,10 @@
-<h2>
+<h2 *ngIf="!isAdmin">
     MY Tasks
 </h2>
-<ng-content></ng-content>
+<h2 *ngIf="isAdmin">
+    All Tasks
+</h2>
+
 
 <div class="example-header">
     <mat-form-field>
@@ -30,19 +33,26 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    
+
+    <mat-form-field *ngIf="isAdmin">
+            <mat-label>User</mat-label>
+            <mat-select formControlName="userId" (selectionChange)="onSelectUser($event.value)" multiple>
+                <mat-option *ngFor="let user of users" [value]="user.id">
+                    {{user.firstName}} {{user.lastName}} {{user.email}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
     <mat-form-field>
         <mat-label>Range of Finish Task:</mat-label>
-        <input matInput formControlName="date" (dateTimeInput)="onSelectDate($event.value)" 
-            [(ngModel)]="dateTimeRange" [selectMode]="'range'" [owlDateTimeTrigger]="dtRange1"
-            [owlDateTime]="dtRange1">
+        <input matInput formControlName="date" (dateTimeInput)="onSelectDate($event.value)" [(ngModel)]="dateTimeRange"
+            [selectMode]="'range'" [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1">
         <owl-date-time #dtRange1></owl-date-time>
     </mat-form-field>
 
 
     <button type='button' (click)="resetForm()">Reset</button>
 </form>
-
 
 
 <mat-table [dataSource]="tasksDataSource">
@@ -81,6 +91,11 @@
         <mat-cell *matCellDef="let task"> {{task.Category.name}} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="user">
+        <mat-header-cell *matHeaderCellDef> User </mat-header-cell>
+        <mat-cell *matCellDef="let task"> {{task.firstLastName}} </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
         <mat-cell *matCellDef="let task">
@@ -93,7 +108,18 @@
         </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" infiniteScroll [infiniteScrollDistance]="4"
+    <div *ngIf="isAdmin then adminBlock else myBlock"> </div>
+
+    <ng-template #adminBlock>
+            <mat-header-row *matHeaderRowDef="displayedColumnsAdmin; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsAdmin;" infiniteScroll [infiniteScrollDistance]="4"
         [infiniteScrollThrottle]="50" (scrolled)="onScroll()"></mat-row>
+    </ng-template>
+
+    <ng-template #myBlock>
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" infiniteScroll [infiniteScrollDistance]="4"
+        [infiniteScrollThrottle]="50" (scrolled)="onScroll()"></mat-row>
+    </ng-template>
+    
 </mat-table>
