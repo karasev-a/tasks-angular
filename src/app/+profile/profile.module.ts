@@ -9,6 +9,7 @@ import { ProfileRouting } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { UserService } from '../+user/models/services/user.service';
 import { UserResolverService } from './services/user-resolve.service';
+import { UsersListAdminComponent } from '../+user/users-list-admin/users-list-admin.component';
 
 @NgModule({
     imports: [
@@ -19,7 +20,7 @@ import { UserResolverService } from './services/user-resolve.service';
         CustomMaterialModule,
         ProfileRouting,
     ],
-    declarations: [UserProfileComponent, ProfileComponent],
+    declarations: [UserProfileComponent, ProfileComponent, UsersListAdminComponent],
     providers: [UserService, UserResolverService],
     exports: [],
 })

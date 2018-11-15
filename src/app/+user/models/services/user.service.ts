@@ -28,4 +28,7 @@ export class UserService {
     public getAllUsersForAdmin(): Observable<IUser[]> {
         return this.http.get<IUser[]>(`${this.urlApi}/admin`);
     }
+    public getAllUsersStatistic(): Observable<IUser[]> {
+        return this.http.get<IUser[]>(`${this.urlApi}/admin/statistic`);
+    }
 }
