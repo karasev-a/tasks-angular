@@ -4,6 +4,13 @@ import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../../environments/environment';
 import { ITask } from '../models/task';
 
+export interface ICategoriesStatistic {
+    Category: { name: string };
+    categoryId: string;
+    openTasks: string;
+    allTasks: string;
+}
+
 @Injectable()
 export class TasksService {
     private urlApi = `${environment.serverApiUrl}tasks`;
@@ -61,8 +68,8 @@ export class TasksService {
         return this.http.post(`${this.urlApi}/${id}/subscription`, {});
     }
 
-    public getCategoriesStatistic(): Observable<object> {
-        return this.http.get(`${this.urlApi}/statistics`);
+    public getCategoriesStatistic(): Observable<ICategoriesStatistic[]> {
+        return this.http.get<ICategoriesStatistic[]>(`${this.urlApi}/statistics`);
     }
 
 }
