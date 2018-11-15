@@ -15,6 +15,7 @@ import { TasksResolverService } from './servises/tasks-resolver.service';
 import { TaskEditComponent } from './task-edit/task.edit.component';
 import { AcceptDialogComponent } from '../dialogs/accept/accept-dialog.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
+import { TasksListManagerComponent } from './tasks-list-manager/tasks-list-manager.component';
 
 @NgModule({
     imports: [
@@ -25,7 +26,13 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
         ReactiveFormsModule,
         InfiniteScrollModule,
     ],
-    declarations: [TaskComponent, TasksComponent, TaskEditComponent, AcceptDialogComponent, TasksTableComponent],
+    declarations: [
+        TaskComponent,
+        TasksComponent,
+        TaskEditComponent,
+        AcceptDialogComponent,
+        TasksTableComponent,
+        TasksListManagerComponent],
     entryComponents: [
         AcceptDialogComponent,
       ],

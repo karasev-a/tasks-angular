@@ -6,6 +6,7 @@ import { TaskEditComponent } from './+tasks/task-edit/task.edit.component';
 import { TaskEditResolverService } from './+tasks/servises/task.edit.resolver.service';
 import { CategoriesListResolverService } from './+categories/services/categories-list.resolver';
 import { TasksTableComponent } from './+tasks/tasks-table/tasks-table.component';
+import { TasksListManagerComponent } from './+tasks/tasks-list-manager/tasks-list-manager.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -30,6 +31,9 @@ const appRoutes: Routes = [
     resolve: {
       categories: CategoriesListResolverService,
     },
+  },
+  {
+    path: 'managerTasks', component: TasksListManagerComponent,
   },
 ];
 

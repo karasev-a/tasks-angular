@@ -1,0 +1,11 @@
+<div class="container">
+    <h3 mat-dialog-title>Decline task</h3>
+    <div mat-dialog-content>
+        Are you sure to Decline task
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="1" (click)="confirmDecline()">Ok</button>
+        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+</div>

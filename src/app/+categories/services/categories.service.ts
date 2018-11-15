@@ -27,4 +27,8 @@ export class CategoriesService {
     updateCategory(id: string, category: ICategory): Observable<ICategory> {
         return this.http.put<ICategory>(`${this.urlApi}/${id}`, category);
     }
+
+    getCategoryOfManager() {
+        return this.http.get(`${this.urlApi}/managerTasks`);
+    }
 }

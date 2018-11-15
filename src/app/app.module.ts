@@ -20,6 +20,8 @@ import { CategoriesModule } from './+tasks/tasks.module';
 import { ProfileModule } from './+profile/profile.module';
 import { RouterModule } from '@angular/router';
 import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component';
+import { InfoTaskDialogComponent } from './dialogs/info-task/info-task-dialog.component';
+import { DeclineTaskDialogComponent } from './dialogs/decline-dialog/decline-task-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component'
     RegisterComponent,
     AlertComponent,
     DeleteDialogComponent,
+    InfoTaskDialogComponent,
+    DeclineTaskDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,8 @@ import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component'
   ],
   entryComponents: [
     DeleteDialogComponent,
+    InfoTaskDialogComponent,
+    DeclineTaskDialogComponent,
   ],
   bootstrap: [AppComponent],
 })
