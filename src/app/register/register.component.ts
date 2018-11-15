@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
       phone: this.registerForm.value.phone,
     };
     // #TODO: Use user service instead;
-    this._http.post<IUser>(`${this._serverUrl}users`, user)
+    this._http.post<IUser>(`${this._serverUrl}users/create`, user)
     .pipe(first())
     .subscribe(
         () => {

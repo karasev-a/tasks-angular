@@ -16,6 +16,7 @@ import { TaskEditComponent } from './task-edit/task.edit.component';
 import { AcceptDialogComponent } from '../dialogs/accept/accept-dialog.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
 import { TasksListManagerComponent } from './tasks-list-manager/tasks-list-manager.component';
+import { TasksListAdminComponent } from './tasks-list-admin/tasks-list-admin.component';
 
 @NgModule({
     imports: [
@@ -32,7 +33,9 @@ import { TasksListManagerComponent } from './tasks-list-manager/tasks-list-manag
         TaskEditComponent,
         AcceptDialogComponent,
         TasksTableComponent,
-        TasksListManagerComponent],
+        TasksListManagerComponent,
+        TasksListAdminComponent,
+    ],
     entryComponents: [
         AcceptDialogComponent,
       ],
