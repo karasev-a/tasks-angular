@@ -17,7 +17,7 @@ export class UserService {
     // get current
     public getUser(): Observable<IUser> {
         let params = new HttpParams();
-        params = params.append( 'current', 'true' );
+        params = params.append( 'current', 'true' ); // #TODO: should be fixed
 
         return this.http.get<IUser>(`${this.urlApi}`, {params});
     }

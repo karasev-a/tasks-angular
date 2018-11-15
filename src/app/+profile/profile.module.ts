@@ -12,6 +12,8 @@ import { UserResolverService } from './services/user-resolve.service';
 import { ACategoriesComponent } from './admin-categories/A-categories.component';
 import { AAddNewCategoryComponent } from './admin-categories/A-addNew-category.component';
 import { ACategoryListComponent } from './admin-categories/A-categories-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { RenameDialogComponent } from '../dialogs/rename/rename-dialog.component';
 
 @NgModule({
     imports: [
@@ -21,8 +23,12 @@ import { ACategoryListComponent } from './admin-categories/A-categories-list.com
         ReactiveFormsModule,
         CustomMaterialModule,
         ProfileRouting,
+        MatDialogModule,
     ],
-    declarations: [UserProfileComponent, ProfileComponent, ACategoriesComponent, AAddNewCategoryComponent, ACategoryListComponent],
+    declarations: [UserProfileComponent, ProfileComponent, ACategoriesComponent, AAddNewCategoryComponent, ACategoryListComponent, RenameDialogComponent],
+    entryComponents: [
+        RenameDialogComponent,
+    ],
     providers: [UserService, UserResolverService],
     exports: [],
 })

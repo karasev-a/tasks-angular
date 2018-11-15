@@ -19,11 +19,11 @@ export class CategoriesService {
         return this.http.get<ICategory[]>(`${this.urlApi}/`);
     }
     // delete
-    deleteCategory(id: string) {
-        return this.http.delete(`${this.urlApi}/`);
+    deleteCategory(id: number) {
+        return this.http.delete(`${this.urlApi}/${id}`);
     }
     // Update
-    updateCategory(id: string, category: ICategory): Observable<ICategory> {
+    updateCategory(id: number, category: ICategory): Observable<ICategory> {
         return this.http.put<ICategory>(`${this.urlApi}/${id}`, category);
     }
 

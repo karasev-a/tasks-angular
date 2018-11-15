@@ -6,9 +6,9 @@ import { ITask } from '../models/task';
 
 export interface ICategoriesStatistic {
     Category: { name: string };
-    categoryId: string;
-    openTasks: string;
-    allTasks: string;
+    categoryId: number;
+    open: number | null;
+    all: number;
 }
 
 @Injectable()
