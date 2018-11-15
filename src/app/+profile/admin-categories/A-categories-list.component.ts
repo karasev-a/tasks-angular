@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ICategory } from '../../+categories/models/category';
 import { CategoriesService } from '../../+categories/services/categories.service';
 import { ITask } from '../../+tasks/models/task';
 import { TasksService, ICategoriesStatistic } from '../../+tasks/servises/tasks.service';

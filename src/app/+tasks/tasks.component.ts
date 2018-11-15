@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs/index';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { MatDialog } from '@angular/material/dialog';
 import { AcceptDialogComponent } from '../dialogs/accept/accept-dialog.component';
-import { ICategory } from '../+categories/models/category';
 
 @Component({
     selector: 'app-tasks',

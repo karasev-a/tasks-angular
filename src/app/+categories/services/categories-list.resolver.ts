@@ -9,7 +9,6 @@ import {
 import { Observable } from 'rxjs';
 
 import { CategoriesService } from './categories.service';
-import { ICategory } from '../models/category';
 
 @Injectable({
     providedIn: 'root',

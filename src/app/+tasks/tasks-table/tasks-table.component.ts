@@ -6,7 +6,6 @@ import { MatDialog, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { DeleteDialogComponent } from '../../dialogs/delete/delete-dialog.component';
 import { TasksService } from '../servises/tasks.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { ICategory } from '../../+categories/models/category';
 
 @Component({
   selector: 'app-tasks-table',
