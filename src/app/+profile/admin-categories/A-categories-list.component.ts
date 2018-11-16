@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesService } from '../../+categories/services/categories.service';
+import { CategoriesService, ICategoriesStatistic } from '../../+categories/services/categories.service';
 import { ITask } from '../../+tasks/models/task';
-import { TasksService, ICategoriesStatistic } from '../../+tasks/servises/tasks.service';
+import { TasksService } from '../../+tasks/servises/tasks.service';
 import { MatDialog } from '@angular/material';
 import { RenameDialogComponent } from '../../dialogs/rename/rename-dialog.component';
 import { filter } from 'rxjs/internal/operators/filter';
@@ -16,7 +16,7 @@ export class ACategoryListComponent implements OnInit {
     statistics: ICategoriesStatistic[];
     constructor(private categoriesService: CategoriesService, private tasksService: TasksService, public dialog: MatDialog) { }
     ngOnInit() {
-        this.tasksService.getCategoriesStatistic().subscribe(result => {
+        this.categoriesService.getCategoriesStatistic().subscribe(result => {
             this.statistics = result;
         });
     }
@@ -27,7 +27,7 @@ export class ACategoryListComponent implements OnInit {
 
             return;
         } else {
-            this.categoriesService.deleteCategory(currentCategory.categoryId).subscribe();
+            this.categoriesService.deleteCategory(currentCategory.id).subscribe();
         }
     }
     public onEdit(categoryName: string) {
@@ -40,9 +40,9 @@ export class ACategoryListComponent implements OnInit {
             },
         });
         renameDialogRef.afterClosed().pipe( filter(name => name))
-        .subscribe( name => this.categoriesService.updateCategory(currentCategory.categoryId, { name }).subscribe());
+        .subscribe( name => this.categoriesService.updateCategory(currentCategory.id, { name }).subscribe());
     }
     private currentCategory(categoryName: string): ICategoriesStatistic {
-        return this.statistics.filter(el => categoryName === el.Category.name)[0];
+        return this.statistics.filter(el => categoryName === el.name)[0];
     }
 }

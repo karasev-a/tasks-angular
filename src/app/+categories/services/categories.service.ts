@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 
+export interface ICategoriesStatistic {
+    name: string;
+    id: number;
+    open: number;
+    all: number;
+}
 @Injectable()
 export class CategoriesService {
     private urlApi = 'http://localhost:8888/api/v1/categories'; // environment.serverApiUrl();
@@ -30,4 +36,9 @@ export class CategoriesService {
     getCategoryOfManager() {
         return this.http.get(`${this.urlApi}/managerTasks`);
     }
+
+    getCategoriesStatistic(): Observable<ICategoriesStatistic[]> {
+        return this.http.get<ICategoriesStatistic[]>(`${this.urlApi}/statistics`);
+    }
+
 }
