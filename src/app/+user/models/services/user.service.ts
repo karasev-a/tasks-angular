@@ -24,6 +24,9 @@ export class UserService {
     public updateUser(user: IUser): Observable<IUser> {
         return this.http.put<IUser>(`${this.urlApi}`, user);
     }
+    public updateUserRole(user: IUser): Observable<IUser> {
+        return this.http.put<IUser>(`${this.urlApi}/${user.id}`, user);
+    }
 
     public getAllUsersForAdmin(): Observable<IUser[]> {
         return this.http.get<IUser[]>(`${this.urlApi}/admin`);

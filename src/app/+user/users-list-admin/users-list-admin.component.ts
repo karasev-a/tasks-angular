@@ -6,7 +6,7 @@ import { Roles } from '../../+tasks/models/task';
 import { FormControl } from '@angular/forms';
 
 @Component({
-    selector: 'app-tasks-list-manager',
+    selector: 'app-users-list-manager',
     templateUrl: './users-list-admin.component.html',
     styleUrls: ['./users-list-admin.component.css'],
 })
@@ -16,7 +16,8 @@ export class UsersListAdminComponent implements OnInit {
     public userDataSource = new MatTableDataSource<IUser>();
     public roles = Roles;
     public keysOfRoles: string[];
-    public show: boolean = false;
+    public userId: number;
+    public currentUser: IUser;
 
     constructor(
         // private _router: Router,
@@ -25,7 +26,6 @@ export class UsersListAdminComponent implements OnInit {
         // public dialog: MatDialog,
         private _usersService: UserService,
     ) { }
-
     public ngOnInit() {
         this._usersService.getAllUsersStatistic().subscribe((users: IUser[]) => {
             this.userDataSource.data = users;
@@ -33,8 +33,23 @@ export class UsersListAdminComponent implements OnInit {
         this.keysOfRoles = Object.keys(this.roles).filter(Number);
     }
 
-    public onSelectRole(value: IUser) {
-        this.show = !this.show;
+    public onSelectRole(value: string, user: IUser, id: number) {
+        this.userId = id;
+        user.roleId = value;
+        this.currentUser = user;
+
+    }
+
+    public saveUser(user: any) {
+        if (user.Tasks) {
+            delete user.Tasks;
+        }
+        this._usersService.updateUserRole(user).subscribe();
+        this.userId = 0;
+    }
+
+    public cancelEdit() {
+        this.userId = 0;
     }
 
 }
