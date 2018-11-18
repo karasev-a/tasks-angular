@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ICategoriesStatistic, CategoriesService } from '../../+categories/services/categories.service';
+import { TasksService } from '../../+tasks/servises/tasks.service';
 
 @Component({
     selector: 'app-a-categories',
@@ -7,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ACategoriesComponent implements OnInit {
-    constructor() { }
+    statistics: ICategoriesStatistic[]; // #TODO: replace interface some where else
+    constructor(private categoriesService: CategoriesService, private tasksService: TasksService) { }
     ngOnInit() {
-
+        this.categoriesService.getCategoriesStatistic().subscribe(result => {
+            this.statistics = result;
+        });
     }
 }
