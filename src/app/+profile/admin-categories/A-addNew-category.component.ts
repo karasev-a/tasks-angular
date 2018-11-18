@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { CategoriesService } from '../../+categories/services/categories.service';
 
 @Component({
     selector: 'app-add-categories',
@@ -9,14 +8,16 @@ import { CategoriesService } from '../../+categories/services/categories.service
 })
 
 export class AAddNewCategoryComponent implements OnInit {
+    @Output() addNewCategory: EventEmitter<string> = new EventEmitter();
     private newCategoryForm: FormGroup;
-    constructor(private _fb: FormBuilder, private categoriesService: CategoriesService) { }
+    constructor(private _fb: FormBuilder) { }
     ngOnInit() {
         this.newCategoryForm = this._fb.group({
-            categoryName: new FormControl( '', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+            categoryName: new FormControl( '', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
         });
     }
     onAdd() {
-       this.categoriesService.sendNewCategory({ name: this.newCategoryForm.value.categoryName } as ICategory).subscribe();
+        this.addNewCategory.emit(this.newCategoryForm.value.categoryName);
+        this.newCategoryForm.reset();
     }
 }

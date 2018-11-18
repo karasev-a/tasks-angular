@@ -34,6 +34,7 @@ export class ACategoriesComponent implements OnInit {
             this.statistics = statistics;
         });
     }
+    // #TODO: add confirm window
     onDelete(catId: string) {
         const current = this.statistics.filter( el => el.id === catId)[0];
         if (current.open) {
@@ -46,5 +47,8 @@ export class ACategoriesComponent implements OnInit {
         ).subscribe( statistics => {
             this.statistics = statistics;
         });
+    }
+    onAddNew(catName: string) {
+        this.categoriesService.sendNewCategory({ name: catName } as ICategory).subscribe( resCat => this.statistics.push(resCat as ICategoriesStatistic));
     }
 }

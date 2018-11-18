@@ -20,5 +20,5 @@
         </mat-error>
     </mat-form-field>
     <button mat-button color="primary" [disabled]="newCategoryForm.invalid" (click)="onAdd()">Save</button>
-    <button mat-button color="primary" (click)="onCancel()">Cancel</button>
+    <button mat-button color="primary" (click)="newCategoryForm.reset()">Cancel</button>
 </form>
