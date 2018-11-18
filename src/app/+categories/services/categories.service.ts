@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 export interface ICategoriesStatistic {
     name: string;
-    id: number;
+    id: string;
     open: number;
     all: number;
 }
@@ -25,7 +25,7 @@ export class CategoriesService {
         return this.http.get<ICategory[]>(`${this.urlApi}/`);
     }
     // delete
-    deleteCategory(id: number) {
+    deleteCategory(id: string) {
         return this.http.delete(`${this.urlApi}/${id}`);
     }
     // Update

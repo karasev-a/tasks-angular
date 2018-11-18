@@ -9,20 +9,14 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 
 export class RenameDialogComponent implements OnInit {
     form: FormGroup;
-    constructor(public dialogRef: MatDialogRef<RenameDialogComponent>, private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: string) { }
+    constructor(public dialogRef: MatDialogRef<RenameDialogComponent>, private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: ICategory) { }
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            categoryName: '',
+            categoryName: this.data.name,
         });
     }
-
-    // public onNoClick(): void {
-    //     this.dialogRef.close('close');
-    // }
-
     public submit(form: FormGroup): void {
-        // this.dialogRef.close('submit');
         this.dialogRef.close(`${form.value.categoryName}`);
     }
 }
