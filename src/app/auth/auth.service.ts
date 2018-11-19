@@ -69,4 +69,7 @@ export class AuthService {
             },
         );
     }
+    isAdmin() {
+        return jwt_decode(this.token)['roleId'] < 3;
+    }
 }
