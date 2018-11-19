@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import * as jwt_decode from 'jwt-decode';
 
 import { AlertService } from '../alert/services/alert.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -10,6 +11,7 @@ export class AuthService {
 
     API_URL = 'http://localhost:8888';
     TOKEN_KEY = 'token';
+
     private _redirectUrl: string;
     get redirectUrl(): string {
         return this._redirectUrl;
@@ -19,7 +21,8 @@ export class AuthService {
     }
     private loggedIn = new BehaviorSubject<boolean>(false);
     get isLoggedIn() {
-        if (this.token) { // #TODO: neede stronger check
+        const time = new Date();
+        if (jwt_decode(this.token)['exp'] > time.getTime() / 1000) { // #TODO: neede stronger check
             this.loggedIn.next(true);
         } else {
             this.loggedIn.next(false);
@@ -66,8 +69,4 @@ export class AuthService {
             },
         );
     }
-
-    // getAccount() {
-    //     return this.http.get(this.API_URL + '/account');
-    // }
 }
