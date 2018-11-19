@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CustomMaterialModule } from '../core/material.module';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProfileRouting } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { UserService } from '../+user/models/services/user.service';
@@ -14,6 +13,7 @@ import { AAddNewCategoryComponent } from './admin-categories/A-addNew-category.c
 import { ACategoryListComponent } from './admin-categories/A-categories-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RenameDialogComponent } from '../dialogs/rename/rename-dialog.component';
+import { UserProfileComponent } from '../+user/user-profile/user-profile.component';
 
 @NgModule({
     imports: [

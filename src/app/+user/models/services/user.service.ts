@@ -21,6 +21,10 @@ export class UserService {
 
         return this.http.get<IUser>(`${this.urlApi}`, {params});
     }
+    // get profile data
+    public getProfileData(): Observable<IUser> {
+        return this.http.get<IUser>(`${this.urlApi}/profile`);
+    }
     public updateUser(user: IUser): Observable<IUser> {
         return this.http.put<IUser>(`${this.urlApi}`, user);
     }
