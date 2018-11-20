@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../../environments/environment';
 import { ITask } from '../models/task';
+import { ITaskView } from '../../dialogs/models/TaskView';
 
 @Injectable()
 export class TasksService {
@@ -55,7 +56,7 @@ export class TasksService {
         return this.http.delete(`${this.urlApi}/${id}`);
     }
     // Update
-    public updateTask(id: number, task: ITask): Observable<ITask> {
+    public updateTask(id: number, task: ITask | ITaskView): Observable<ITask|ITaskView> {
         return this.http.put<ITask>(`${this.urlApi}/${id}`, task);
     }
 
