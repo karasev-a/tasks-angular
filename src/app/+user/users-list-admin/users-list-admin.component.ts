@@ -43,24 +43,10 @@ export class UsersListAdminComponent implements OnInit {
         if ( this.countSelectedRole < 2) {
             this.previousRole = user.roleId;
         }
-        
-
-        // this.currentUser = Object.assign({}, user);
-        
         user.roleId = value;
-        
-       
-        // this.currentRole = value;
-
     }
 
-    public saveUser(user: any) {
-
-        // user.roleId = this.currentRole;
-
-        if (user.Tasks) {
-            delete user.Tasks;
-        }
+    public saveUser(user: IUser) {
         this._usersService.updateUserRole(user).subscribe();
         this.userId = 0;
         this.countSelectedRole = 0;
@@ -69,9 +55,6 @@ export class UsersListAdminComponent implements OnInit {
     public cancelEdit(user: IUser) {
         user.roleId = this.previousRole;
         this.countSelectedRole = 0;
-        
-        // user.roleId = this.currentUser.roleId;
-        
         this.userId = 0;
 
     }

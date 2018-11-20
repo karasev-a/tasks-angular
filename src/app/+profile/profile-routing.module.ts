@@ -9,7 +9,7 @@ import { UsersListAdminComponent } from '../+user/users-list-admin/users-list-ad
 export const profileRouting: Routes = [
   { path: 'profile', component: ProfileComponent, resolve: { user: UserResolverService}, canActivate: [AuthGuard]},
   // { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
-  { path: 'users', component: UsersListAdminComponent, canActivate: [AuthGuard]},
+  { path: 'users/statistic', component: UsersListAdminComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

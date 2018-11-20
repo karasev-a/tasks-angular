@@ -18,66 +18,42 @@
     <ng-container matColumnDef="allTasks">
         <mat-header-cell *matHeaderCellDef> All Tasks </mat-header-cell>
         <mat-cell *matCellDef="let user">
-            <div *ngFor="let status of user.Tasks; let i = index">
-                <p>
-                    {{status.countTasks}}+
-                </p>
-            </div>
+                {{user.allTasks}}
         </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="onReview">
         <mat-header-cell *matHeaderCellDef> On Review </mat-header-cell>
         <mat-cell *matCellDef="let user">
-            <div *ngFor="let status of user.Tasks">
-                <p *ngIf="status.status === 1">
-                    {{status.countTasks}}
-                </p>
-            </div>
+            {{user.onReview}}
         </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="open">
         <mat-header-cell *matHeaderCellDef> Open </mat-header-cell>
         <mat-cell *matCellDef="let user">
-            <div *ngFor="let status of user.Tasks">
-                <p *ngIf="status.status === 2">
-                    {{status.countTasks}}
-                </p>
-            </div>
+            {{user.open}}
         </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="pending">
         <mat-header-cell *matHeaderCellDef> Pending </mat-header-cell>
         <mat-cell *matCellDef="let user">
-            <div *ngFor="let status of user.Tasks">
-                <p *ngIf="status.status === 3">
-                    {{status.countTasks}}
-                </p>
-            </div>
+            {{user.pending}}
         </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="done">
         <mat-header-cell *matHeaderCellDef> Done </mat-header-cell>
         <mat-cell *matCellDef="let user">
-            <div *ngFor="let status of user.Tasks">
-                <p *ngIf="status.status === 4">
-                    {{status.countTasks}}
-                </p>
-            </div>
+            {{user.done}}
         </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="decline">
         <mat-header-cell *matHeaderCellDef> Decline </mat-header-cell>
         <mat-cell *matCellDef="let user">
-            <div *ngFor="let status of user.Tasks">
-                <p *ngIf="status.status === 5">
-                    {{status.countTasks}}
-                </p>
-            </div>
+            {{user.decline}}
         </mat-cell>
     </ng-container>
 
