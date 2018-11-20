@@ -6,6 +6,7 @@ import * as jwt_decode from 'jwt-decode';
 import { AlertService } from '../alert/services/alert.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Roles } from '../+user/models/roles';
+import { IToken } from './models/token';
 
 @Injectable()
 export class AuthService {
@@ -56,7 +57,7 @@ export class AuthService {
         };
 
         return this.http.post(`${this.API_URL}/login`, data, headers).subscribe(
-            (res: any) => {
+            (res: IToken) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
                 this.loggedIn.next(true);
 
