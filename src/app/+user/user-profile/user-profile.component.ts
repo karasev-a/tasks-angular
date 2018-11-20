@@ -52,6 +52,7 @@ export class UserProfileComponent implements OnInit {
             mergeMap(success => {
                 if (success) {
                     this.alertService.success('profile has been updated');
+
                     return this.userService.getUser();
                 } else {
                     return;

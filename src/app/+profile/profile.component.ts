@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { IUrls } from './models/urls';
 
 @Component({
     selector: 'app-profile',
@@ -8,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
 })
 
 export class ProfileComponent implements OnInit {
-    public urls: { name: string, url: string }[];
+    public urls: IUrls[];
     constructor(private authService: AuthService) { }
     ngOnInit() {
         if ( this.authService.isAdmin()) {
