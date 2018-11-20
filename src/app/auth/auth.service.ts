@@ -26,6 +26,7 @@ export class AuthService {
         if (jwt_decode(this.token)['exp'] > time.getTime() / 1000) { // #TODO: neede stronger check
             this.loggedIn.next(true);
         } else {
+            localStorage.removeItem(this.TOKEN_KEY);
             this.loggedIn.next(false);
         }
 
