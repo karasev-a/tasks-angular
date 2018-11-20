@@ -4,6 +4,7 @@ import { IUser } from '../../+user/models/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../+user/models/services/user.service';
 import { mergeMap } from 'rxjs/internal/operators/mergeMap';
+import { AlertService } from '../../alert/services/alert.service';
 
 @Component({
     selector: 'app-user-profile',
@@ -15,7 +16,7 @@ export class UserProfileComponent implements OnInit {
     public profileEditForm: FormGroup;
     private _isPswdBeChng = false;
     private _user: IUser;
-    constructor(private _fb: FormBuilder, private _route: ActivatedRoute, private userService: UserService) { }
+    constructor(private _fb: FormBuilder, private _route: ActivatedRoute, private userService: UserService, private alertService: AlertService) { }
 
     ngOnInit() {
         this._route.data.subscribe((data: { user: IUser }) => {
@@ -50,6 +51,7 @@ export class UserProfileComponent implements OnInit {
         this.userService.updateUser(formUser).pipe(
             mergeMap(success => {
                 if (success) {
+                    this.alertService.success('profile has been updated');
                     return this.userService.getUser();
                 } else {
                     return;

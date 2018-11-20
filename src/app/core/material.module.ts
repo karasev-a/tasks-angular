@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatDatepickerModule, MatInputModule,
   MatTableModule, MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule,
-  MatGridListModule, MatTabsModule, MatNativeDateModule, MatFormFieldModule, MatSelectModule, MatListModule,
+  MatGridListModule, MatTabsModule, MatNativeDateModule, MatFormFieldModule, MatSelectModule, MatListModule, MatSnackBarModule,
 } from '@angular/material';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
@@ -27,6 +27,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatListModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatTabsModule,
@@ -48,6 +49,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatListModule,
+    MatSnackBarModule,
   ],
 })
 export class CustomMaterialModule { }
