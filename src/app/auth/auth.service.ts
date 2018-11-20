@@ -5,6 +5,7 @@ import * as jwt_decode from 'jwt-decode';
 
 import { AlertService } from '../alert/services/alert.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Roles } from '../+user/models/roles';
 
 @Injectable()
 export class AuthService {
@@ -70,6 +71,6 @@ export class AuthService {
         );
     }
     isAdmin() {
-        return jwt_decode(this.token)['roleId'] < 3;
+        return jwt_decode(this.token)['roleId'] === Roles.admin;
     }
 }
