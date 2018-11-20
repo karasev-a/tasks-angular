@@ -11,7 +11,7 @@ import { IUrls } from './models/urls';
 export class ProfileComponent implements OnInit {
     public urls: IUrls[];
     constructor(private authService: AuthService) { }
-    ngOnInit() {
+    public ngOnInit() {
         if ( this.authService.isAdmin()) {
          this.urls = [
             { name: 'Categories statistics', url: 'categories-statistic'},

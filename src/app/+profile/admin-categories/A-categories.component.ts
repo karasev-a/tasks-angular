@@ -14,12 +14,12 @@ import { MatDialog } from '@angular/material';
 export class ACategoriesComponent implements OnInit {
     statistics: ICategoriesStatistic[]; // #TODO: replace interface some where else
     constructor(private categoriesService: CategoriesService, public dialog: MatDialog) { }
-    ngOnInit() {
+    public ngOnInit() {
         this.categoriesService.getCategoriesStatistic().subscribe(result => {
             this.statistics = result;
         });
     }
-    onRename(catId: string) {
+    public onRename(catId: string) {
         const renameDialogRef = this.dialog.open(RenameDialogComponent, {
             hasBackdrop: true,
             data: {
@@ -35,7 +35,7 @@ export class ACategoriesComponent implements OnInit {
         });
     }
     // #TODO: add confirm window
-    onDelete(catId: string) {
+    public onDelete(catId: string) {
         const current = this.statistics.filter( el => el.id === catId)[0];
         if (current.open) {
             console.error('Opps, category has open tasks');
@@ -48,7 +48,7 @@ export class ACategoriesComponent implements OnInit {
             this.statistics = statistics;
         });
     }
-    onAddNew(catName: string) {
+    public onAddNew(catName: string) {
         this.categoriesService.sendNewCategory({ name: catName } as ICategory).subscribe( resCat => this.statistics.push(resCat as ICategoriesStatistic));
     }
 }

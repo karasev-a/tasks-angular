@@ -18,7 +18,7 @@ export class UserProfileComponent implements OnInit {
     private _user: IUser;
     constructor(private _fb: FormBuilder, private _route: ActivatedRoute, private userService: UserService, private alertService: AlertService) { }
 
-    ngOnInit() {
+    public ngOnInit() {
         this._route.data.subscribe((data: { user: IUser }) => {
             this._user = data.user;
         });
@@ -31,11 +31,11 @@ export class UserProfileComponent implements OnInit {
             cPswd: new FormControl('', [Validators.required, Validators.min(4), Validators.max(255)]).disable(),
         });
     }
-    onPswd() {
+    public onPswd() {
         this._isPswdBeChng = true;
         this.profileEditForm.enable();
     }
-    onSave() {
+    public onSave() {
         const formUser = {
             firstName: this.profileEditForm.controls.firstName.value,
             lastName: this.profileEditForm.controls.lastName.value,
@@ -60,7 +60,7 @@ export class UserProfileComponent implements OnInit {
             })).subscribe(user => this._user = user);
         this._isPswdBeChng = false;
     }
-    onCancel() {
+    public onCancel() {
         this._isPswdBeChng = false;
         this.profileEditForm.patchValue({
             firstName: this._user.firstName,

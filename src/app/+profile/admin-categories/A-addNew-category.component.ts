@@ -11,12 +11,12 @@ export class AAddNewCategoryComponent implements OnInit {
     @Output() addNewCategory: EventEmitter<string> = new EventEmitter();
     private newCategoryForm: FormGroup;
     constructor(private _fb: FormBuilder) { }
-    ngOnInit() {
+    public ngOnInit() {
         this.newCategoryForm = this._fb.group({
             categoryName: new FormControl( '', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
         });
     }
-    onAdd() {
+    public onAdd() {
         this.addNewCategory.emit(this.newCategoryForm.value.categoryName);
         this.newCategoryForm.reset();
     }
