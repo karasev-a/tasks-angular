@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject } from 'rxjs/index';
+import { IAlert } from '../alert';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AlertService {
-    private _subject = new Subject<any>();
+    private _subject = new Subject<IAlert>();
     private _keepAfterNavigationChange = false;
 
     constructor(private _router: Router) {
@@ -34,7 +35,7 @@ export class AlertService {
         this._subject.next({ type: 'error', text: message });
     }
 
-    getMessage(): Observable<any> {
+    getMessage(): Observable<IAlert> {
         return this._subject.asObservable();
     }
 }

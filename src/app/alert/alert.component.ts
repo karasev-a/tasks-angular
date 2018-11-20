@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/index';
 
 import { AlertService } from './services/alert.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { IAlert } from './alert';
 
 @Component({
     selector: 'app-alert',
@@ -10,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 export class AlertComponent implements OnInit, OnDestroy {
-    public message: string;
+    public message: IAlert;
     private _subscription: Subscription;
     constructor(private _alertService: AlertService, public snackBar: MatSnackBar) { }
 
