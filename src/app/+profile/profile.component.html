@@ -2,8 +2,9 @@
     <ul>
         <li> <a routerLink="user" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">Profile</a></li>
         <li> <a routerLink="my-tasks" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">My tasks</a></li>
-        <div *ngFor="let url of urls"></div>
-        <li> <a routerLink="url.url" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">{{url.name}}</a></li>
+        <div *ngFor="let url of urls">
+            <li> <a routerLink="{{url.url}}" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">{{url.name}}</a></li>
+        </div>
     </ul>
 </mat-toolbar>
 <router-outlet></router-outlet>

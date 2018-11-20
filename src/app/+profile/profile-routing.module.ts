@@ -7,7 +7,8 @@ import { UserProfileComponent } from '../+user/user-profile/user-profile.compone
 import { TasksTableComponent } from '../+tasks/tasks-table/tasks-table.component';
 import { CategoriesListResolverService } from '../+categories/services/categories-list.resolver';
 import { ACategoriesComponent } from './admin-categories/A-categories.component';
-import { AdminGuard } from '../auth/admin.guard';
+import { PrivilegedGuard } from '../auth/privileged.guard';
+import { Roles } from '../+user/models/roles';
 
 export const profileRouting: Routes = [
   {
@@ -16,7 +17,7 @@ export const profileRouting: Routes = [
       { path: 'user', component: UserProfileComponent, resolve: { user: UserResolverService } },
       { path: '', component: UserProfileComponent, resolve: { user: UserResolverService }},
       { path: 'my-tasks', component: TasksTableComponent, resolve: { categories: CategoriesListResolverService}},
-      { path: 'categories-statistic', component: ACategoriesComponent, canActivate: [AdminGuard]},
+      { path: 'categories-statistic', component: ACategoriesComponent, data: {roles: Roles.admin}, canActivate: [PrivilegedGuard]},
     ],
   },
   // { path: 'profile', component: UserProfileComponent, resolve: { user: UserResolverService}, canActivate: [AuthGuard]},

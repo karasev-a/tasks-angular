@@ -21,7 +21,6 @@ import { RouterModule } from '@angular/router';
 import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component';
 import { InfoTaskDialogComponent } from './dialogs/info-task/info-task-dialog.component';
 import { DeclineTaskDialogComponent } from './dialogs/decline-dialog/decline-task-dialog.component';
-import { AdminGuard } from './auth/admin.guard';
 import { PrivilegedGuard } from './auth/privileged.guard';
 
 @NgModule({
@@ -54,7 +53,6 @@ import { PrivilegedGuard } from './auth/privileged.guard';
       multi: true,
     },
     AuthGuard,
-    AdminGuard,
     PrivilegedGuard,
   ],
   entryComponents: [
