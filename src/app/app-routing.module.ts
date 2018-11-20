@@ -9,6 +9,7 @@ import { TasksTableComponent } from './+tasks/tasks-table/tasks-table.component'
 import { TasksListManagerComponent } from './+tasks/tasks-list-manager/tasks-list-manager.component';
 import { PrivilegedGuard } from './auth/privileged.guard';
 import { Roles } from './+user/models/roles';
+import { TasksListAdminComponent } from './+tasks/tasks-list-admin/tasks-list-admin.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -36,6 +37,12 @@ const appRoutes: Routes = [
   },
   {
     path: 'managerTasks', component: TasksListManagerComponent, data: {roles: Roles.manager}, canActivate: [PrivilegedGuard],
+  },
+  {
+    path: 'admintasks', component: TasksListAdminComponent,
+    resolve: {
+      categories: CategoriesListResolverService,
+    },
   },
 ];
 

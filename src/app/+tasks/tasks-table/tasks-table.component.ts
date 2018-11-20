@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ITask, Statuses } from '../models/task';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -6,6 +6,8 @@ import { MatDialog, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { DeleteDialogComponent } from '../../dialogs/delete/delete-dialog.component';
 import { TasksService } from '../servises/tasks.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { UserService } from '../../+user/models/services/user.service';
+import { IUser } from '../../+user/models/user.model';
 
 @Component({
   selector: 'app-tasks-table',
@@ -14,8 +16,12 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 })
 
 export class TasksTableComponent implements OnInit {
+  @Input() tasksAdminDataSource = new MatTableDataSource<ITask>();
+  @Input() tasksForAdmin: ITask[];
+  @Input() isAdmin: false;
   public tasks: ITask[];
   public displayedColumns: string[] = ['title', 'createdAt', 'date', 'status', 'people', 'numberSubscribedPeople', 'category', 'actions'];
+  public displayedColumnsAdmin: string[] = ['title', 'createdAt', 'date', 'status', 'people', 'numberSubscribedPeople', 'category', 'user', 'actions'];
   public deleteDialogRef: MatDialogRef<DeleteDialogComponent>;
   public statuses = Statuses;
   public tasksDataSource = new MatTableDataSource<ITask>();
@@ -24,6 +30,7 @@ export class TasksTableComponent implements OnInit {
   public categories: ICategory[];
   public keysOfStatuses: string[];
   public str = '';
+  public users: IUser[];
   private _taskOffset = 0;
   private _taskLimit = 2;
 
@@ -33,6 +40,7 @@ export class TasksTableComponent implements OnInit {
     private _location: Location,
     public dialog: MatDialog,
     private _tasksService: TasksService,
+    private _usersService: UserService,
     private _fb: FormBuilder,
   ) { }
 
@@ -41,9 +49,15 @@ export class TasksTableComponent implements OnInit {
       limit: this._taskLimit.toString(),
       offset: this._taskOffset.toString(),
     };
-    this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
-      this.tasksDataSource.data = tasksUser;
-    });
+
+    if (this.isAdmin) {
+      this._usersService.getAllUsersForAdmin().subscribe( allUsers => {
+        this.users = allUsers;
+      });
+    }
+
+    this.checkRole(this.paramsObj);
+
     this.categories = this._activatrdRoute.snapshot.data.categories;
     this.keysOfStatuses = Object.keys(this.statuses).filter(Number);
 
@@ -51,6 +65,7 @@ export class TasksTableComponent implements OnInit {
       categoryId: new FormControl(''),
       status: new FormControl(''),
       date: new FormControl(''),
+      userId: new FormControl(''),
     });
   }
 
@@ -65,9 +80,7 @@ export class TasksTableComponent implements OnInit {
     } else {
       delete this.paramsObj.title;
     }
-    this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
-      this.tasksDataSource.data = tasksUser;
-    });
+    this.checkRole(this.paramsObj);
   }
 
   onSelectStatus(filterValue: number) {
@@ -75,20 +88,16 @@ export class TasksTableComponent implements OnInit {
       this.paramsObj.status = filterValue.toString();
       this._taskOffset = 0;
       this.paramsObj.offset = this._taskOffset.toString();
-      this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
-        this.tasksDataSource.data = tasksUser;
-      });
+      this.checkRole(this.paramsObj);
     }
   }
 
-  public onSelectCategory(filterValue: number) {
+  public onSelectCategory(filterValue: string[]) {
     if (filterValue) {
-      this.paramsObj.categoryId = filterValue.toString();
+      this.paramsObj.categoryId = filterValue;
       this._taskOffset = 0;
       this.paramsObj.offset = this._taskOffset.toString();
-      this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
-        this.tasksDataSource.data = tasksUser;
-      });
+      this.checkRole(this.paramsObj);
     }
   }
   public onSelectDate(filterValue: Date) {
@@ -97,9 +106,16 @@ export class TasksTableComponent implements OnInit {
       this.paramsObj.dateEnd = filterValue[1];
       this._taskOffset = 0;
       this.paramsObj.offset = this._taskOffset.toString();
-      this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
-        this.tasksDataSource.data = tasksUser;
-      });
+      this.checkRole(this.paramsObj);
+    }
+  }
+
+  public onSelectUser(filterValue: string[]) {
+    if (filterValue) {
+      this.paramsObj.userId = filterValue;
+      this._taskOffset = 0;
+      this.paramsObj.offset = this._taskOffset.toString();
+      this.checkRole(this.paramsObj);
     }
   }
 
@@ -112,9 +128,8 @@ export class TasksTableComponent implements OnInit {
       }
     }
     this.paramsObj.offset = this._taskOffset.toString();
-    this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
-      this.tasksDataSource.data = tasksUser;
-    });
+    this.paramsObj.limit = this._taskLimit.toString();
+    this.checkRole(this.paramsObj);
   }
 
   public deleteTask(task: ITask) {
@@ -132,9 +147,7 @@ export class TasksTableComponent implements OnInit {
       if (result) {
         this._taskOffset = 0;
         this.paramsObj.offset = this._taskOffset.toString();
-        this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe(tasksUser => {
-          this.tasksDataSource.data = tasksUser;
-        });
+        this.checkRole(this.paramsObj);
       }
     });
 
@@ -147,9 +160,25 @@ export class TasksTableComponent implements OnInit {
   public onScroll() {
     this._taskOffset += 2;
     this.paramsObj.offset = this._taskOffset.toString();
-    this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasks: ITask[]) => {
-      this.tasksDataSource.data = this.tasksDataSource.data.concat(tasks);
-    });
+    this.paramsObj.limit = this._taskLimit.toString();
+
+    (!this.isAdmin)
+      ? this._tasksService.getAllTasksOfUser(this.paramsObj).subscribe((tasksUser: ITask[]) => {
+        this.tasksDataSource.data = this.tasksDataSource.data.concat(tasksUser);
+      })
+      : this._tasksService.getAllTasksForAdmin(this.paramsObj).subscribe((tasksForAdmin: ITask[]) => {
+        this.tasksDataSource.data = this.tasksDataSource.data.concat(tasksForAdmin);
+      });
+  }
+
+  public checkRole(paramsObj: IParamsQueryTask) {
+    (!this.isAdmin)
+      ? this._tasksService.getAllTasksOfUser(paramsObj).subscribe((tasksUser: ITask[]) => {
+        this.tasksDataSource.data = tasksUser;
+      })
+      : this._tasksService.getAllTasksForAdmin(paramsObj).subscribe((tasksForAdmin: ITask[]) => {
+        this.tasksDataSource.data = tasksForAdmin;
+      });
   }
 
 }

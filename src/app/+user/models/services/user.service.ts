@@ -28,4 +28,8 @@ export class UserService {
     public updateUser(user: IUser): Observable<IUser> {
         return this.http.put<IUser>(`${this.urlApi}`, user);
     }
+
+    public getAllUsersForAdmin(): Observable<IUser[]> {
+        return this.http.get<IUser[]>(`${this.urlApi}/admin`);
+    }
 }

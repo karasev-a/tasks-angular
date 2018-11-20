@@ -40,6 +40,16 @@ export class TasksService {
 
         return this.http.get<ITask[]>(queryStr, { params: allParams });
     }
+
+    getAllTasksForAdmin(params?: IParamsQueryTask): Observable<ITask[]> {
+        const queryStr = `${this.urlApi}/admintasks`;
+        const allParams = new HttpParams({
+            fromObject: params,
+        });
+
+        return this.http.get<ITask[]>(queryStr, { params: allParams });
+    }
+
     // delete
     deleteTask(id: number) {
         return this.http.delete(`${this.urlApi}/${id}`);
