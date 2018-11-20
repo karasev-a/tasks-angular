@@ -18,7 +18,7 @@
     <ng-container matColumnDef="allTasks">
         <mat-header-cell *matHeaderCellDef> All Tasks </mat-header-cell>
         <mat-cell *matCellDef="let user">
-                {{user.allTasks}}
+            {{user.allTasks}}
         </mat-cell>
     </ng-container>
 
@@ -60,7 +60,7 @@
     <ng-container matColumnDef="role">
         <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
         <mat-cell *matCellDef="let user">
-            <select [value]="user.roleId" (change)="onSelectRole($event.target.value, user, user.id)">
+            <select [value]="user.roleId" (change)="onSelectRole($event.target.value, user, user.id)" [disabled]="disableRole">
                 <option *ngFor="let key of keysOfRoles" [value]="key">
                     {{roles[key]}}
                 </option>

@@ -17,11 +17,10 @@ export class UsersListAdminComponent implements OnInit {
     public roles = Roles;
     public keysOfRoles: string[];
     public userId: number;
-    public currentUser: IUser;
     public previousRole: string;
-    public currentRole: string;
     public countSelectedRole: number = 0;
     public statuses = Statuses;
+    public disableRole = false;
 
     constructor(
         // private _router: Router,
@@ -44,18 +43,21 @@ export class UsersListAdminComponent implements OnInit {
             this.previousRole = user.roleId;
         }
         user.roleId = value;
+        this.disableRole = true;
     }
 
     public saveUser(user: IUser) {
         this._usersService.updateUserRole(user).subscribe();
         this.userId = 0;
         this.countSelectedRole = 0;
+        this.disableRole = false;
     }
 
     public cancelEdit(user: IUser) {
         user.roleId = this.previousRole;
         this.countSelectedRole = 0;
         this.userId = 0;
+        this.disableRole = false;
 
     }
 
