@@ -29,22 +29,6 @@ const appRoutes: Routes = [
       categories: CategoriesListResolverService,
     },
   },
-  {
-    path: 'my-tasks', component: TasksTableComponent,
-    resolve: {
-      categories: CategoriesListResolverService,
-    },
-  },
-  {
-    path: 'manager-tasks', component: TasksListManagerComponent, data: {roles: [Roles.manager, Roles.admin] }, canActivate: [PrivilegedGuard],
-  },
-  {
-    path: 'admin-tasks', component: TasksListAdminComponent,
-    data: {roles: Roles.admin}, canActivate: [PrivilegedGuard],
-    resolve: {
-      categories: CategoriesListResolverService,
-    },
-  },
 ];
 
 @NgModule({

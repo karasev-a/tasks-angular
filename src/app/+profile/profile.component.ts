@@ -15,14 +15,14 @@ export class ProfileComponent implements OnInit {
     public ngOnInit() {
         if (this.authService.role === Roles.manager || this.authService.role === Roles.admin ) {
             this.urls = [].concat(
-                { name: 'new tasks', url: 'manager-tasks'},
+                { name: 'New tasks', url: 'manager-tasks'},
             );
         }
 
         if (this.authService.role === Roles.admin) {
          this.urls = this.urls.concat([
             { name: 'Categories statistics', url: 'categories-statistic'},
-            { name: 'Categories statistics', url: 'admin-tasks'},
+            { name: 'All tasks', url: 'admin-tasks'},
          ]);
         }
     }

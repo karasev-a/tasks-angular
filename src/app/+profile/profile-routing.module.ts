@@ -9,15 +9,23 @@ import { CategoriesListResolverService } from '../+categories/services/categorie
 import { ACategoriesComponent } from './admin-categories/A-categories.component';
 import { PrivilegedGuard } from '../auth/privileged.guard';
 import { Roles } from '../+user/models/roles';
+import { TasksListManagerComponent } from '../+tasks/tasks-list-manager/tasks-list-manager.component';
+import { TasksListAdminComponent } from '../+tasks/tasks-list-admin/tasks-list-admin.component';
 
 export const profileRouting: Routes = [
   {
     path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],
     children: [
       { path: 'user', component: UserProfileComponent, resolve: { user: UserResolverService } },
-      { path: '', component: UserProfileComponent, resolve: { user: UserResolverService }},
-      { path: 'my-tasks', component: TasksTableComponent, resolve: { categories: CategoriesListResolverService}},
-      { path: 'categories-statistic', component: ACategoriesComponent, data: {roles: [Roles.admin]}, canActivate: [PrivilegedGuard]},
+      // { path: '', component: UserProfileComponent, resolve: { user: UserResolverService } },
+      { path: 'my-tasks', component: TasksTableComponent, resolve: { categories: CategoriesListResolverService } },
+      { path: 'categories-statistic', component: ACategoriesComponent, data: { roles: [Roles.admin] }, canActivate: [PrivilegedGuard] },
+      { path: 'manager-tasks', component: TasksListManagerComponent, data: { roles: [Roles.manager, Roles.admin] }, canActivate: [PrivilegedGuard] },
+      {
+        path: 'admin-tasks', component: TasksListAdminComponent,
+        data: { roles: [Roles.admin] }, canActivate: [PrivilegedGuard],
+        resolve: { categories: CategoriesListResolverService },
+      },
     ],
   },
 ];
