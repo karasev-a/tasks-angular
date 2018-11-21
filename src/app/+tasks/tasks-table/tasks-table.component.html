@@ -45,9 +45,9 @@
             [selectMode]="'range'" [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1">
         <owl-date-time #dtRange1></owl-date-time>
     </mat-form-field>
-
-
-    <button type='button' (click)="resetForm()">Reset</button>
+    <button type='button' mat-icon-button (click)="resetForm()">
+        <mat-icon color="primary">refresh</mat-icon>
+    </button>
 </form>
 
 

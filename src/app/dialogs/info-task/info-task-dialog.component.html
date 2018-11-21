@@ -15,8 +15,8 @@
     </div>
 
     <div mat-dialog-actions>
-        <button mat-button [mat-dialog-close]="1" (click)="confirmApprove()">Approve</button>
-        <button mat-button  (click)="showDeclineDialog(data.task)">Decline</button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="1" (click)="confirmApprove()">Approve</button>
+        <button mat-raised-button color="primary"  (click)="showDeclineDialog(data.task)">Decline</button>
+        <button mat-raised-button color="primary" (click)="onNoClick()" tabindex="-1">Cancel</button>
     </div>
 </div>
