@@ -17,10 +17,9 @@ export const profileRouting: Routes = [
       { path: 'user', component: UserProfileComponent, resolve: { user: UserResolverService } },
       { path: '', component: UserProfileComponent, resolve: { user: UserResolverService }},
       { path: 'my-tasks', component: TasksTableComponent, resolve: { categories: CategoriesListResolverService}},
-      { path: 'categories-statistic', component: ACategoriesComponent, data: {roles: Roles.admin}, canActivate: [PrivilegedGuard]},
+      { path: 'categories-statistic', component: ACategoriesComponent, data: {roles: [Roles.admin]}, canActivate: [PrivilegedGuard]},
     ],
   },
-  // { path: 'profile', component: UserProfileComponent, resolve: { user: UserResolverService}, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

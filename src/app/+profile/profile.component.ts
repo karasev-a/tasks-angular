@@ -13,14 +13,17 @@ export class ProfileComponent implements OnInit {
     public urls: IUrls[];
     constructor(private authService: AuthService) { }
     public ngOnInit() {
-        // if (this.authService.getRoles < Roles. ) {
+        if (this.authService.role === Roles.manager || this.authService.role === Roles.admin ) {
+            this.urls = [].concat(
+                { name: 'new tasks', url: 'manager-tasks'},
+            );
+        }
 
-        // }
-
-        // if ( this.authService.isAdmin()) {
-        //  this.urls = [
-        //     { name: 'Categories statistics', url: 'categories-statistic'},
-        //  ];
-        // }
+        if (this.authService.role === Roles.admin) {
+         this.urls = this.urls.concat([
+            { name: 'Categories statistics', url: 'categories-statistic'},
+            { name: 'Categories statistics', url: 'admin-tasks'},
+         ]);
+        }
     }
 }
