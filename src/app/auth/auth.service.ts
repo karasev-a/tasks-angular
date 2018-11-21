@@ -5,8 +5,9 @@ import * as jwt_decode from 'jwt-decode';
 
 import { AlertService } from '../alert/services/alert.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Roles } from '../+user/models/roles';
+// import { Roles } from '../+user/models/roles';
 import { IToken } from './models/token';
+import { IPayloads } from './models/payload';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
     API_URL = 'http://localhost:8888';
     TOKEN_KEY = 'token';
 
+    // private payloads: IPayloads;
     private _redirectUrl: string;
     get redirectUrl(): string {
         return this._redirectUrl;
@@ -24,7 +26,7 @@ export class AuthService {
     private loggedIn = new BehaviorSubject<boolean>(false);
     get isLoggedIn() {
         const time = new Date();
-        if (jwt_decode(this.token)['exp'] > time.getTime() / 1000) { // #TODO: neede stronger check
+        if ( this.payloads.exp > time.getTime() / 1000) { // #TODO: neede stronger check
             this.loggedIn.next(true);
         } else {
             localStorage.removeItem(this.TOKEN_KEY);
@@ -36,7 +38,7 @@ export class AuthService {
 
     constructor(private http: HttpClient, private router: Router, private alertService: AlertService) { }
 
-    get token() {
+    get token(): string {
         return localStorage.getItem(this.TOKEN_KEY);
     }
 
@@ -72,7 +74,11 @@ export class AuthService {
             },
         );
     }
-    isAdmin() {
-        return jwt_decode(this.token)['roleId'] === Roles.admin;
+    public get role(): number {
+        return this.payloads.roleId;
+    }
+
+    private get payloads(): IPayloads {
+        return jwt_decode(this.token);
     }
 }

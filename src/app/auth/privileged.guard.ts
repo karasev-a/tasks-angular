@@ -11,9 +11,9 @@ export class PrivilegedGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean {
-        const roles = next.data["roles"] as number;
-        const roleId = jwt_decode(this.authService.token)['roleId'];
-        if (roleId <= roles) {
+        const accessRoles = next.data.roles;
+        const currentRole = this.authService.role;
+        if (accessRoles.indexOf(currentRole) !== -1) {
             return true;
         } else {
             console.error("Oops! You do not have sufficient permissions to access this page.");

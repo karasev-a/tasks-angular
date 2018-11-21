@@ -36,10 +36,11 @@ const appRoutes: Routes = [
     },
   },
   {
-    path: 'managerTasks', component: TasksListManagerComponent, data: {roles: Roles.manager}, canActivate: [PrivilegedGuard],
+    path: 'manager-tasks', component: TasksListManagerComponent, data: {roles: [Roles.manager, Roles.admin] }, canActivate: [PrivilegedGuard],
   },
   {
-    path: 'admintasks', component: TasksListAdminComponent,
+    path: 'admin-tasks', component: TasksListAdminComponent,
+    data: {roles: Roles.admin}, canActivate: [PrivilegedGuard],
     resolve: {
       categories: CategoriesListResolverService,
     },
