@@ -5,6 +5,7 @@ import { ITask, Statuses } from '../models/task';
 import { TasksService } from '../servises/tasks.service';
 import { CategoriesService } from '../../+categories/services/categories.service';
 import { InfoTaskDialogComponent } from '../../dialogs/info-task/info-task-dialog.component';
+import { ITaskView } from '../../dialogs/models/TaskView';
 
 @Component({
     selector: 'app-tasks-list-manager',
@@ -44,12 +45,10 @@ export class TasksListManagerComponent implements OnInit {
         });
     }
 
-    public showInfoTask(task: ITask) {
+    public showInfoTask(task: ITaskView) {
         this.infoTaskDialogRef = this.dialog.open(InfoTaskDialogComponent, {
             hasBackdrop: false,
-            data: {
-                task,
-            },
+            data: task,
         });
 
         this.infoTaskDialogRef.afterClosed().subscribe( result => {

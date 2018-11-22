@@ -1,0 +1,24 @@
+<mat-card-header>
+    New Catagory
+</mat-card-header>
+<form [formGroup]="newCategoryForm">
+    <mat-form-field>
+        <mat-label>Name:</mat-label>
+        <input matInput type="text" formControlName="categoryName" required>
+        <mat-error>
+            <div class="alert alert-danger" *ngIf="newCategoryForm.controls['categoryName'].invalid && newCategoryForm.controls['categoryName'].touched">
+                <div *ngIf="newCategoryForm.controls['categoryName'].errors.required">
+                    Name is required.
+                </div>
+                <div *ngIf="newCategoryForm.controls['categoryName'].errors.minlength">
+                    Name must be at least 3 characters long.
+                </div>
+                <div *ngIf="newCategoryForm.controls['categoryName'].errors.maxlength">
+                    Name must be less than 255 characters long.
+                </div>
+            </div>
+        </mat-error>
+    </mat-form-field>
+    <button mat-button color="primary" [disabled]="newCategoryForm.invalid" (click)="onAdd()">Save</button>
+    <button mat-button color="primary" (click)="newCategoryForm.reset()">Cancel</button>
+</form>

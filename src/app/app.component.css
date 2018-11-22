@@ -4,5 +4,7 @@ main {
     text-align: center;
     margin-top: 50px;
     display: block;
+  }
+  .active {
+    display: none;
 }
-

@@ -1,0 +1,13 @@
+<mat-list>
+    <div *ngFor="let statistic of statistics">
+        <mat-list-item>
+            <div>
+                {{statistic.name}} |
+                All tasks: {{statistic.all}} |
+                Opened: {{statistic.open}}
+            </div>
+            <button mat-button color="primary" (click)="onEdit(statistic.id)">Rename</button>
+            <button mat-button color="primary" (click)="onDelete(statistic.id)">Delete</button>
+        </mat-list-item>
+    </div>
+</mat-list>

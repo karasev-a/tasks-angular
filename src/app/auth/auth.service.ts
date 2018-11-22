@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import * as jwt_decode from 'jwt-decode';
 
 import { AlertService } from '../alert/services/alert.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+// import { Roles } from '../+user/models/roles';
+import { IToken } from './models/token';
+import { IPayloads } from './models/payload';
 
 @Injectable()
 export class AuthService {
 
     API_URL = 'http://localhost:8888';
     TOKEN_KEY = 'token';
+
+    // private payloads: IPayloads;
     private _redirectUrl: string;
     get redirectUrl(): string {
         return this._redirectUrl;
@@ -19,9 +25,11 @@ export class AuthService {
     }
     private loggedIn = new BehaviorSubject<boolean>(false);
     get isLoggedIn() {
-        if (this.token) { // #TODO: neede stronger check
+        const time = new Date();
+        if ( this.payloads.exp > time.getTime() / 1000) { // #TODO: neede stronger check
             this.loggedIn.next(true);
         } else {
+            localStorage.removeItem(this.TOKEN_KEY);
             this.loggedIn.next(false);
         }
 
@@ -30,7 +38,7 @@ export class AuthService {
 
     constructor(private http: HttpClient, private router: Router, private alertService: AlertService) { }
 
-    get token() {
+    get token(): string {
         return localStorage.getItem(this.TOKEN_KEY);
     }
 
@@ -51,7 +59,7 @@ export class AuthService {
         };
 
         return this.http.post(`${this.API_URL}/login`, data, headers).subscribe(
-            (res: any) => {
+            (res: IToken) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
                 this.loggedIn.next(true);
 
@@ -62,12 +70,15 @@ export class AuthService {
                 }
             },
             error => {
-                this.alertService.error(error);
+                this.alertService.error(error.error);
             },
         );
     }
+    public get role(): number {
+        return this.payloads.roleId;
+    }
 
-    // getAccount() {
-    //     return this.http.get(this.API_URL + '/account');
-    // }
+    private get payloads(): IPayloads {
+        return jwt_decode(this.token);
+    }
 }

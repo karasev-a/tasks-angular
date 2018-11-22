@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { TasksService } from '../../+tasks/servises/tasks.service';
+import { ITask } from '../../+tasks/models/task';
 
 @Component({
   selector: 'app-accept.dialog',
@@ -10,7 +11,7 @@ import { TasksService } from '../../+tasks/servises/tasks.service';
 export class AcceptDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<AcceptDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public tasksService: TasksService) { }
+              @Inject(MAT_DIALOG_DATA) public data: ITask, public tasksService: TasksService) { }
 
   public onNoClick(): void {
     this.dialogRef.close('close');
