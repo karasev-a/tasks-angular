@@ -12,7 +12,7 @@ module.exports = {
     },
     output: {
         publicPath: '/',
-        path: path.resolve(__dirname, 'dist'),     // путь к каталогу выходных файлов - папка public
+        path: path.resolve(__dirname, './dist'),     // путь к каталогу выходных файлов - папка public
         filename: '[name].[hash].js'
     },
     resolve: {
@@ -25,7 +25,7 @@ module.exports = {
                 use: [
                     {
                         loader: 'awesome-typescript-loader',
-                        options: { configFileName: path.resolve(__dirname, 'src/tsconfig.json') }
+                        options: { configFileName: path.resolve(__dirname, '../src/tsconfig.json') }
                     },
                     'angular2-template-loader'
                 ]
@@ -37,14 +37,14 @@ module.exports = {
                 loader: 'file-loader?name=assets/[name].[hash].[ext]'
             }, {
                 test: /\.css$/,
-                exclude: path.resolve(__dirname, 'src/app'),
+                exclude: path.resolve(__dirname, '../src/app'),
                 use: [
                     MiniCssExtractPlugin.loader,
                     "css-loader"
                 ]
             }, {
                 test: /\.css$/,
-                include: path.resolve(__dirname, 'src/app'),
+                include: path.resolve(__dirname, '../src/app'),
                 loader: 'raw-loader'
             }
         ]
@@ -53,14 +53,14 @@ module.exports = {
         // new CleanWebpackPlugin(['dist']),
         new webpack.ContextReplacementPlugin(
             /angular(\|\/)core/,
-            path.resolve(__dirname, 'src'), // каталог с исходными файлами
+            path.resolve(__dirname, '../src'), // каталог с исходными файлами
             {} // карта маршрутов
         ),
         new MiniCssExtractPlugin({
             filename: "[name].css"
         }),
         new HtmlWebpackPlugin({
-            template: 'src/index.html'
+            template: './src/index.html'
         }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.LoaderOptionsPlugin({
