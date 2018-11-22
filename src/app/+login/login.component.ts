@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { AuthService } from '../auth/auth.service';
-import { AlertService } from '../alert/services/alert.service';
 
 @Component({
     selector: 'app-login',
@@ -20,6 +19,10 @@ export class LoginComponent implements OnInit {
         private _authService: AuthService) { }
 
     public ngOnInit() {
+        const isLoggedIn = this._authService.isLoggedIn.subscribe( isLogin => isLogin);
+        if (isLoggedIn) {
+            this.router.navigate(['/categories']);
+        }
         this.loginForm = this.fb.group({
             email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(255)]),
             password: new FormControl('', [Validators.required, Validators.maxLength(255)]),

@@ -5,8 +5,6 @@ import { Observable, Subscription, from } from 'rxjs/index';
 
 import '../assets/css/styles.css';
 import { AuthService } from './auth/auth.service';
-import { take } from 'rxjs/internal/operators/take';
-import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-my',
@@ -23,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn;
-
+    this.isLoggedIn$.subscribe( login =>  console.error("--------------------------------------------------------------->" + login));
     this._routeSubscription = this._route.params.subscribe(params => {
       this._categoryId = params.categoryId;
     });

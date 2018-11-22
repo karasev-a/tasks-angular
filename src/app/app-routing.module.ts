@@ -5,14 +5,10 @@ import { RegisterComponent } from './register/register.component';
 import { TaskEditComponent } from './+tasks/task-edit/task.edit.component';
 import { TaskEditResolverService } from './+tasks/servises/task.edit.resolver.service';
 import { CategoriesListResolverService } from './+categories/services/categories-list.resolver';
-import { TasksTableComponent } from './+tasks/tasks-table/tasks-table.component';
-import { TasksListManagerComponent } from './+tasks/tasks-list-manager/tasks-list-manager.component';
-import { PrivilegedGuard } from './auth/privileged.guard';
-import { Roles } from './+user/models/roles';
-import { TasksListAdminComponent } from './+tasks/tasks-list-admin/tasks-list-admin.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const appRoutes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', redirectTo: 'categories', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegisterComponent },
   {
