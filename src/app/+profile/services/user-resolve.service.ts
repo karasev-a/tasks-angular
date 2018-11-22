@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, EMPTY } from 'rxjs/index';
-import { mergeMap, take } from 'rxjs/operators';
 import { IUser } from '../../+user/models/user.model';
 import {
     Router, Resolve,
@@ -16,7 +15,8 @@ export class UserResolverService implements Resolve<IUser> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         Observable<IUser> | Observable<never> {
-        return this.us.getUser();
+
+        return this.us.getProfileData();
     }
 
 }

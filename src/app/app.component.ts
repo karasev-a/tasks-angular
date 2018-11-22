@@ -49,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
       ? this._categoryId = categoryIdUrl
       : this._categoryId = null;
     this._router.navigate(
-      ['/categories/newTask'],
+      ['/categories/new-task'],
       {
         queryParams: {
           categoryId: this._categoryId,

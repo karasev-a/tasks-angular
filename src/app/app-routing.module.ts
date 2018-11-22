@@ -7,6 +7,8 @@ import { TaskEditResolverService } from './+tasks/servises/task.edit.resolver.se
 import { CategoriesListResolverService } from './+categories/services/categories-list.resolver';
 import { TasksTableComponent } from './+tasks/tasks-table/tasks-table.component';
 import { TasksListManagerComponent } from './+tasks/tasks-list-manager/tasks-list-manager.component';
+import { PrivilegedGuard } from './auth/privileged.guard';
+import { Roles } from './+user/models/roles';
 import { TasksListAdminComponent } from './+tasks/tasks-list-admin/tasks-list-admin.component';
 
 const appRoutes: Routes = [
@@ -14,7 +16,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegisterComponent },
   {
-    path: 'categories/newTask',
+    path: 'categories/new-task',
     component: TaskEditComponent,
     resolve: {
       categories: CategoriesListResolverService,
@@ -24,21 +26,6 @@ const appRoutes: Routes = [
     path: 'tasks/:taskId', component: TaskEditComponent,
     resolve: {
       task: TaskEditResolverService,
-      categories: CategoriesListResolverService,
-    },
-  },
-  {
-    path: 'mytasks', component: TasksTableComponent,
-    resolve: {
-      categories: CategoriesListResolverService,
-    },
-  },
-  {
-    path: 'managerTasks', component: TasksListManagerComponent,
-  },
-  {
-    path: 'admintasks', component: TasksListAdminComponent,
-    resolve: {
       categories: CategoriesListResolverService,
     },
   },

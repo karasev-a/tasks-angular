@@ -5,7 +5,6 @@ import { CustomMaterialModule } from './core/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth/auth.service';
@@ -22,6 +21,8 @@ import { RouterModule } from '@angular/router';
 import { DeleteDialogComponent } from './dialogs/delete/delete-dialog.component';
 import { InfoTaskDialogComponent } from './dialogs/info-task/info-task-dialog.component';
 import { DeclineTaskDialogComponent } from './dialogs/decline-dialog/decline-task-dialog.component';
+import { PrivilegedGuard } from './auth/privileged.guard';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,9 @@ import { DeclineTaskDialogComponent } from './dialogs/decline-dialog/decline-tas
       useClass: AuthInterceptorService,
       multi: true,
     },
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
     AuthGuard,
+    PrivilegedGuard,
   ],
   entryComponents: [
     DeleteDialogComponent,
