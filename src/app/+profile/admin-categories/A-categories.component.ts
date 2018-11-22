@@ -4,6 +4,7 @@ import { RenameDialogComponent } from '../../dialogs/rename/rename-dialog.compon
 import { filter } from 'rxjs/internal/operators/filter';
 import { mergeMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
+import { AlertService } from '../../alert/services/alert.service';
 
 @Component({
     selector: 'app-a-categories',
@@ -13,7 +14,7 @@ import { MatDialog } from '@angular/material';
 
 export class ACategoriesComponent implements OnInit {
     statistics: ICategoriesStatistic[]; // #TODO: replace interface some where else
-    constructor(private categoriesService: CategoriesService, public dialog: MatDialog) { }
+    constructor(private categoriesService: CategoriesService, public dialog: MatDialog, private alertService: AlertService) { }
     public ngOnInit() {
         this.categoriesService.getCategoriesStatistic().subscribe(result => {
             this.statistics = result;
@@ -38,7 +39,7 @@ export class ACategoriesComponent implements OnInit {
     public onDelete(catId: string) {
         const current = this.statistics.filter( el => el.id === catId)[0];
         if (current.open) {
-            console.error('Opps, category has open tasks');
+            this.alertService.error('Opps, category has open tasks')
 
             return;
         }
