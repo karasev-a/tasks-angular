@@ -25,7 +25,7 @@ export class AuthService {
     private loggedIn = new BehaviorSubject<boolean>(false);
     get isLoggedIn() {
         const time = new Date();
-        if ( this.token && this.payloads.exp > time.getTime() / 1000) { // #TODO: neede stronger check
+        if (this.token && this.payloads.exp > time.getTime() / 1000) { // #TODO: neede stronger check
             this.loggedIn.next(true);
         } else {
             localStorage.removeItem(this.TOKEN_KEY);
