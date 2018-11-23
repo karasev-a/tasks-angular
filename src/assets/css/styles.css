@@ -3,4 +3,6 @@
 
 /* @import '@angular/material/prebuilt-themes/indigo-pink.css'; */
 
-
+* {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}

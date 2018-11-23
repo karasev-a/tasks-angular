@@ -1,11 +1,3 @@
-<h2 *ngIf="!isAdmin">
-    MY Tasks
-</h2>
-<h2 *ngIf="isAdmin">
-    All Tasks
-</h2>
-
-
 <div class="example-header">
     <mat-form-field>
         <input matInput (keyup)="applySearch($event.target.value)" placeholder="Search">
