@@ -16,7 +16,7 @@ import { AcceptDialogComponent } from '../dialogs/accept/accept-dialog.component
 
 export class TasksComponent implements OnInit {
     private categories: ICategory[];
-    private taskOffset = 10;
+    private taskOffset = 0;
     private tasks: ITask[];
     private _routeSubscription: Subscription;
     private _categoryId: number;
@@ -73,6 +73,7 @@ export class TasksComponent implements OnInit {
     }
 
     onScroll() {
+        this.taskOffset += 2;
         const paramsObj = {
             offset: this.taskOffset.toString(),
         };
@@ -83,6 +84,5 @@ export class TasksComponent implements OnInit {
         this.tasksService.getAllTasks(paramsObj).subscribe((tasks: ITask[]) => {
             this.tasks = this.tasks.concat(tasks);
         });
-        this.taskOffset += 2;
     }
 }
