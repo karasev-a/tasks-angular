@@ -9,7 +9,7 @@ import { AlertService } from '../../alert/services/alert.service';
 @Component({
     selector: 'app-a-categories',
     templateUrl: './A-categories.component.html',
-    // styleUrls: ['./profile.component.css'],
+    styleUrls: ['./A-categories.component.css'],
 })
 
 export class ACategoriesComponent implements OnInit {

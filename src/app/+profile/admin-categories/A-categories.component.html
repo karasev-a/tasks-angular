@@ -1,7 +1,2 @@
-<mat-card>
-    <mat-card-title>
-        Catagories
-    </mat-card-title>
     <app-categories-list [statistics]="statistics" (rename)="onRename($event)" (delete)="onDelete($event)" ></app-categories-list>
     <app-add-categories (addNewCategory)="onAddNew($event)"></app-add-categories>
-</mat-card>
