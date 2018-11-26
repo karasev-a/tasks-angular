@@ -15,7 +15,6 @@ export class AuthService {
     API_URL = 'http://localhost:8888';
     TOKEN_KEY = 'token';
 
-    // private payloads: IPayloads;
     private _redirectUrl: string;
     get redirectUrl(): string {
         return this._redirectUrl;
@@ -26,7 +25,7 @@ export class AuthService {
     private loggedIn = new BehaviorSubject<boolean>(false);
     get isLoggedIn() {
         const time = new Date();
-        if ( this.payloads.exp > time.getTime() / 1000) { // #TODO: neede stronger check
+        if (this.token && this.payloads.exp > time.getTime() / 1000) { // #TODO: neede stronger check
             this.loggedIn.next(true);
         } else {
             localStorage.removeItem(this.TOKEN_KEY);
@@ -45,7 +44,7 @@ export class AuthService {
     public logout() {
         localStorage.removeItem(this.TOKEN_KEY);
         this.loggedIn.next(false);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/login');
     }
 
     public login(email: string, password: string) {

@@ -11,6 +11,7 @@ import { PrivilegedGuard } from '../auth/privileged.guard';
 import { Roles } from '../+user/models/roles';
 import { TasksListManagerComponent } from '../+tasks/tasks-list-manager/tasks-list-manager.component';
 import { TasksListAdminComponent } from '../+tasks/tasks-list-admin/tasks-list-admin.component';
+import { UsersListAdminComponent } from '../+user/users-list-admin/users-list-admin.component';
 
 export const profileRouting: Routes = [
   {
@@ -26,6 +27,7 @@ export const profileRouting: Routes = [
         data: { roles: [Roles.admin] }, canActivate: [PrivilegedGuard],
         resolve: { categories: CategoriesListResolverService },
       },
+      { path: 'users/statistic', component: UsersListAdminComponent, data: { roles: [Roles.admin] }, canActivate: [PrivilegedGuard]},
     ],
   },
 ];

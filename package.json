@@ -4,7 +4,8 @@
   "description": "app \"Tasks\", front end part",
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 4200 --open",
-    "build": "webpack"
+    "startDev": "webpack --config webpack.dev.js --inline --progress --port 4200 --open",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",

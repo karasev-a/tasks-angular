@@ -4,6 +4,7 @@ import { ITask } from '../models/task';
 @Component({
   selector: 'app-task',
   templateUrl: 'task.component.html',
+  styleUrls: ['./task.component.css'],
 })
 export class TaskComponent {
   @Input() tasks: ITask[];

@@ -11,8 +11,8 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     // create
-    public sendNewUser(user: IUser) {
-        return this.http.post(`${this.urlApi}/`, user);
+    public sendNewUser(user: IUser): Observable<IUser> {
+        return this.http.post(`${this.urlApi}/create`, user);
     }
     // get current
     public getUser(): Observable<IUser> {
@@ -28,8 +28,14 @@ export class UserService {
     public updateUser(user: IUser): Observable<IUser> {
         return this.http.put<IUser>(`${this.urlApi}`, user);
     }
+    public updateUserRole(user: IUser): Observable<IUser> {
+        return this.http.put<IUser>(`${this.urlApi}/${user.id}`, user);
+    }
 
     public getAllUsersForAdmin(): Observable<IUser[]> {
         return this.http.get<IUser[]>(`${this.urlApi}/admin`);
+    }
+    public getAllUsersStatistic(): Observable<IUser[]> {
+        return this.http.get<IUser[]>(`${this.urlApi}/admin/statistic`);
     }
 }

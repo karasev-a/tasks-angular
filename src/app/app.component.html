@@ -1,10 +1,10 @@
 <app-alert></app-alert>
-<mat-card *ngIf="isLoggedIn$ | async as isLoggedIn">
+<mat-card *ngIf="isLoggedIn$ | async as isLoggedIn" color="primary">
     <mat-grid-list cols="3" rowHeight="30px">
         <mat-grid-tile>
             <mat-menu #appMenu="matMenu">
-                <button mat-menu-item [routerLink]="['/profile']" routerLinkActive="active">PROFILE</button>
-                <button mat-menu-item [routerLink]="['/mytasks']" routerLinkActive="active">MY TASKS</button>
+                <button mat-menu-item [routerLink]="['/profile/user']" routerLinkActive="active">PROFILE</button>
+                <button mat-menu-item [routerLink]="['/profile/my-tasks']" routerLinkActive="active">MY TASKS</button>
                 <button mat-menu-item [routerLink]="['/categories']" routerLinkActive="active">OPEN</button>
                 <button mat-menu-item (click)="logout()">LOGOUT</button>
             </mat-menu>

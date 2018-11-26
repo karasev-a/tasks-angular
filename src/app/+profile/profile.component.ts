@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
          this.urls = this.urls.concat([
             { name: 'Categories statistics', url: 'categories-statistic'},
             { name: 'All tasks', url: 'admin-tasks'},
+            { name: 'All Users', url: 'users/statistic'},
          ]);
         }
     }

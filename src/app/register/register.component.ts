@@ -8,6 +8,8 @@ import { MyErrorStateMatcher } from '../error/error-state-matcher';
 import { environment } from '../../environments/environment';
 import { AlertService } from '../alert/services/alert.service';
 import { IUser } from '../+user/models/user.model';
+import { AuthService } from '../auth/auth.service';
+import { UserService } from '../+user/models/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +26,10 @@ export class RegisterComponent implements OnInit {
     private _http: HttpClient,
     private _router: Router,
     private fb: FormBuilder,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private _authService: AuthService,
+    private userService: UserService,
+    ) {
     this._serverUrl = environment.serverApiUrl;
   }
 
@@ -54,14 +59,15 @@ export class RegisterComponent implements OnInit {
       phone: this.registerForm.value.phone,
     };
     // #TODO: Use user service instead;
-    this._http.post<IUser>(`${this._serverUrl}users/create`, user)
-    .pipe(first())
-    .subscribe(
-        () => {
-            // this._router.navigate(['/login']);
+    this.userService.sendNewUser(user)
+      .subscribe(
+        userFromServer => {
+          if (userFromServer.id) {
+            this._authService.login(user.email, user.password);
+          }
         },
         error => {
-            this.alertService.error(error);
+          this.alertService.error(error);
         });
   }
 
