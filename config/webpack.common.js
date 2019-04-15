@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-var UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // плагин минимизации
+//var UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // плагин минимизации
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
